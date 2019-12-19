@@ -1,0 +1,19 @@
+minimum_cumulusci_version: '3.2.0'
+project:
+    name: Salesforce-Collaborative-Code
+    package:
+        name:  Salesforce-Collaborative-Code
+        api_version: '47.0'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/Salesforce-Collaborative-Code/tests
+            options:
+                outputdir: robot/Salesforce-Collaborative-Code/results
+
+    robot_testdoc:
+        options:
+            path: robot/Salesforce-Collaborative-Code/tests
+            output: robot/Salesforce-Collaborative-Code/doc/Salesforce-Collaborative-Code_tests.html
