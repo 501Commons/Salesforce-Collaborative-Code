@@ -56,8 +56,6 @@ class Collab_CTRL_Referral_TEST {
       Apexpages.StandardController contactController = new Apexpages.StandardController(objContact);
       Collab_CTRL_Referral ctrl = new Collab_CTRL_Referral(contactController);
 
-      //System.Assert(ctrl.listReferrals.size() > 0);
-
       // test the save!
       ctrl.SaveReferral();
 
@@ -82,8 +80,6 @@ class Collab_CTRL_Referral_TEST {
 
       Apexpages.StandardController contactController = new Apexpages.StandardController(objContact);
       Collab_CTRL_Referral ctrl = new Collab_CTRL_Referral(contactController);
-
-      //System.Assert(ctrl.listReferrals.size() > 0);
 
       // test the save!
       ctrl.SaveReferral();

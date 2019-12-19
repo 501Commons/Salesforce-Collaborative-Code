@@ -51,9 +51,5 @@
         <members>wtooltip</members>
         <name>StaticResource</name>
     </types>
-    <types>
-        <members>Lead.Collab_Auto_Convert</members>
-        <name>WebLink</name>
-    </types>
     <version>45.0</version>
 </Package>

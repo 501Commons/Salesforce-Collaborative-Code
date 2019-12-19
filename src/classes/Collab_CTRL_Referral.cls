@@ -101,7 +101,7 @@ public virtual with sharing class Collab_CTRL_Referral {
     public Schema.FieldSet fieldSetStandardActive {
         get {
 
-            Schema.FieldSet fieldSetCheck = SObjectType.Contact.FieldSets.Collab_Stan   dard_Information;
+            Schema.FieldSet fieldSetCheck = SObjectType.Contact.FieldSets.C501_CCR_Referral_Contact;
             for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
@@ -122,20 +122,19 @@ public virtual with sharing class Collab_CTRL_Referral {
     //save the Contacts created or modified
     public virtual PageReference SaveReferral() {
         
-        if (listReferrals == null) return null;
-        
         strSaveResults = null;
         
         try {
 
-            System.debug('Collab_CTRL_Referral::SaveReferral listReferrals: ' + String.valueOf(listReferrals));
-            
             if (String.isBlank(contactRecord.Id)) {
                 insert contactRecord;
             }
             else {
                 update contactRecord;
             }
+
+            // Create a Referral Service Record
+            
 
             return null;
 
