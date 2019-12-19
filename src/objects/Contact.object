@@ -35,4 +35,14 @@
         </displayedFields>
         <label>CCR Referral - Contact</label>
     </fieldSets>
+    <fields>
+        <fullName>C501_Best_Contact_Time_Method__c</fullName>
+        <description>HH: Best time and manner to be contacted</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the best way to reach this client - time of day and method of contact</inlineHelpText>
+        <label>Best Contact Time &amp; Method</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
 </CustomObject>

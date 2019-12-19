@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <fullName>C501_CCR_Referral_Family</fullName>
+        <description>CCR Referral form - used in an online form to collect key information about potential clients</description>
+        <displayedFields>
+            <field>C501_Referral_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_Referrers_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_Referral_Source__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_Referral_Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_Needs_Interpreter__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_Primary_Languages__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>CCR Referral - Family</label>
+    </fieldSets>
+    <fields>
+        <fullName>C501_Needs_Interpreter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>HH, ISA, MLW, NCCC</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if this family needs an interpreter to communicate with English speakers</inlineHelpText>
+        <label>Needs Interpreter</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>C501_Primary_Languages__c</fullName>
+        <description>CCR, HH, ISA, MLW, NCC; All ask about family languages</description>
+        <externalId>false</externalId>
+        <label>Primary Languages</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_Referral_Date__c</fullName>
+        <description>HH Referral: &quot;Today&apos;s Date&quot;; ISA Referral: &quot;Date&quot;</description>
+        <externalId>false</externalId>
+        <label>Referral Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>C501_Referral_Notes__c</fullName>
+        <description>CORE App - referral process; used in fieldsets available on an external site to collect additional information from referring partners</description>
+        <externalId>false</externalId>
+        <label>Referral Notes</label>
+        <length>2500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>C501_Referral_Source__c</fullName>
+        <description>ISA Referral: &quot;Referral Source&quot;; Also used for CCR, MLW and NCCC referrals</description>
+        <externalId>false</externalId>
+        <label>Referral Source</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_Referrers_Name__c</fullName>
+        <description>HH Referral: &quot;Print name of staff completing this referral&quot;; ISA: &quot;Name&quot;;</description>
+        <externalId>false</externalId>
+        <label>Referrer&apos;s Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

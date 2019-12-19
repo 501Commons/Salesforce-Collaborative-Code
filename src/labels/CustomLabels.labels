@@ -97,19 +97,19 @@
         <value>Update contact fields and manage contact subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
-        <fullName>CS_labelReferralsaveSuccess</fullName>
-        <categories>Referral</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
-        <value>Records have been saved.</value>
-    </labels>
-    <labels>
         <fullName>CS_labelReferralTitle</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Contact Subscription page</shortDescription>
         <value>Contact Subscription</value>
+    </labels>
+    <labels>
+        <fullName>CS_labelReferralsaveSuccess</fullName>
+        <categories>Referral</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
+        <value>Records have been saved.</value>
     </labels>
 </CustomLabels>

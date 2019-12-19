@@ -17,6 +17,16 @@
         <name>ApexPage</name>
     </types>
     <types>
+        <members>Account.C501_Needs_Interpreter__c</members>
+        <members>Account.C501_Primary_Languages__c</members>
+        <members>Account.C501_Referral_Date__c</members>
+        <members>Account.C501_Referral_Notes__c</members>
+        <members>Account.C501_Referral_Source__c</members>
+        <members>Account.C501_Referrers_Name__c</members>
+        <members>Contact.C501_Best_Contact_Time_Method__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
         <members>CS_PageMessagesConfirm</members>
         <members>CS_PageMessagesError</members>
         <members>CS_PageMessagesFatal</members>
@@ -35,6 +45,7 @@
         <name>CustomLabel</name>
     </types>
     <types>
+        <members>Account.C501_CCR_Referral_Family</members>
         <members>Contact.C501_CCR_Referral_Contact</members>
         <name>FieldSet</name>
     </types>

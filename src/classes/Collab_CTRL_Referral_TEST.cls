@@ -63,7 +63,7 @@ class Collab_CTRL_Referral_TEST {
       //System.Assert(ctrl.strSaveResults.startsWith('Error'));
 
       ctrl.SaveReferral();      
-      ctrl.SaveAndCloseContact();   
+      ctrl.SaveAndCloseReferral();   
 
       Test.StopTest();
     }
@@ -88,7 +88,7 @@ class Collab_CTRL_Referral_TEST {
       //System.Assert(ctrl.strSaveResults.startsWith('Error'));
 
       ctrl.SaveReferral();      
-      ctrl.SaveAndCloseContact();   
+      ctrl.SaveAndCloseReferral();   
 
       Test.StopTest();
     }
