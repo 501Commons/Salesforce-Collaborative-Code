@@ -29,17 +29,17 @@
 */
 
 //
-// GENERIC CLASS - modify of the C501_MassCS_SharedCode_[Object].cls classes then copy to the all the others
+// GENERIC CLASS - modify of the C501_MassCollab_SharedCode_[Object].cls classes then copy to the all the others
 //
 //      1) Make changes to the class
-//      2) Copy/Paste entire class to all other C501_MassCS_SharedCode_[Object].cls classes
+//      2) Copy/Paste entire class to all other C501_MassCollab_SharedCode_[Object].cls classes
 //      3) Search and replace all [Object] references with [Target Object]
 //
 //  This is a workaround for Generic classes since <T> - Templating not supported in Apex
 //
 
 @isTest
-class Collab_CTRL_Referral_TEST {
+class Collab_CTRL_TEST {
 
     //==================== TEST METHOD(s) ======================================
 
@@ -111,11 +111,11 @@ class Collab_CTRL_Referral_TEST {
 
       System.assertEquals(5, messages.size(), 'There should be 5 messages on the page.');
 
-      System.assertEquals(Label.CS_PageMessagesWarning, messages[0].getSeverityLabel(), 'The label should be WARNING.');
+      System.assertEquals(Label.Collab_PageMessagesWarning, messages[0].getSeverityLabel(), 'The label should be WARNING.');
       System.assertEquals('', messages[1].getSeverityLabel(), 'The label should be INFO.');
-      System.assertEquals(Label.CS_PageMessagesFatal, messages[2].getSeverityLabel(), 'The label should be FATAL.');
-      System.assertEquals(Label.CS_PageMessagesError, messages[3].getSeverityLabel(), 'The label should be ERROR.');
-      System.assertEquals(Label.CS_PageMessagesConfirm, messages[4].getSeverityLabel(), 'The label should be CONFIRM.');
+      System.assertEquals(Label.Collab_PageMessagesFatal, messages[2].getSeverityLabel(), 'The label should be FATAL.');
+      System.assertEquals(Label.Collab_PageMessagesError, messages[3].getSeverityLabel(), 'The label should be ERROR.');
+      System.assertEquals(Label.Collab_PageMessagesConfirm, messages[4].getSeverityLabel(), 'The label should be CONFIRM.');
 
       System.assertEquals('warning', messages[0].getSeverityTheme(), 'The theme should be warning.');
       System.assertEquals('info', messages[1].getSeverityTheme(), 'The theme should be info.');

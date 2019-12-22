@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
-        <fullName>CS_PageMessagesConfirm</fullName>
+        <fullName>Collab_PageMessagesConfirm</fullName>
         <categories>PageMessages</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>CS_PageMessagesConfirm</shortDescription>
+        <shortDescription>Collab_PageMessagesConfirm</shortDescription>
         <value>Success</value>
     </labels>
     <labels>
-        <fullName>CS_PageMessagesError</fullName>
+        <fullName>Collab_PageMessagesError</fullName>
         <categories>PageMessages</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>CS_PageMessagesError</shortDescription>
+        <shortDescription>Collab_PageMessagesError</shortDescription>
         <value>Error</value>
     </labels>
     <labels>
-        <fullName>CS_PageMessagesFatal</fullName>
+        <fullName>Collab_PageMessagesFatal</fullName>
         <categories>PageMessages</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>CS_PageMessagesFatal</shortDescription>
+        <shortDescription>Collab_PageMessagesFatal</shortDescription>
         <value>Error</value>
     </labels>
     <labels>
-        <fullName>CS_PageMessagesWarning</fullName>
+        <fullName>Collab_PageMessagesWarning</fullName>
         <categories>PageMessages</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>CS_PageMessagesWarning</shortDescription>
+        <shortDescription>Collab_PageMessagesWarning</shortDescription>
         <value>Warning</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonCancel</fullName>
+        <fullName>Collab_labelButtonCancel</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -41,7 +41,7 @@
         <value>Cancel</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonClose</fullName>
+        <fullName>Collab_labelButtonClose</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -49,7 +49,7 @@
         <value>Close</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonRefresh</fullName>
+        <fullName>Collab_labelButtonRefresh</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -57,7 +57,7 @@
         <value>Refresh</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonSave</fullName>
+        <fullName>Collab_labelButtonSave</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -65,7 +65,7 @@
         <value>Save</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonSaveAndClose</fullName>
+        <fullName>Collab_labelButtonSaveAndClose</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -73,7 +73,7 @@
         <value>Save &amp; Close</value>
     </labels>
     <labels>
-        <fullName>CS_labelButtonSubscribe</fullName>
+        <fullName>Collab_labelButtonSubscribe</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -81,7 +81,7 @@
         <value>Subscribe</value>
     </labels>
     <labels>
-        <fullName>CS_labelReferralErrorOnSave</fullName>
+        <fullName>Collab_labelReferralErrorOnSave</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -89,7 +89,7 @@
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
-        <fullName>CS_labelReferralHelp</fullName>
+        <fullName>Collab_labelReferralHelp</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -97,7 +97,7 @@
         <value>Update contact fields and manage contact subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
-        <fullName>CS_labelReferralTitle</fullName>
+        <fullName>Collab_labelReferralTitle</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -105,7 +105,7 @@
         <value>Contact Subscription</value>
     </labels>
     <labels>
-        <fullName>CS_labelReferralsaveSuccess</fullName>
+        <fullName>Collab_labelReferralsaveSuccess</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>

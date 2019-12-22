@@ -119,15 +119,15 @@ public with sharing class Collab_UTIL_PageMessages_CTRL {
          */
         public String getSeverityLabel() {
             if (MessageSeverity.CONFIRM == severity) {
-                return Label.CS_PageMessagesConfirm;
+                return Label.Collab_PageMessagesConfirm;
             } else if (MessageSeverity.ERROR == severity) {
-                return Label.CS_PageMessagesError;
+                return Label.Collab_PageMessagesError;
             } else if (MessageSeverity.FATAL == severity) {
-                return Label.CS_PageMessagesFatal;
+                return Label.Collab_PageMessagesFatal;
             } else if (MessageSeverity.INFO == severity) {
                 return '';
             } else if (MessageSeverity.WARNING == severity) {
-                return Label.CS_PageMessagesWarning;
+                return Label.Collab_PageMessagesWarning;
             } else {
                 return '';
             }
