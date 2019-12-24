@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>Collab_CTRL_Account</members>
+        <members>Collab_CTRL_Assessment</members>
+        <members>Collab_CTRL_Contact</members>
+        <members>Collab_CTRL_Eligibility</members>
         <members>Collab_CTRL_Referral</members>
         <members>Collab_CTRL_TEST</members>
-        <members>Collab_CTRL_Assessment</members>
-        <members>Collab_CTRL_Eligibility</members>
-        <members>Collab_CTRL_Contact</members>
-        <members>Collab_CTRL_Account</members>
         <members>Collab_SharedCode</members>
         <members>Collab_UTIL_PageMessages_CTRL</members>
         <name>ApexClass</name>
@@ -17,11 +17,11 @@
         <name>ApexComponent</name>
     </types>
     <types>
-        <members>Collab_Referral</members>
-        <members>Collab_Assessment</members>
-        <members>Collab_Eligibility</members>
-        <members>Collab_Contact</members>
         <members>Collab_Account</members>
+        <members>Collab_Assessment</members>
+        <members>Collab_Contact</members>
+        <members>Collab_Eligibility</members>
+        <members>Collab_Referral</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -50,12 +50,28 @@
         <members>Collab_labelReferralHelp</members>
         <members>Collab_labelReferralTitle</members>
         <members>Collab_labelReferralsaveSuccess</members>
+        <members>Collab_labelContactErrorOnSave</members>
+        <members>Collab_labelContactHelp</members>
+        <members>Collab_labelContactHelp</members>
+        <members>Collab_labelContactTitle</members>
+        <members>Collab_labelContactsaveSuccess</members>
+        <members>Collab_labelAccountErrorOnSave</members>
+        <members>Collab_labelAccountHelp</members>
+        <members>Collab_labelAccountHelp</members>
+        <members>Collab_labelAccountTitle</members>
+        <members>Collab_labelAccountsaveSuccess</members>
+        <members>Collab_labelAssessmentErrorOnSave</members>
+        <members>Collab_labelAssessmentHelp</members>
+        <members>Collab_labelAssessmentHelp</members>
+        <members>Collab_labelAssessmentTitle</members>
+        <members>Collab_labelAssessmentsaveSuccess</members>
+        <members>Collab_labelEligibilityErrorOnSave</members>
+        <members>Collab_labelEligibilityHelp</members>
+        <members>Collab_labelEligibilityHelp</members>
+        <members>Collab_labelEligibilityTitle</members>
+        <members>Collab_labelEligibilitysaveSuccess</members>
+        <members>labelLinkAddMoreRows</members>
         <name>CustomLabel</name>
-    </types>
-    <types>
-        <members>Account.C501_CCR_Referral_Family</members>
-        <members>Contact.C501_CCR_Referral_Contact</members>
-        <name>FieldSet</name>
     </types>
     <types>
         <members>Bootstrap</members>

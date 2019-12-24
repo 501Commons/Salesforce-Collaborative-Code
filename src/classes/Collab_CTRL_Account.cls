@@ -33,6 +33,8 @@ public virtual with sharing class Collab_CTRL_Account {
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
+    private String collaborative;
+
     public Contact contactRecord {
         get {
             if (contactRecord == null) {
@@ -62,17 +64,18 @@ public virtual with sharing class Collab_CTRL_Account {
 
     public Collab_CTRL_Account(ApexPages.StandardController controller) {
 
-        System.debug('Collab_CTRL_Account::Collab_CTRL_Account Constructor');
-
         redirect = false;
-        
-        // Get list of fields FROM fieldset
+
+        this.contactRecord = (Contact)controller.getRecord();
+        this.collaborative = System.currentPageReference().getParameters().get('collab');
+
+        // Contact - Get list of fields FROM fieldset
         List<String> listContactFields = new List<String>();
         for (Schema.FieldSetMember f : this.getContactStandardFields()) {
             listContactFields.add(f.getFieldPath());
         }
 
-        // Required fields
+        // Contact - Required fields
         if (!listContactFields.contains('Id')) {
             listContactFields.add('Id');
         }
@@ -83,7 +86,20 @@ public virtual with sharing class Collab_CTRL_Account {
             listContactFields.add('LastName');
         }
 
-        this.contactRecord = (Contact)controller.getRecord();
+        // Account - Get list of fields FROM fieldset
+        List<String> listAccountFields = new List<String>();
+        for (Schema.FieldSetMember f : this.getAccountStandardFields()) {
+            listAccountFields.add(f.getFieldPath());
+        }
+
+        // Account - Required fields
+        if (!listAccountFields.contains('Id')) {
+            listAccountFields.add('Id');
+        }
+
+        if (!listAccountFields.contains('Name')) {
+            listAccountFields.add('Name');
+        }
 
         if (controller != null && this.contactRecord.Id != null) {
             System.debug('Collab_CTRL_Account::Collab_CTRL_Account getRecord: ' + this.contactRecord);
@@ -93,7 +109,6 @@ public virtual with sharing class Collab_CTRL_Account {
             strSoql += ' FROM Contact WHERE Id = \'' + this.contactRecord.Id + '\'';
 
             System.debug('Collab_CTRL_Account::Collab_CTRL_Account Contact soql: ' + strSoql);
-
             for (Contact contactExisting :Database.query(strSoql)) {
                 this.contactRecord = contactExisting;
                 System.debug('Collab_CTRL_Account::Collab_CTRL_Account query contact record: ' + this.contactRecord);
@@ -102,25 +117,10 @@ public virtual with sharing class Collab_CTRL_Account {
 
             if (!String.isBlank(this.contactRecord.AccountId)) {
 
-                // Get list of fields FROM fieldset
-                List<String> listAccountFields = new List<String>();
-                for (Schema.FieldSetMember f : this.getAccountStandardFields()) {
-                    listAccountFields.add(f.getFieldPath());
-                }
-
-                if (!listAccountFields.contains('Id')) {
-                    listAccountFields.add('Id');
-                }
-
-                if (!listAccountFields.contains('Name')) {
-                    listAccountFields.add('Name');
-                }
-
                 strSoql = 'SELECT ' + String.join(listAccountFields, ',');
                 strSoql += ' FROM Account WHERE Id = \'' + this.contactRecord.AccountId + '\'';
 
                 System.debug('Collab_CTRL_Account::Collab_CTRL_Account Account soql: ' + strSoql);
-
                 for (Account accountExisting :Database.query(strSoql)) {
                     this.accountRecord = accountExisting;
                     System.debug('Collab_CTRL_Account::Collab_CTRL_Account query account record: ' + this.accountRecord);
@@ -142,17 +142,16 @@ public virtual with sharing class Collab_CTRL_Account {
     public Schema.FieldSet fieldSetContactStandardActive {
         get {
 
-            Schema.FieldSet fieldSetCheck = SObjectType.Contact.FieldSets.C501_CCR_Referral_Contact;
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Custom_Contact, this.collaborative);
             for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
-                if (fieldSetName.equals('Contact Standard Information')) {
-                    fieldSetCheck = Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetName);
-                    break;
+                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+                    return Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetNameMetadata);
                 }
             }
 
-            return fieldSetCheck;
+            return null;
         }
         set;
     }
@@ -165,17 +164,16 @@ public virtual with sharing class Collab_CTRL_Account {
     public Schema.FieldSet fieldSetAccountStandardActive {
         get {
 
-            Schema.FieldSet fieldSetCheck = SObjectType.Account.FieldSets.C501_CCR_Referral_Family;
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Custom_Account, this.collaborative);
             for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
-                if (fieldSetName.equals('Account Standard Information')) {
-                    fieldSetCheck = Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetName);
-                    break;
+                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+                    return Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetNameMetadata);
                 }
             }
 
-            return fieldSetCheck;
+            return null;
         }
         set;
     }
@@ -184,18 +182,17 @@ public virtual with sharing class Collab_CTRL_Account {
     public String strSaveResults { get; set; }
 
     //save the Contacts created or modified
-    public virtual PageReference SaveReferral() {
+    public virtual PageReference SaveAccount() {
         
         strSaveResults = null;
         
         try {
-
-            // Create a Referral Service Record
-            accountRecord.Id = contactRecord.AccountId;
+            
+            accountRecord.Id = (String.isBlank(accountRecord.Id)) ? contactRecord.AccountId : accountRecord.Id;
             if (String.isBlank(accountRecord.Id)) {
 
                 // Set to REPLACE which is an NPSP key that means to rebuild name based on NPSP Household Settings
-                accountRecord.Name = 'REPLACE';
+                accountRecord.Name = (String.isBlank(accountRecord.Name)) ? 'REPLACE' : accountRecord.Name;
                 insert accountRecord;
             }
             else {
@@ -213,18 +210,21 @@ public virtual with sharing class Collab_CTRL_Account {
                 update contactRecord;
             }
 
+            // Create a Account Service Record
+            // TBD
+
             return null;
 
         } catch (Exception e) {
-            strSaveResults = Label.Collab_labelReferralErrorOnSave;
+            strSaveResults = Label.Collab_labelAccountErrorOnSave;
             ApexPages.addMessages(e); 
             return null;
         }
     }
 
     //save the Contacts modified, and then close the page.
-    public virtual PageReference SaveAndCloseReferral() {
-        SaveReferral();
+    public virtual PageReference SaveAndCloseAccount() {
+        SaveAccount();
         if (ApexPages.hasMessages(ApexPages.Severity.ERROR) ||
            ApexPages.hasMessages(ApexPages.Severity.FATAL) ||
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {

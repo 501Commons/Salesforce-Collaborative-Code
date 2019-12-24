@@ -102,7 +102,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Contact Subscription page</shortDescription>
-        <value>Contact Subscription</value>
+        <value>Referral</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralsaveSuccess</fullName>
@@ -110,6 +110,142 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
+        <value>Records have been saved.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelContactErrorOnSave</fullName>
+        <categories>Contact</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Contact Subscription save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Requests.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelContactHelp</fullName>
+        <categories>Contact</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the Contact Subscription page</shortDescription>
+        <value>Update contact fields and manage contact subscriptions.  Update all data as appropriate, and then click Save.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelContactTitle</fullName>
+        <categories>Contact</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Contact Subscription page</shortDescription>
+        <value>Contact</value>
+    </labels>
+    <labels>
+        <fullName>labelLinkAddMoreRows</fullName>
+        <categories>Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>label for Add More Rows link.</shortDescription>
+        <value>Add new row</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelContactsaveSuccess</fullName>
+        <categories>Contact</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
+        <value>Records have been saved.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAccountErrorOnSave</fullName>
+        <categories>Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Account Subscription save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Requests.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAccountHelp</fullName>
+        <categories>Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the Account Subscription page</shortDescription>
+        <value>Update Account fields and manage Account subscriptions.  Update all data as appropriate, and then click Save.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAccountTitle</fullName>
+        <categories>Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Account Subscription page</shortDescription>
+        <value>Account Subscription</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAccountsaveSuccess</fullName>
+        <categories>Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>message displayed when Account Subscription  saves successfully.</shortDescription>
+        <value>Records have been saved.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAssessmentErrorOnSave</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Assessment Subscription save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Requests.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAssessmentHelp</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the Assessment Subscription page</shortDescription>
+        <value>Update Assessment fields and manage Assessment subscriptions.  Update all data as appropriate, and then click Save.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAssessmentTitle</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Assessment Subscription page</shortDescription>
+        <value>Assessment Subscription</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAssessmentsaveSuccess</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>message displayed when Assessment Subscription  saves successfully.</shortDescription>
+        <value>Records have been saved.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelEligibilityErrorOnSave</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Eligibility Subscription save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Requests.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelEligibilityHelp</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the Eligibility Subscription page</shortDescription>
+        <value>Update Eligibility fields and manage Eligibility subscriptions.  Update all data as appropriate, and then click Save.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelEligibilityTitle</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Eligibility Subscription page</shortDescription>
+        <value>Eligibility Subscription</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelEligibilitysaveSuccess</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>message displayed when Eligibility Subscription  saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
 </CustomLabels>

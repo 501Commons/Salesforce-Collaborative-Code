@@ -3,5 +3,5 @@
     <apiVersion>40.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>C501_Referral</label>
+    <label>Collab Referral</label>
 </ApexPage>

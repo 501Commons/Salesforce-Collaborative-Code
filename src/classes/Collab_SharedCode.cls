@@ -30,6 +30,58 @@
 
 public with sharing class Collab_SharedCode { 
 
+    public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment_Account, Assessment_Contact, Custom_Contact, Custom_Account }
+
+    public static String GetFieldSetName(FieldSetScenarios fieldSet, String collaborative) {
+
+        if (Test.isRunningTest()) {
+            collaborative = 'Making_Life_Work';
+        }
+System.debug('GetFieldSetName - collaborative: ' + collaborative);
+
+        // collaborative - 	Casino_Road, Making_Life_Work, North_Counties_Community_Collaborative, Homeward_House, Improving_School_Attendance
+        //
+        String strSoql = 'SELECT Assessment__c,Custom_Account__c,Custom_Contact__c,Eligibility_Account__c,Referral_Account__c,Referral_Contact__c';
+        strSoql += ' FROM Collab_Setting__mdt';
+        strSoql += ' WHERE QualifiedApiName = \'' + collaborative + '\'';
+
+System.debug('GetFieldSetName - strSoql: ' + strSoql);
+        for (Collab_Setting__mdt collabSetting :Database.query(strSoql)){
+System.debug('GetFieldSetName - collabSetting: ' + collabSetting);
+            switch on fieldSet {
+                when Referral_Account {
+                    return collabSetting.Referral_Account__c;
+                }
+                when Referral_Contact {
+                    return collabSetting.Referral_Contact__c;
+                }
+                when Eligibility_Account {
+                    return collabSetting.Eligibility_Account__c;
+                }
+                when Eligibility_Contact {
+                    return collabSetting.Eligibility_Account__c;
+                }
+                when Assessment_Account {
+                    return collabSetting.Assessment__c;
+                }
+                when Assessment_Contact {
+                    return collabSetting.Assessment__c;
+                }
+                when Custom_Contact {
+                    return collabSetting.Custom_Contact__c;
+                }
+                when Custom_Account {
+                    return collabSetting.Custom_Account__c;
+                }
+                when else {
+                    return '';
+                }
+            }
+        }
+
+        return '';
+    }
+
     public static void TestSetup() {
 
         List<Account> listAccounts = new List<Account>();   

@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Referral" title="{!$Label.Collab_labelReferralTitle}" tabStyle="Contact" standardStylesheets="true">
+<apex:page standardController="Account" extensions="Collab_CTRL_Referral" title="{!$Label.Collab_labelReferralTitle}" tabStyle="Account" standardStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -90,38 +90,80 @@
             <!-- Default Page Blcok -->
             <apex:pageBlock title="Referral Fields" rendered="{!$User.UITheme <> 'Theme4t'}">
 
-                    <apex:pageBlockSection title="Contact Standard" columns="2">
-                        <apex:repeat value="{!ContactStandardFields}" var="c">
-                                <apex:inputField value="{!contactRecord[c.fieldPath]}" 
-                                    required="{!OR(c.required, c.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
+                <apex:pageBlockSection title="Account Standard" columns="2">
+                    <apex:repeat value="{!AccountStandardFields}" var="a">
+                            <apex:inputField value="{!accountRecord[a.fieldPath]}" 
+                                required="{!OR(a.required, a.dbrequired)}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
 
-                    <apex:pageBlockSection title="Account Standard" columns="2">
-                        <apex:repeat value="{!AccountStandardFields}" var="a">
-                                <apex:inputField value="{!accountRecord[a.fieldPath]}" 
-                                    required="{!OR(a.required, a.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
+                <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
+                    styleClass="slds-table slds-table--compact slds-table--bordered"
+                    headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
+                                
+                    <!-- Add Admin Fields -->
+                    <apex:column styleClass="myTD reference" >
+                        <apex:facet name="header">Contact</apex:facet>
+                        <apex:outputLink value="/{!contactRecord.Id}">Go To Contact</apex:outputLink>
+                    </apex:column> 
+                                            
+                    <!-- Add Field Set Fields -->
+                    <apex:repeat value="{!ContactStandardFields}" var="f" >
+                        <apex:column styleClass="myTD {!f.Type} {!IF($ObjectType['Contact'].fields[f].dependentPicklist,
+                                                    IF(f.Type == 'picklist', 'dependentPicklistFixup', 'dependentMultiPicklistFixup'),'')}" >
+                            <apex:facet name="header">{!f.Label + IF(f.DBRequired, ' *', '')}</apex:facet>
+                            <apex:inputField value="{!contactRecord[f]}" 
+                                        styleClass="{!CASE(f.Type, 
+                                                        'reference', 'lookupInput', 
+                                                        'picklist', 'slds-select',
+                                                        'multipicklist', 'slds-select multipicklistSLDSFixup',
+                                                        'boolean', 'slds-checkbox',
+                                                        'textarea', 'slds-textarea',
+                                                        'slds-input')}"
+                                            required="false" id="inputX"/>  <!-- not required, or you can't submit empty rows! -->
+                        </apex:column>
+                    </apex:repeat>
+                </apex:dataTable>
 
             </apex:pageBlock>
 
             <!-- Mobile pageBlock -->
             <apex:pageBlock title="Contact Fields" rendered="{!$User.UITheme == 'Theme4t'}">
 
-                    <apex:pageBlockSection title="Contact Standard" columns="1">
-                        <apex:repeat value="{!ContactStandardFields}" var="c">
-                                <apex:inputField value="{!contactRecord[c.fieldPath]}" 
-                                    required="{!OR(c.required, c.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
+                <apex:pageBlockSection title="Account Standard" columns="1">
+                    <apex:repeat value="{!AccountStandardFields}" var="a">
+                            <apex:inputField value="{!accountRecord[a.fieldPath]}" 
+                                required="{!OR(a.required, a.dbrequired)}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
 
-                    <apex:pageBlockSection title="Account Standard" columns="1">
-                        <apex:repeat value="{!AccountStandardFields}" var="a">
-                                <apex:inputField value="{!accountRecord[a.fieldPath]}" 
-                                    required="{!OR(a.required, a.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
+                <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
+                                styleClass="slds-table slds-table--compact slds-table--bordered"
+                                headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
+                                
+                    <!-- Add Admin Fields -->
+                    <apex:column styleClass="myTD reference" >
+                        <apex:facet name="header">Contact</apex:facet>
+                        <apex:outputLink value="/{!contactRecord.Id}">Go To Contact</apex:outputLink>
+                    </apex:column> 
+                                            
+                    <!-- Add Field Set Fields -->
+                    <apex:repeat value="{!ContactStandardFields}" var="f" >
+                        <apex:column styleClass="myTD {!f.Type} {!IF($ObjectType['Contact'].fields[f].dependentPicklist,
+                                                    IF(f.Type == 'picklist', 'dependentPicklistFixup', 'dependentMultiPicklistFixup'),'')}" >
+                            <apex:facet name="header">{!f.Label + IF(f.DBRequired, ' *', '')}</apex:facet>
+                            <apex:inputField value="{!contactRecord[f]}" 
+                                        styleClass="{!CASE(f.Type, 
+                                                        'reference', 'lookupInput', 
+                                                        'picklist', 'slds-select',
+                                                        'multipicklist', 'slds-select multipicklistSLDSFixup',
+                                                        'boolean', 'slds-checkbox',
+                                                        'textarea', 'slds-textarea',
+                                                        'slds-input')}"
+                                            required="false" id="inputX"/>  <!-- not required, or you can't submit empty rows! -->
+                        </apex:column>
+                    </apex:repeat>
+                </apex:dataTable>
 
             </apex:pageBlock>
 
@@ -143,6 +185,7 @@
                 fixSearchIMG();
             </script>
             &nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
 
             <!-- PAGE FOOTER -->
             <div class="slds-page-header" role="banner">

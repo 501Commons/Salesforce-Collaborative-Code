@@ -28,18 +28,26 @@
     POSSIBILITY OF SUCH DAMAGE.
 */
 
-public virtual with sharing class Collab_CTRL_Referral {
-    
+global virtual with sharing class Collab_CTRL_Referral {
+
+    global integer cEmptyContactRecords {
+        get {
+            return 1;
+        }
+    }
+
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
-    public Contact contactRecord {
+    private String collaborative;
+
+    public List<Contact> contactRecords {
         get {
-            if (contactRecord == null) {
-                contactRecord = new Contact();
+            if (contactRecords == null) {
+                contactRecords = new List<Contact>();
             }
 
-            return contactRecord;
+            return contactRecords;
         }
         set;
     }
@@ -56,20 +64,26 @@ public virtual with sharing class Collab_CTRL_Referral {
     }
 
     // constructor
-    public Collab_CTRL_Referral() {
+    global Collab_CTRL_Referral() {
+        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Referral::Collab_CTRL_Referral');
         new Collab_CTRL_Referral(null);
     }
 
-    public Collab_CTRL_Referral(ApexPages.StandardController controller) {
+    global Collab_CTRL_Referral(ApexPages.StandardController controller) {
 
-        System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor');
-
+        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Referral::Collab_CTRL_Referral(controller): ' + controller);
         redirect = false;
-        
+
+        this.accountRecord = (Account)controller.getRecord();
+        this.collaborative = System.currentPageReference().getParameters().get('collab');
+        if (Test.isRunningTest()) {
+            this.collaborative = 'Making_Life_Work';
+        }
+System.debug('this.collaborative: ' + this.collaborative);
+
         // Contact - Get list of fields FROM fieldset
         List<String> listContactFields = new List<String>();
         for (Schema.FieldSetMember f : this.getContactStandardFields()) {
-System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - Contact Field: ' + f.getFieldPath());
             listContactFields.add(f.getFieldPath());
         }
 
@@ -87,7 +101,6 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - Contact F
         // Account - Get list of fields FROM fieldset
         List<String> listAccountFields = new List<String>();
         for (Schema.FieldSetMember f : this.getAccountStandardFields()) {
-System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - Account Field: ' + f.getFieldPath());
             listAccountFields.add(f.getFieldPath());
         }
 
@@ -100,40 +113,29 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - Account F
             listAccountFields.add('Name');
         }
 
-System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccountFields: ' + listAccountFields);
+        if (controller != null && this.accountRecord.Id != null) {
 
-        this.contactRecord = (Contact)controller.getRecord();
-
-        if (controller != null && this.contactRecord.Id != null) {
-            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecord: ' + this.contactRecord);
-            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecordId: ' + this.contactRecord.Id);
+            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecord: ' + this.accountRecord);
+            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecordId: ' + this.accountRecord.Id);
 
             String strSoql = 'SELECT ' + String.join(listContactFields, ',');
-            strSoql += ' FROM Contact WHERE Id = \'' + this.contactRecord.Id + '\'';
+            strSoql += ' FROM Contact WHERE AccountId = \'' + this.accountRecord.Id + '\'';
 
             System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Contact soql: ' + strSoql);
             for (Contact contactExisting :Database.query(strSoql)) {
-                this.contactRecord = contactExisting;
-                System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral query contact record: ' + this.contactRecord);
+                this.contactRecords.add(contactExisting);
+                System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral query contact record: ' + contactExisting);
+            }
+
+            strSoql = 'SELECT ' + String.join(listAccountFields, ',');
+            strSoql += ' FROM Account WHERE Id = \'' + this.accountRecord.Id + '\'';
+
+            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Account soql: ' + strSoql);
+            for (Account accountExisting :Database.query(strSoql)) {
+                this.accountRecord = accountExisting;
+                System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral query account record: ' + this.accountRecord);
                 break;
             }
-
-            if (!String.isBlank(this.contactRecord.AccountId)) {
-
-                strSoql = 'SELECT ' + String.join(listAccountFields, ',');
-                strSoql += ' FROM Account WHERE Id = \'' + this.contactRecord.AccountId + '\'';
-
-                System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Account soql: ' + strSoql);
-                for (Account accountExisting :Database.query(strSoql)) {
-                    this.accountRecord = accountExisting;
-                    System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral query account record: ' + this.accountRecord);
-                    break;
-                }
-
-            }
-        }
-        else {
-            this.contactRecord = new Contact();
         }
     }   
     
@@ -144,17 +146,19 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccou
 
     public Schema.FieldSet fieldSetContactStandardActive {
         get {
-            Schema.FieldSet fieldSetCheck = SObjectType.Contact.FieldSets.C501_CCR_Referral_Contact;
+
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Contact, this.collaborative);
+System.debug('Contact - fieldSetNameMetadata: ' + fieldSetNameMetadata);
             for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
 
+System.debug('Contact - fieldSetName: ' + fieldSetName);
                 // Check for custom fields set
-                if (fieldSetName.equals('Contact Standard Information')) {
-                    fieldSetCheck = Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetName);
-                    break;
+                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+                    return Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetNameMetadata);
                 }
             }
 
-            return fieldSetCheck;
+            return null;
         }
         set;
     }
@@ -166,17 +170,20 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccou
 
     public Schema.FieldSet fieldSetAccountStandardActive {
         get {
-            Schema.FieldSet fieldSetCheck = SObjectType.Account.FieldSets.C501_CCR_Referral_Family;
+
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Account, this.collaborative);
+System.debug('Account - fieldSetNameMetadata: ' + fieldSetNameMetadata);
             for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
+System.debug('Account - fieldSetName: ' + fieldSetName);
+
                 // Check for custom fields set
-                if (fieldSetName.equals('Account Standard Information')) {
-                    fieldSetCheck = Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetName);
-                    break;
+                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+                    return Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetNameMetadata);
                 }
             }
 
-            return fieldSetCheck;
+            return null;
         }
         set;
     }
@@ -191,7 +198,6 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccou
         
         try {
             
-            accountRecord.Id = (String.isBlank(accountRecord.Id)) ? contactRecord.AccountId : accountRecord.Id;
             if (String.isBlank(accountRecord.Id)) {
 
                 // Set to REPLACE which is an NPSP key that means to rebuild name based on NPSP Household Settings
@@ -202,15 +208,15 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccou
                 update accountRecord;
             }
 
-            if (String.isBlank(contactRecord.AccountId)) {
-                contactRecord.AccountId = accountRecord.Id;
-            }
+            for (Contact contactRecord :this.contactRecords) {
+                contactRecord.AccountId = this.accountRecord.Id;
 
-            if (String.isBlank(contactRecord.Id)) {
-                insert contactRecord;
-            }
-            else {
-                update contactRecord;
+                if (String.isBlank(contactRecord.Id)) {
+                    insert contactRecord;
+                }
+                else {
+                    update contactRecord;
+                }
             }
 
             // Create a Referral Service Record
@@ -238,10 +244,31 @@ System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral Constructor - listAccou
     
     // user wants to close this page
     public virtual PageReference Cancel() {
-        idRedirect = contactRecord.Id;
+        idRedirect = accountRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
         return null;
     }
+
+    global virtual void AddMoreEmptyRowsToContacts() {
+        try {
+            if (this.contactRecords == null) return;
+
+            for (integer i = 0; i < cEmptyContactRecords; i++) { 
+                Contact contactRecord = new Contact();
+                contactRecord.AccountId = this.accountRecord.Id;
+                this.contactRecords.add(contactRecord);
+            }
+        } catch (Exception e) {
+            ApexPages.addMessages(e);            
+        }       
+    }
+
+    // user wants to add more empty rows to the Contacts table
+    global PageReference AddMoreEmptyRows() {
+        AddMoreEmptyRowsToContacts();
+        return null;
+    }
+
 }

@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Referral" title="{!$Label.Collab_labelReferralTitle}" tabStyle="Contact" standardStylesheets="true">
+<apex:page standardController="Contact" extensions="Collab_CTRL_Contact" title="{!$Label.Collab_labelContactTitle}" tabStyle="Contact" standardStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -71,24 +71,24 @@
             <div class="slds-page-header" role="banner">
                 <div class="slds-grid">
                     <div class="slds-col--padded">
-                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelReferralTitle}</h1>
+                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelContactTitle}</h1>
                     </div>        
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
                             <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" immediate="false" reRender="vfform"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveContact}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" immediate="false" reRender="vfform,tblContacts"/>
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseContact}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" immediate="false" reRender="vfform"/>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /PAGE HEADER -->
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelReferralHelp}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelContactHelp}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
-            <apex:pageBlock title="Referral Fields" rendered="{!$User.UITheme <> 'Theme4t'}">
+            <apex:pageBlock title="Contact Fields" rendered="{!$User.UITheme <> 'Theme4t'}">
 
                     <apex:pageBlockSection title="Contact Standard" columns="2">
                         <apex:repeat value="{!ContactStandardFields}" var="f">
@@ -150,8 +150,8 @@
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
                             <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" immediate="false" reRender="vfform"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveContact}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblContacts"/>
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseContact}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" immediate="false" reRender="vfform"/>
                         </div>
                     </div>
                 </div>

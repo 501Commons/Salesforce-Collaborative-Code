@@ -48,22 +48,24 @@ class Collab_CTRL_TEST {
 
       Collab_SharedCode.TestSetup();
 
-      Contact objContact = [SELECT Id FROM Contact WHERE Name LIKE '%TESTDATA%' ORDER BY Id ASC LIMIT 1];
-      System.Debug('EditContactTest - contactId: ' + objContact.Id);
+      Account objRecord = [SELECT Id FROM Account WHERE Name LIKE '%TESTDATA%' ORDER BY Id ASC LIMIT 1];
+      System.Debug('NewContactTest - Id: ' + objRecord.Id);
 
       Test.StartTest();
 
-      Apexpages.StandardController contactController = new Apexpages.StandardController(objContact);
-      Collab_CTRL_Referral ctrl = new Collab_CTRL_Referral(contactController);
-
+      // Referral
+      //
+//      System.currentPageReference().getParameters().put('collab', 'Making_Life_Work');
+      Collab_CTRL_Referral ctrlReferral = new Collab_CTRL_Referral(new Apexpages.StandardController(objRecord));
+  
       // test the save!
-      ctrl.SaveReferral();
+      ctrlReferral.SaveReferral();
 
-      System.debug('Collab_CTRL_Referral_TEST::NewContactTest' + ctrl.strSaveResults);
+      System.debug('Collab_CTRL_TEST::NewContactTest' + ctrlReferral.strSaveResults);
       //System.Assert(ctrl.strSaveResults.startsWith('Error'));
 
-      ctrl.SaveReferral();      
-      ctrl.SaveAndCloseReferral();   
+      ctrlReferral.SaveReferral();      
+      ctrlReferral.SaveAndCloseReferral();   
 
       Test.StopTest();
     }
@@ -73,22 +75,24 @@ class Collab_CTRL_TEST {
 
       Collab_SharedCode.TestSetup();
 
-      Contact objContact = [SELECT Id FROM Contact WHERE Name LIKE '%TESTDATA%' ORDER BY Id ASC LIMIT 1];
-      System.Debug('EditContactTest - contactId: ' + objContact.Id);
+      Account objRecord = [SELECT Id FROM Account WHERE Name LIKE '%TESTDATA%' ORDER BY Id ASC LIMIT 1];
+      System.Debug('EditContactTest - contactId: ' + objRecord.Id);
 
       Test.StartTest();
 
-      Apexpages.StandardController contactController = new Apexpages.StandardController(objContact);
-      Collab_CTRL_Referral ctrl = new Collab_CTRL_Referral(contactController);
+      // Referral
+      //
+//      System.currentPageReference().getParameters().put('collab', 'Making_Life_Work');
+      Collab_CTRL_Referral ctrlReferral = new Collab_CTRL_Referral(new Apexpages.StandardController(objRecord));
 
       // test the save!
-      ctrl.SaveReferral();
+      ctrlReferral.SaveReferral();
 
-      System.debug('Collab_CTRL_Referral_TEST::EditContactTest' + ctrl.strSaveResults);
+      System.debug('Collab_CTRL_TEST::NewContactTest' + ctrlReferral.strSaveResults);
       //System.Assert(ctrl.strSaveResults.startsWith('Error'));
 
-      ctrl.SaveReferral();      
-      ctrl.SaveAndCloseReferral();   
+      ctrlReferral.SaveReferral();      
+      ctrlReferral.SaveAndCloseReferral();   
 
       Test.StopTest();
     }
