@@ -79,11 +79,10 @@ global virtual with sharing class Collab_CTRL_Referral {
         if (Test.isRunningTest()) {
             this.collaborative = 'Making_Life_Work';
         }
-System.debug('this.collaborative: ' + this.collaborative);
 
-        // Contact - Get list of fields FROM fieldset
+        // Contact - Get list of fields from Referral Contact fieldset
         List<String> listContactFields = new List<String>();
-        for (Schema.FieldSetMember f : this.getContactStandardFields()) {
+        for (Schema.FieldSetMember f : this.getReferralContactFields()) {
             listContactFields.add(f.getFieldPath());
         }
 
@@ -98,9 +97,14 @@ System.debug('this.collaborative: ' + this.collaborative);
             listContactFields.add('LastName');
         }
 
-        // Account - Get list of fields FROM fieldset
+        // Account - Get list of fields from Referral Account fieldset
         List<String> listAccountFields = new List<String>();
-        for (Schema.FieldSetMember f : this.getAccountStandardFields()) {
+        for (Schema.FieldSetMember f : this.getReferralAccountFields()) {
+            listAccountFields.add(f.getFieldPath());
+        }
+
+        // Account - Get list of fields from Eligibility fieldset
+        for (Schema.FieldSetMember f : this.getEligibilityAccountFields()) {
             listAccountFields.add(f.getFieldPath());
         }
 
@@ -137,21 +141,22 @@ System.debug('this.collaborative: ' + this.collaborative);
                 break;
             }
         }
+
+        // Insert empty rows into contacts datatable
+        AddMoreEmptyRowsToContacts();
     }   
     
-    // getter - reference in Visualforce as ContactStandardFields
-    public List<Schema.FieldSetMember> getContactStandardFields() {
-        return fieldSetContactStandardActive.getFields();
+    // getter - reference in Visualforce as ReferralContactFields
+    public List<Schema.FieldSetMember> getReferralContactFields() {
+        return fieldSetReferralContactActive.getFields();
     }
 
-    public Schema.FieldSet fieldSetContactStandardActive {
+    public Schema.FieldSet fieldSetReferralContactActive {
         get {
 
             String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Contact, this.collaborative);
-System.debug('Contact - fieldSetNameMetadata: ' + fieldSetNameMetadata);
             for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
 
-System.debug('Contact - fieldSetName: ' + fieldSetName);
                 // Check for custom fields set
                 if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
                     return Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetNameMetadata);
@@ -163,19 +168,38 @@ System.debug('Contact - fieldSetName: ' + fieldSetName);
         set;
     }
 
-    // getter - reference in Visualforce as AccountStandardFields
-    public List<Schema.FieldSetMember> getAccountStandardFields() {
-        return fieldSetAccountStandardActive.getFields();
+    // getter - reference in Visualforce as ReferralAccountFields
+    public List<Schema.FieldSetMember> getReferralAccountFields() {
+        return fieldSetReferralAccountActive.getFields();
     }
 
-    public Schema.FieldSet fieldSetAccountStandardActive {
+    public Schema.FieldSet fieldSetReferralAccountActive {
         get {
 
             String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Account, this.collaborative);
-System.debug('Account - fieldSetNameMetadata: ' + fieldSetNameMetadata);
             for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
-System.debug('Account - fieldSetName: ' + fieldSetName);
+                // Check for custom fields set
+                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+                    return Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetNameMetadata);
+                }
+            }
+
+            return null;
+        }
+        set;
+    }
+
+    // getter - reference in Visualforce as Eligibility StandardFields
+    public List<Schema.FieldSetMember> getEligibilityAccountFields() {
+        return fieldSetEligibilityAccount.getFields();
+    }
+
+    public Schema.FieldSet fieldSetEligibilityAccount {
+        get {
+
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Eligibility_Account, this.collaborative);
+            for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
                 if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {

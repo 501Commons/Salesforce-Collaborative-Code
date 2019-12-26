@@ -39,22 +39,6 @@
         <members>Collab_PageMessagesError</members>
         <members>Collab_PageMessagesFatal</members>
         <members>Collab_PageMessagesWarning</members>
-        <members>Collab_labelButtonCancel</members>
-        <members>Collab_labelButtonClose</members>
-        <members>Collab_labelButtonRefresh</members>
-        <members>Collab_labelButtonSave</members>
-        <members>Collab_labelButtonSaveAndClose</members>
-        <members>Collab_labelButtonSubscribe</members>
-        <members>Collab_labelReferralErrorOnSave</members>
-        <members>Collab_labelReferralHelp</members>
-        <members>Collab_labelReferralHelp</members>
-        <members>Collab_labelReferralTitle</members>
-        <members>Collab_labelReferralsaveSuccess</members>
-        <members>Collab_labelContactErrorOnSave</members>
-        <members>Collab_labelContactHelp</members>
-        <members>Collab_labelContactHelp</members>
-        <members>Collab_labelContactTitle</members>
-        <members>Collab_labelContactsaveSuccess</members>
         <members>Collab_labelAccountErrorOnSave</members>
         <members>Collab_labelAccountHelp</members>
         <members>Collab_labelAccountHelp</members>
@@ -65,11 +49,27 @@
         <members>Collab_labelAssessmentHelp</members>
         <members>Collab_labelAssessmentTitle</members>
         <members>Collab_labelAssessmentsaveSuccess</members>
+        <members>Collab_labelButtonCancel</members>
+        <members>Collab_labelButtonClose</members>
+        <members>Collab_labelButtonRefresh</members>
+        <members>Collab_labelButtonSave</members>
+        <members>Collab_labelButtonSaveAndClose</members>
+        <members>Collab_labelButtonSubscribe</members>
+        <members>Collab_labelContactErrorOnSave</members>
+        <members>Collab_labelContactHelp</members>
+        <members>Collab_labelContactHelp</members>
+        <members>Collab_labelContactTitle</members>
+        <members>Collab_labelContactsaveSuccess</members>
         <members>Collab_labelEligibilityErrorOnSave</members>
         <members>Collab_labelEligibilityHelp</members>
         <members>Collab_labelEligibilityHelp</members>
         <members>Collab_labelEligibilityTitle</members>
         <members>Collab_labelEligibilitysaveSuccess</members>
+        <members>Collab_labelReferralErrorOnSave</members>
+        <members>Collab_labelReferralHelp</members>
+        <members>Collab_labelReferralHelp</members>
+        <members>Collab_labelReferralTitle</members>
+        <members>Collab_labelReferralsaveSuccess</members>
         <members>labelLinkAddMoreRows</members>
         <name>CustomLabel</name>
     </types>
