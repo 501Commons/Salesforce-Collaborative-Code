@@ -230,7 +230,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Contact Subscription page</shortDescription>
-        <value>Referral</value>
+        <value>Referral Form</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralsaveSuccess</fullName>

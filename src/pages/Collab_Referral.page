@@ -76,19 +76,21 @@
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
+<!--
                             <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" immediate="false" reRender="vfform"/>
+-->
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /PAGE HEADER -->
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelReferralHelp}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelReferralHelp}" rendered="{!accountRecord.Id == ''}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
-            <apex:pageBlock title="Referral Form" rendered="{!$User.UITheme <> 'Theme4t'}">
+            <apex:pageBlock rendered="{!$User.UITheme <> 'Theme4t'}">
 
                 <apex:pageBlockSection title="Family Fields" columns="2">
                     <apex:repeat value="{!ReferralAccountFields}" var="ff">
@@ -136,7 +138,7 @@
             </apex:pageBlock>
 
             <!-- Mobile pageBlock -->
-            <apex:pageBlock title="Mobile Referral Form" rendered="{!$User.UITheme == 'Theme4t'}">
+            <apex:pageBlock rendered="{!$User.UITheme == 'Theme4t'}">
 
                 <apex:pageBlockSection title="Family Fields" columns="1">
                     <apex:repeat value="{!ReferralAccountFields}" var="ff">
@@ -201,16 +203,18 @@
                 fixSearchIMG();
             </script>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd"  rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
+            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
 
             <!-- PAGE FOOTER -->
             <div class="slds-page-header" role="banner">
                 <div class="slds-grid">
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
+<!--
                             <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" immediate="false" reRender="vfform"/>
+-->
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
                         </div>
                     </div>
                 </div>
