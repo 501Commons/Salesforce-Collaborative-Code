@@ -32,22 +32,45 @@ public with sharing class Collab_SharedCode {
 
     public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment_Account, Assessment_Contact, Custom_Contact, Custom_Account }
 
+    public static String GetCollaborativeDeveloperName(Id accountId) {
+
+        if (Test.isRunningTest()) {
+            return 'Making_Life_Work';
+        }
+
+        String strSoql = 'SELECT Collaborative__c';
+        strSoql += ' FROM Account';
+        strSoql += ' WHERE Id = \'' + accountId + '\'';
+        List<Account> accounts = Database.query(strSoql);
+        if (accounts.isEmpty()) {
+            return '';
+        }
+
+        // collaborative - 	Casino_Road, Making_Life_Work, North_Counties_Community_Collaborative, Homeward_House, Improving_School_Attendance
+        //
+        strSoql = 'SELECT DeveloperName';
+        strSoql += ' FROM Collab_Setting__mdt';
+        strSoql += ' WHERE Account_Id__c = \'' + accounts[0].Collaborative__c + '\'';
+        for (Collab_Setting__mdt collabSetting :Database.query(strSoql)){
+            return collabSetting.DeveloperName;
+        }
+
+        return '';
+    }
+
     public static String GetFieldSetName(FieldSetScenarios fieldSet, String collaborative) {
 
         if (Test.isRunningTest()) {
             collaborative = 'Making_Life_Work';
         }
-System.debug('GetFieldSetName - collaborative: ' + collaborative);
 
         // collaborative - 	Casino_Road, Making_Life_Work, North_Counties_Community_Collaborative, Homeward_House, Improving_School_Attendance
         //
         String strSoql = 'SELECT Assessment__c,Custom_Account__c,Custom_Contact__c,Eligibility_Account__c,Referral_Account__c,Referral_Contact__c';
         strSoql += ' FROM Collab_Setting__mdt';
-        strSoql += ' WHERE QualifiedApiName = \'' + collaborative + '\'';
+        strSoql += ' WHERE DeveloperName = \'' + collaborative + '\'';
 
-System.debug('GetFieldSetName - strSoql: ' + strSoql);
         for (Collab_Setting__mdt collabSetting :Database.query(strSoql)){
-System.debug('GetFieldSetName - collabSetting: ' + collabSetting);
             switch on fieldSet {
                 when Referral_Account {
                     return collabSetting.Referral_Account__c;

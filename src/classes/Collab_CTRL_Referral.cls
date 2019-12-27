@@ -76,8 +76,13 @@ global virtual with sharing class Collab_CTRL_Referral {
 
         this.accountRecord = (Account)controller.getRecord();
         this.collaborative = System.currentPageReference().getParameters().get('collab');
+
         if (Test.isRunningTest()) {
             this.collaborative = 'Making_Life_Work';
+        }
+
+        if (String.isBlank(this.collaborative) && !String.isBlank(this.accountRecord.Id)) {
+            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(this.accountRecord.Id);
         }
 
         // Contact - Get list of fields from Referral Contact fieldset

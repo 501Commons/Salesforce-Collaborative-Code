@@ -4,7 +4,6 @@
         <members>Collab_CTRL_Account</members>
         <members>Collab_CTRL_Assessment</members>
         <members>Collab_CTRL_Contact</members>
-        <members>Collab_CTRL_Eligibility</members>
         <members>Collab_CTRL_Referral</members>
         <members>Collab_CTRL_TEST</members>
         <members>Collab_SharedCode</members>
@@ -20,7 +19,6 @@
         <members>Collab_Account</members>
         <members>Collab_Assessment</members>
         <members>Collab_Contact</members>
-        <members>Collab_Eligibility</members>
         <members>Collab_Referral</members>
         <name>ApexPage</name>
     </types>
