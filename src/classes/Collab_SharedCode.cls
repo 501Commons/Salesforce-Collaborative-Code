@@ -30,7 +30,24 @@
 
 public with sharing class Collab_SharedCode { 
 
-    public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment_Account, Assessment_Contact, Custom_Contact, Custom_Account }
+    public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment, Custom_Contact, Custom_Account }
+
+    public static String GetCodeSafeString(String potentialCodeUnsafeString) {
+
+        if (String.isBlank(potentialCodeUnsafeString)) {
+            return potentialCodeUnsafeString;
+        }
+        
+        // Escape Single Quoates
+        //
+        String codeSafeString = String.escapeSingleQuotes(potentialCodeUnsafeString);
+
+        // Replace all Spaces
+        //
+        codeSafeString = codeSafeString.replace(' ','');
+
+        return codeSafeString;
+    }
 
     public static String GetCollaborativeDeveloperName(Id accountId) {
 
@@ -84,10 +101,7 @@ public with sharing class Collab_SharedCode {
                 when Eligibility_Contact {
                     return collabSetting.Eligibility_Account__c;
                 }
-                when Assessment_Account {
-                    return collabSetting.Assessment__c;
-                }
-                when Assessment_Contact {
+                when Assessment {
                     return collabSetting.Assessment__c;
                 }
                 when Custom_Contact {

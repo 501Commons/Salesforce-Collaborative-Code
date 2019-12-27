@@ -37,7 +37,7 @@
         <categories>Account</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when Account Subscription save fails.</shortDescription>
+        <shortDescription>error message when Assessment save fails.</shortDescription>
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
@@ -45,7 +45,7 @@
         <categories>Account</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>help text for the Account Subscription page</shortDescription>
+        <shortDescription>help text for the Assessment page</shortDescription>
         <value>Update Account fields and manage Account subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
@@ -53,15 +53,15 @@
         <categories>Account</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Account Subscription page</shortDescription>
-        <value>Account Subscription</value>
+        <shortDescription>title for the Assessment page</shortDescription>
+        <value>Assessment</value>
     </labels>
     <labels>
         <fullName>Collab_labelAccountsaveSuccess</fullName>
         <categories>Account</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>message displayed when Account Subscription  saves successfully.</shortDescription>
+        <shortDescription>message displayed when Assessment saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
     <labels>
@@ -69,7 +69,7 @@
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when Assessment Subscription save fails.</shortDescription>
+        <shortDescription>error message when Assessment save fails.</shortDescription>
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
@@ -77,7 +77,7 @@
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>help text for the Assessment Subscription page</shortDescription>
+        <shortDescription>help text for the Assessment page</shortDescription>
         <value>Update Assessment fields and manage Assessment subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
@@ -85,15 +85,15 @@
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Assessment Subscription page</shortDescription>
-        <value>Assessment Subscription</value>
+        <shortDescription>title for the Assessment page</shortDescription>
+        <value>Assessment</value>
     </labels>
     <labels>
         <fullName>Collab_labelAssessmentsaveSuccess</fullName>
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>message displayed when Assessment Subscription  saves successfully.</shortDescription>
+        <shortDescription>message displayed when Assessment saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
     <labels>
@@ -149,7 +149,7 @@
         <categories>Contact</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when Contact Subscription save fails.</shortDescription>
+        <shortDescription>error message when ContactAssessment save fails.</shortDescription>
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
@@ -157,7 +157,7 @@
         <categories>Contact</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>help text for the Contact Subscription page</shortDescription>
+        <shortDescription>help text for the ContactAssessment page</shortDescription>
         <value>Update contact fields and manage contact subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
@@ -165,7 +165,7 @@
         <categories>Contact</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Contact Subscription page</shortDescription>
+        <shortDescription>title for the ContactAssessment page</shortDescription>
         <value>Contact</value>
     </labels>
     <labels>
@@ -173,7 +173,7 @@
         <categories>Contact</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
+        <shortDescription>message displayed when ContactAssessment saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
     <labels>
@@ -181,7 +181,7 @@
         <categories>Eligibility</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when Eligibility Subscription save fails.</shortDescription>
+        <shortDescription>error message when EligibilityAssessment save fails.</shortDescription>
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
@@ -189,7 +189,7 @@
         <categories>Eligibility</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>help text for the Eligibility Subscription page</shortDescription>
+        <shortDescription>help text for the EligibilityAssessment page</shortDescription>
         <value>Update Eligibility fields and manage Eligibility subscriptions.  Update all data as appropriate, and then click Save.</value>
     </labels>
     <labels>
@@ -197,15 +197,15 @@
         <categories>Eligibility</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Eligibility Subscription page</shortDescription>
-        <value>Eligibility Subscription</value>
+        <shortDescription>title for the EligibilityAssessment page</shortDescription>
+        <value>EligibilityAssessment</value>
     </labels>
     <labels>
         <fullName>Collab_labelEligibilitysaveSuccess</fullName>
         <categories>Eligibility</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>message displayed when Eligibility Subscription  saves successfully.</shortDescription>
+        <shortDescription>message displayed when EligibilityAssessment saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
     <labels>
@@ -213,7 +213,7 @@
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when Contact Subscription save fails.</shortDescription>
+        <shortDescription>error message when ContactAssessment save fails.</shortDescription>
         <value>Errors were encountered trying to save the Requests.</value>
     </labels>
     <labels>
@@ -221,7 +221,7 @@
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>help text for the Contact Subscription page</shortDescription>
+        <shortDescription>help text for the ContactAssessment page</shortDescription>
         <value>Update family and eligibility fields then add/update all the family members.  Update all data as appropriate, and then click Save or Save/Close.</value>
     </labels>
     <labels>
@@ -229,7 +229,7 @@
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Contact Subscription page</shortDescription>
+        <shortDescription>title for the ContactAssessment page</shortDescription>
         <value>Referral Form</value>
     </labels>
     <labels>
@@ -237,7 +237,7 @@
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>message displayed when Contact Subscription  saves successfully.</shortDescription>
+        <shortDescription>message displayed when ContactAssessment saves successfully.</shortDescription>
         <value>Records have been saved.</value>
     </labels>
     <labels>

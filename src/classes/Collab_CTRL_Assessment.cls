@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2016, Salesforce.org
+    Copyright (c) 2019, 501Commons.org
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -14,7 +14,7 @@
       its contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
  
-    THIS GroupFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
     FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
@@ -24,152 +24,100 @@
     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
     CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
     LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-    ANY WAY OUT OF THE USE OF THIS GroupFTWARE, EVEN IF ADVISED OF THE 
+    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
     POSSIBILITY OF SUCH DAMAGE.
 */
 
-public virtual with sharing class Collab_CTRL_Assessment {
-    
+global virtual with sharing class Collab_CTRL_Assessment {
+
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
     private String collaborative;
 
-    public Contact contactRecord {
+    public Assessment__c assessmentRecord {
         get {
-            if (contactRecord == null) {
-                contactRecord = new Contact();
+            if (assessmentRecord == null) {
+                assessmentRecord = new Assessment__c();
             }
 
-            return contactRecord;
-        }
-        set;
-    }
-
-    public Account accountRecord {
-        get {
-            if (accountRecord == null) {
-                accountRecord = new Account();
-            }
-
-            return accountRecord;
+            return assessmentRecord;
         }
         set;
     }
 
     // constructor
-    public Collab_CTRL_Assessment() {
+    global Collab_CTRL_Assessment() {
+        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Assessment::Collab_CTRL_Assessment');
         new Collab_CTRL_Assessment(null);
     }
 
-    public Collab_CTRL_Assessment(ApexPages.StandardController controller) {
+    global Collab_CTRL_Assessment(ApexPages.StandardController controller) {
 
         redirect = false;
 
-        this.contactRecord = (Contact)controller.getRecord();
-        this.collaborative = System.currentPageReference().getParameters().get('collab');
-
-        // Contact - Get list of fields FROM fieldset
-        List<String> listContactFields = new List<String>();
-        for (Schema.FieldSetMember f : this.getContactStandardFields()) {
-            listContactFields.add(f.getFieldPath());
+        this.assessmentRecord = (Assessment__c)controller.getRecord();
+        Id accountId = System.currentPageReference().getParameters().get('accountId');
+        if (String.isBlank(accountId)) {
+            this.assessmentRecord = [SELECT Id, Account__c FROM Assessment__c WHERE Id = :this.assessmentRecord.Id LIMIT 1];
+            accountId = this.assessmentRecord.Account__c;
         }
 
-        // Contact - Required fields
-        if (!listContactFields.contains('Id')) {
-            listContactFields.add('Id');
-        }
-        if (!listContactFields.contains('AccountId')) {
-            listContactFields.add('AccountId');
-        }
-        if (!listContactFields.contains('LastName')) {
-            listContactFields.add('LastName');
+        if (String.isBlank(accountId)) {
+            return;
         }
 
-        // Account - Get list of fields FROM fieldset
-        List<String> listAccountFields = new List<String>();
-        for (Schema.FieldSetMember f : this.getAccountStandardFields()) {
-            listAccountFields.add(f.getFieldPath());
+        if (Test.isRunningTest()) {
+            this.collaborative = 'Making_Life_Work';
         }
 
-        // Account - Required fields
-        if (!listAccountFields.contains('Id')) {
-            listAccountFields.add('Id');
+        if (String.isBlank(this.collaborative)) {
+            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(accountId);
         }
 
-        if (!listAccountFields.contains('Name')) {
-            listAccountFields.add('Name');
+        // Assessment - Get list of fields from Assessment fieldset
+        List<String> listAssessmentFields = new List<String>();
+        for (Schema.FieldSetMember f : this.getAssessmentFields()) {
+            listAssessmentFields.add(f.getFieldPath());
         }
 
-        if (controller != null && this.contactRecord.Id != null) {
-            System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment getRecord: ' + this.contactRecord);
-            System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment getRecordId: ' + this.contactRecord.Id);
+        // Assessment - Required fields
+        if (!listAssessmentFields.contains('Id')) {
+            listAssessmentFields.add('Id');
+        }
 
-            String strSoql = 'SELECT ' + String.join(listContactFields, ',');
-            strSoql += ' FROM Contact WHERE Id = \'' + this.contactRecord.Id + '\'';
+        if (!listAssessmentFields.contains('Name')) {
+            listAssessmentFields.add('Name');
+        }
 
-            System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment Contact soql: ' + strSoql);
-            for (Contact contactExisting :Database.query(strSoql)) {
-                this.contactRecord = contactExisting;
-                System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment query contact record: ' + this.contactRecord);
+        if (controller != null && this.assessmentRecord.Id != null) {
+
+            String strSoql = 'SELECT ' + String.join(listAssessmentFields, ',');
+            strSoql += ' FROM Assessment__c WHERE Id = \'' + this.assessmentRecord.Id + '\'';
+
+            System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment soql: ' + strSoql);
+            for (Assessment__c assessmentExisting :Database.query(strSoql)) {
+                this.assessmentRecord = assessmentExisting;
+                System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment query assessment record: ' + this.assessmentRecord);
                 break;
             }
-
-            if (!String.isBlank(this.contactRecord.AccountId)) {
-
-                strSoql = 'SELECT ' + String.join(listAccountFields, ',');
-                strSoql += ' FROM Account WHERE Id = \'' + this.contactRecord.AccountId + '\'';
-
-                System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment Account soql: ' + strSoql);
-                for (Account accountExisting :Database.query(strSoql)) {
-                    this.accountRecord = accountExisting;
-                    System.debug('Collab_CTRL_Assessment::Collab_CTRL_Assessment query account record: ' + this.accountRecord);
-                    break;
-                }
-
-            }
-        }
-        else {
-            this.contactRecord = new Contact();
         }
     }   
     
-    // getter - reference in Visualforce as ContactStandardFields
-    public List<Schema.FieldSetMember> getContactStandardFields() {
-        return fieldSetContactStandardActive.getFields();
+    // getter - reference in Visualforce as AssessmentFields
+    public List<Schema.FieldSetMember> getAssessmentFields() {
+        return fieldSetAssessmentActive.getFields();
     }
 
-    public Schema.FieldSet fieldSetContactStandardActive {
+    public Schema.FieldSet fieldSetAssessmentActive {
         get {
 
-            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Assessment_Contact, this.collaborative);
-            for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Assessment, this.collaborative);
+            for (String fieldSetName :Schema.SObjectType.Assessment__c.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
                 if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
-                    return Schema.SObjectType.Contact.fieldSets.getMap().get(fieldSetNameMetadata);
-                }
-            }
-
-            return null;
-        }
-        set;
-    }
-
-    // getter - reference in Visualforce as AccountStandardFields
-    public List<Schema.FieldSetMember> getAccountStandardFields() {
-        return fieldSetAccountStandardActive.getFields();
-    }
-
-    public Schema.FieldSet fieldSetAccountStandardActive {
-        get {
-
-            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Assessment_Account, this.collaborative);
-            for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
-
-                // Check for custom fields set
-                if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
-                    return Schema.SObjectType.Account.fieldSets.getMap().get(fieldSetNameMetadata);
+                    return Schema.SObjectType.Assessment__c.fieldSets.getMap().get(fieldSetNameMetadata);
                 }
             }
 
@@ -188,30 +136,15 @@ public virtual with sharing class Collab_CTRL_Assessment {
         
         try {
             
-            accountRecord.Id = (String.isBlank(accountRecord.Id)) ? contactRecord.AccountId : accountRecord.Id;
-            if (String.isBlank(accountRecord.Id)) {
+            if (String.isBlank(this.assessmentRecord.Id)) {
 
                 // Set to REPLACE which is an NPSP key that means to rebuild name based on NPSP Household Settings
-                accountRecord.Name = (String.isBlank(accountRecord.Name)) ? 'REPLACE' : accountRecord.Name;
-                insert accountRecord;
+                this.assessmentRecord.Name = (String.isBlank(this.assessmentRecord.Name)) ? 'REPLACE' : this.assessmentRecord.Name;
+                insert this.assessmentRecord;
             }
             else {
-                update accountRecord;
+                update this.assessmentRecord;
             }
-
-            if (String.isBlank(contactRecord.AccountId)) {
-                contactRecord.AccountId = accountRecord.Id;
-            }
-
-            if (String.isBlank(contactRecord.Id)) {
-                insert contactRecord;
-            }
-            else {
-                update contactRecord;
-            }
-
-            // Create a Assessment Service Record
-            // TBD
 
             return null;
 
@@ -232,10 +165,10 @@ public virtual with sharing class Collab_CTRL_Assessment {
         }
         return Cancel();    
     }
-    
+
     // user wants to close this page
     public virtual PageReference Cancel() {
-        idRedirect = contactRecord.Id;
+        idRedirect = this.assessmentRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;

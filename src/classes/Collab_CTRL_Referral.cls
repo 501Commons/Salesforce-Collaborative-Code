@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2016, Salesforce.org
+    Copyright (c) 2019, 501Commons.org
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -14,7 +14,7 @@
       its contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
  
-    THIS GroupFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
     FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
@@ -24,7 +24,7 @@
     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
     CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
     LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-    ANY WAY OUT OF THE USE OF THIS GroupFTWARE, EVEN IF ADVISED OF THE 
+    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
     POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -71,11 +71,13 @@ global virtual with sharing class Collab_CTRL_Referral {
 
     global Collab_CTRL_Referral(ApexPages.StandardController controller) {
 
-        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Referral::Collab_CTRL_Referral(controller): ' + controller);
         redirect = false;
 
         this.accountRecord = (Account)controller.getRecord();
         this.collaborative = System.currentPageReference().getParameters().get('collab');
+
+        // Security Injection Checks
+        this.collaborative = Collab_SharedCode.GetCodeSafeString(this.collaborative);
 
         if (Test.isRunningTest()) {
             this.collaborative = 'Making_Life_Work';
@@ -123,9 +125,6 @@ global virtual with sharing class Collab_CTRL_Referral {
         }
 
         if (controller != null && this.accountRecord.Id != null) {
-
-            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecord: ' + this.accountRecord);
-            System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral getRecordId: ' + this.accountRecord.Id);
 
             String strSoql = 'SELECT ' + String.join(listContactFields, ',');
             strSoql += ' FROM Contact WHERE AccountId = \'' + this.accountRecord.Id + '\'';
@@ -227,14 +226,14 @@ global virtual with sharing class Collab_CTRL_Referral {
         
         try {
             
-            if (String.isBlank(accountRecord.Id)) {
+            if (String.isBlank(this.accountRecord.Id)) {
 
                 // Set to REPLACE which is an NPSP key that means to rebuild name based on NPSP Household Settings
-                accountRecord.Name = (String.isBlank(accountRecord.Name)) ? 'REPLACE' : accountRecord.Name;
-                insert accountRecord;
+                this.accountRecord.Name = (String.isBlank(this.accountRecord.Name)) ? 'REPLACE' : this.accountRecord.Name;
+                insert this.accountRecord;
             }
             else {
-                update accountRecord;
+                update this.accountRecord;
             }
 
             for (Contact contactRecord :this.contactRecords) {
@@ -273,7 +272,7 @@ global virtual with sharing class Collab_CTRL_Referral {
     
     // user wants to close this page
     public virtual PageReference Cancel() {
-        idRedirect = accountRecord.Id;
+        idRedirect = this.accountRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;

@@ -1,5 +1,5 @@
 <!-- 
-    Copyright (c) 2016, Salesforce.org
+    Copyright (c) 2019, 501Commons.org
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Assessment" title="{!$Label.Collab_labelAssessmentTitle}" tabStyle="Contact" standardStylesheets="true">
+<apex:page standardController="Assessment__c" extensions="Collab_CTRL_Assessment" title="{!$Label.Collab_labelAssessmentTitle}" standardStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -54,7 +54,7 @@
         window.onload = function() {}
     </script>
 
-    <apex:form id="vfform">
+    <apex:form id="vaform">
         <c:Collab_UTIL_NavigateBack recordId="{!idRedirect}" redirect="{!redirect}"/>
         <div class="sfdo213">
             <!-- PAGE SPINNER -->
@@ -76,53 +76,39 @@
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" immediate="false" reRender="vfform,tblAssessments"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" immediate="false" reRender="vfform"/>
+<!--
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
+-->
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /PAGE HEADER -->
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == ''}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
-            <apex:pageBlock title="Assessment Fields" rendered="{!$User.UITheme <> 'Theme4t'}">
+            <apex:pageBlock rendered="{!$User.UITheme <> 'Theme4t'}">
 
-                    <apex:pageBlockSection title="Contact Standard" columns="2">
-                        <apex:repeat value="{!ContactStandardFields}" var="f">
-                                <apex:inputField value="{!contactRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
-                    <apex:pageBlockSection title="Account Standard" columns="2">
-                        <apex:repeat value="{!AccountStandardFields}" var="f">
-                                <apex:inputField value="{!accountRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
+                <apex:pageBlockSection title="Assessment Fields" columns="2">
+                    <apex:repeat value="{!AssessmentFields}" var="af">
+                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" 
+                                required="{!OR(af.required, af.dbrequired)}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
             </apex:pageBlock>
 
             <!-- Mobile pageBlock -->
-            <apex:pageBlock title="Contact Fields" rendered="{!$User.UITheme == 'Theme4t'}">
+            <apex:pageBlock rendered="{!$User.UITheme == 'Theme4t'}">
 
-                    <apex:pageBlockSection title="Contact Standard" columns="1">
-                        <apex:repeat value="{!ContactStandardFields}" var="f">
-                                <apex:inputField value="{!contactRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
-                    <apex:pageBlockSection title="Account Standard" columns="1">
-                        <apex:repeat value="{!AccountStandardFields}" var="f">
-                                <apex:inputField value="{!accountRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
+                <apex:pageBlockSection title="Assessment Fields" columns="1">
+                    <apex:repeat value="{!AssessmentFields}" var="af">
+                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" 
+                                required="{!OR(af.required, af.dbrequired)}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
             </apex:pageBlock>
 
             <script type="text/javascript">
@@ -149,9 +135,11 @@
                 <div class="slds-grid">
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblAssessments"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" immediate="false" reRender="vfform"/>
+<!--
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
+-->
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
                         </div>
                     </div>
                 </div>
