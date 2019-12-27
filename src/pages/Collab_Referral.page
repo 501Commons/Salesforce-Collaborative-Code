@@ -104,7 +104,7 @@
                     </apex:repeat>
                 </apex:pageBlockSection>
 
-                <apex:pageBlockSection title="Family Members">
+                <apex:pageBlockSection title="Family Members" rendered="{!accountRecord.Id == ''}">
                     <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
                         styleClass="slds-table slds-table--compact slds-table--bordered"
                         headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
@@ -152,7 +152,7 @@
                     </apex:repeat>
                 </apex:pageBlockSection>
 
-                <apex:pageBlockSection title="Family Members">
+                <apex:pageBlockSection title="Family Members" rendered="{!accountRecord.Id == ''}">
                     <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
                                     styleClass="slds-table slds-table--compact slds-table--bordered"
                                     headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
@@ -201,7 +201,7 @@
                 fixSearchIMG();
             </script>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
+            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd"  rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
 
             <!-- PAGE FOOTER -->
             <div class="slds-page-header" role="banner">
