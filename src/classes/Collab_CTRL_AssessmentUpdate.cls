@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 */
 
-global virtual with sharing class Collab_CTRL_Assessment {
+global virtual with sharing class Collab_CTRL_AssessmentUpdate {
 
     //  Dynamic Object - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_globals_objecttype.htm
     private String objType;
@@ -65,18 +65,26 @@ global virtual with sharing class Collab_CTRL_Assessment {
     }
 
     // constructor
-    global Collab_CTRL_Assessment() {
-        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Assessment::Collab_CTRL_Assessment');
+    global Collab_CTRL_AssessmentUpdate() {
+        System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_AssessmentUpdate::Collab_CTRL_AssessmentUpdate');
         new Collab_CTRL_Assessment(null);
     }
 
-    global Collab_CTRL_Assessment(ApexPages.StandardController controller) {
+    global Collab_CTRL_AssessmentUpdate(ApexPages.StandardController controller) {
 
         redirect = false;
 
-        Account accountRecord = (Account)controller.getRecord();
-        this.assessmentRecord.Account__c = accountRecord.Id;
+        this.assessmentRecord = (Assessment__c)controller.getRecord();
+        if (String.isBlank(this.assessmentRecord.Id)) {
+            return;
+        }
+
+        this.assessmentRecord = [SELECT Id, Account__c FROM Assessment__c WHERE Id = :this.assessmentRecord.Id LIMIT 1];
         this.obj = (sObject)this.assessmentRecord;
+
+        if (String.isBlank(this.assessmentRecord.Account__c)) {
+            return;
+        }
 
         if (Test.isRunningTest()) {
             this.collaborative = 'Making_Life_Work';

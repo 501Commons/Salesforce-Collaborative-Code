@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Account" extensions="Collab_CTRL_Referral" title="{!$Label.Collab_labelReferralTitle}" tabStyle="Account" standardStylesheets="true" showHeader="true" lightningStylesheets="true">
+<apex:page standardController="Assessment__c" extensions="Collab_CTRL_AssessmentUpdate" title="{!$Label.Collab_labelAssessmentTitle}" tabStyle="Account" standardStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -54,7 +54,7 @@
         window.onload = function() {}
     </script>
 
-    <apex:form id="vfform">
+    <apex:form id="vaform">
         <c:Collab_UTIL_NavigateBack recordId="{!idRedirect}" redirect="{!redirect}"/>
         <div class="sfdo213">
             <!-- PAGE SPINNER -->
@@ -71,69 +71,46 @@
             <div class="slds-page-header" role="banner">
                 <div class="slds-grid">
                     <div class="slds-col--padded">
-                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelReferralTitle}</h1>
+                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelAssessmentTitle}</h1>
                     </div>        
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
 <!--
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
 -->
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /PAGE HEADER -->
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelReferralHelp}" rendered="{!accountRecord.Id == ''}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == ''}" style="font-style:italic" /></p>
 
-            <apex:pageBlock>
-                <apex:pageBlockSection title="Family Fields" columns="2">
-                    <apex:repeat value="{!ReferralAccountFields}" var="ff">
+            <!-- Default Page Blcok -->
+            <apex:pageBlock rendered="{!$User.UITheme <> 'Theme4t'}">
+
+                <apex:pageBlockSection title="Assessment Fields" columns="2">
+                    <apex:repeat value="{!AssessmentFields}" var="af">
                         <apex:pageBlockSection columns="1">
-                            <apex:inputField value="{!accountRecord[ff.fieldPath]}" required="{!OR(ff.required, ff.dbrequired)}" />
-                            <apex:outputText value="{!$ObjectType[objectType].fields[ff].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[ff].inlineHelpText <> ''}" />                                
+                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" 
+                                required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
                         </apex:pageBlockSection>
                     </apex:repeat>
                 </apex:pageBlockSection>
+            </apex:pageBlock>
 
-                <apex:pageBlockSection title="Eligibility Fields" columns="2">
-                    <apex:repeat value="{!EligibilityAccountFields}" var="ef">
-                        <apex:pageBlockSection columns="1">
-                            <apex:inputField value="{!accountRecord[ef.fieldPath]}" required="{!OR(ef.required, ef.dbrequired)}" />
-                            <apex:outputText value="{!$ObjectType[objectType].fields[ef].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[ef].inlineHelpText <> ''}" />                                
-                        </apex:pageBlockSection>
+            <!-- Mobile pageBlock -->
+            <apex:pageBlock rendered="{!$User.UITheme == 'Theme4t'}">
+
+                <apex:pageBlockSection title="Assessment Fields" columns="1">
+                    <apex:repeat value="{!AssessmentFields}" var="af">
+                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" 
+                                required="{!OR(af.required, af.dbrequired)}"/>
                     </apex:repeat>
-                </apex:pageBlockSection>
-
-                <apex:pageBlockSection title="Eligibility Criteria" columns="2" rendered="{!accountRecord.Id <> ''}">
-                    <apex:outputText value="{!accountRecord.Eligibility_Criteria__c}" />
-                </apex:pageBlockSection>
-
-                <apex:pageBlockSection title="Family Members" rendered="{!accountRecord.Id == ''}">
-                    <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
-                        styleClass="slds-table slds-table--compact slds-table--bordered"
-                        headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
-                                    
-                        <!-- Add Field Set Fields -->
-                        <apex:repeat value="{!ReferralContactFields}" var="fm" >
-                            <apex:column styleClass="myTD {!fm.Type} {!IF($ObjectType['Contact'].fields[fm].dependentPicklist,
-                                                        IF(fm.Type == 'picklist', 'dependentPicklistFixup', 'dependentMultiPicklistFixup'),'')}" >
-                                <apex:facet name="header">{!fm.Label + IF(fm.DBRequired, ' *', '')}</apex:facet>
-                                <apex:inputField value="{!contactRecord[fm]}" 
-                                            styleClass="{!CASE(fm.Type, 
-                                                            'reference', 'lookupInput', 
-                                                            'picklist', 'slds-select',
-                                                            'multipicklist', 'slds-select multipicklistSLDSFixup',
-                                                            'boolean', 'slds-checkbox',
-                                                            'textarea', 'slds-textarea',
-                                                            'slds-input')}"
-                                                required="false" id="inputX"/>  <!-- not required, or you can't submit empty rows! -->
-                            </apex:column>
-                        </apex:repeat>
-                    </apex:dataTable>
                 </apex:pageBlockSection>
             </apex:pageBlock>
 
@@ -155,7 +132,6 @@
                 fixSearchIMG();
             </script>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
 
             <!-- PAGE FOOTER -->
             <div class="slds-page-header" role="banner">
@@ -163,10 +139,10 @@
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
 <!--
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
 -->
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
                         </div>
                     </div>
                 </div>

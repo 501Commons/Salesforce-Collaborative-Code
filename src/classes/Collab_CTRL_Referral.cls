@@ -28,7 +28,29 @@
     POSSIBILITY OF SUCH DAMAGE.
 */
 
+// Future Optimizations
+//  Dynamic Object - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_globals_objecttype.htm
+//  Abstract Class
+
 global virtual with sharing class Collab_CTRL_Referral {
+
+    //  Dynamic Object - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_globals_objecttype.htm
+    private String objType;
+    public sObject obj { 
+        get; 
+        set {
+	          setObjectType(value);
+        } 
+    }
+
+    // The sObject type as a string
+    public String getObjectType() {
+    	  return(this.objType);
+    }
+    public String setObjectType(sObject newObj) {
+        this.objType = newObj.getSObjectType().getDescribe().getName();
+        return(this.objType);
+    }
 
     global integer cEmptyContactRecords {
         get {
@@ -39,8 +61,6 @@ global virtual with sharing class Collab_CTRL_Referral {
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
-    private String collaborative;
-
     public List<Contact> contactRecords {
         get {
             if (contactRecords == null) {
@@ -63,6 +83,17 @@ global virtual with sharing class Collab_CTRL_Referral {
         set;
     }
 
+    public Collab_Setting__mdt collaborativeRecord {
+        get {
+            if (collaborativeRecord == null) {
+                collaborativeRecord = new Collab_Setting__mdt();
+            }
+
+            return collaborativeRecord;
+        }
+        set;
+    }
+
     // constructor
     global Collab_CTRL_Referral() {
         System.debug(LoggingLevel.DEBUG, 'Collab_CTRL_Referral::Collab_CTRL_Referral');
@@ -74,17 +105,32 @@ global virtual with sharing class Collab_CTRL_Referral {
         redirect = false;
 
         this.accountRecord = (Account)controller.getRecord();
-        this.collaborative = System.currentPageReference().getParameters().get('collab');
+        this.obj = (sObject)this.accountRecord;
 
-        // Security Injection Checks
-        this.collaborative = Collab_SharedCode.GetCodeSafeString(this.collaborative);
-
-        if (Test.isRunningTest()) {
-            this.collaborative = 'Making_Life_Work';
+        Id userId = UserInfo.getUserId();
+        if (!String.isBlank(userId)) {
+            List<User> activeUsers = [SELECT AccountId FROM User WHERE Id = :userId];
+            if (!activeUsers.isEmpty()) {
+                List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE Account_Id__c = :activeUsers[0].AccountId];
+                if (!collabs.isEmpty()) {
+                    this.collaborativeRecord = collabs[0];
+System.Debug('collab based on user: ' + this.collaborativeRecord);
+                }
+            }
         }
 
-        if (String.isBlank(this.collaborative) && !String.isBlank(this.accountRecord.Id)) {
-            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(this.accountRecord.Id);
+        String collaborativeDeveloperName = System.currentPageReference().getParameters().get('collab');
+
+        // Security Injection Checks
+        collaborativeDeveloperName = Collab_SharedCode.GetCodeSafeString(collaborativeDeveloperName);
+
+        if (Test.isRunningTest()) {
+            collaborativeDeveloperName = 'Making_Life_Work';
+        }
+
+        if (String.isBlank(this.collaborativeRecord.Id)) {
+            this.collaborativeRecord = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
+System.Debug('collab based on DeveloperName: ' + collaborativeDeveloperName + ' collab record: ' + this.collaborativeRecord);
         }
 
         // Contact - Get list of fields from Referral Contact fieldset
@@ -116,6 +162,7 @@ global virtual with sharing class Collab_CTRL_Referral {
         }
 
         // Account - Required fields
+        //
         if (!listAccountFields.contains('Id')) {
             listAccountFields.add('Id');
         }
@@ -124,7 +171,11 @@ global virtual with sharing class Collab_CTRL_Referral {
             listAccountFields.add('Name');
         }
 
-        if (controller != null && this.accountRecord.Id != null) {
+        if (!listAccountFields.contains('Collaborative__c')) {
+            listAccountFields.add('Collaborative__c');
+        }
+
+        if (!String.isBlank(this.accountRecord.Id)) {
 
             String strSoql = 'SELECT ' + String.join(listContactFields, ',');
             strSoql += ' FROM Contact WHERE AccountId = \'' + this.accountRecord.Id + '\'';
@@ -144,6 +195,8 @@ global virtual with sharing class Collab_CTRL_Referral {
                 System.debug('Collab_CTRL_Referral::Collab_CTRL_Referral query account record: ' + this.accountRecord);
                 break;
             }
+
+            this.accountRecord.Eligibility_Criteria__c = this.collaborativeRecord.Eligibility_Report_URL__c;
         }
 
         // Insert empty rows into contacts datatable
@@ -158,7 +211,7 @@ global virtual with sharing class Collab_CTRL_Referral {
     public Schema.FieldSet fieldSetReferralContactActive {
         get {
 
-            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Contact, this.collaborative);
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Contact, this.collaborativeRecord.DeveloperName);
             for (String fieldSetName :Schema.SObjectType.Contact.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
@@ -180,7 +233,7 @@ global virtual with sharing class Collab_CTRL_Referral {
     public Schema.FieldSet fieldSetReferralAccountActive {
         get {
 
-            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Account, this.collaborative);
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Referral_Account, this.collaborativeRecord.DeveloperName);
             for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
@@ -202,7 +255,7 @@ global virtual with sharing class Collab_CTRL_Referral {
     public Schema.FieldSet fieldSetEligibilityAccount {
         get {
 
-            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Eligibility_Account, this.collaborative);
+            String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Eligibility_Account, this.collaborativeRecord.DeveloperName);
             for (String fieldSetName :Schema.SObjectType.Account.fieldSets.getMap().keySet()) {
 
                 // Check for custom fields set
@@ -225,27 +278,55 @@ global virtual with sharing class Collab_CTRL_Referral {
         strSaveResults = null;
         
         try {
-            
-            if (String.isBlank(this.accountRecord.Id)) {
 
-                // Set to REPLACE which is an NPSP key that means to rebuild name based on NPSP Household Settings
-                this.accountRecord.Name = (String.isBlank(this.accountRecord.Name)) ? 'REPLACE' : this.accountRecord.Name;
-                insert this.accountRecord;
-            }
-            else {
-                update this.accountRecord;
-            }
-
+            // NPSP - Create Contact first which will create the Household
+            //
+            Boolean updateAccountOwner = false;
+            Id householdId;            
             for (Contact contactRecord :this.contactRecords) {
-                contactRecord.AccountId = this.accountRecord.Id;
+                if (String.isBlank(contactRecord.LastName)) {
+                    continue;
+                }
+
+                if (!String.isBlank(householdId)) {
+                    contactRecord.AccountId = householdId;
+                }
 
                 if (String.isBlank(contactRecord.Id)) {
+
+                    contactRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    updateAccountOwner = true;
+                    
                     insert contactRecord;
                 }
                 else {
                     update contactRecord;
                 }
+
+                if (String.isBlank(householdId)) {
+System.debug('contactRecord.AccountId before: ' + contactRecord.AccountId);
+                    if (String.isBlank(contactRecord.AccountId)) {
+                        contactRecord.AccountId = [SELECT AccountId FROM Contact WHERE Id = :contactRecord.Id LIMIT 1].AccountId;
+                    }
+                    
+                    householdId = contactRecord.AccountId;
+System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
+                }
             }
+
+            if (String.isBlank(this.accountRecord.Id)) {
+                this.accountRecord.Id = householdId;
+            }
+
+            if (String.isBlank(this.accountRecord.Collaborative__c)) {
+                this.accountRecord.Collaborative__c = this.collaborativeRecord.Account_Id__c;
+            }
+
+            if (updateAccountOwner) {
+                this.accountRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+            }
+
+            update this.accountRecord;
 
             // Create a Referral Service Record
             // TBD

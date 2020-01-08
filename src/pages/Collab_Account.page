@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Account" title="{!$Label.Collab_labelAccountTitle}" tabStyle="Contact" standardStylesheets="true">
+<apex:page standardController="Account" extensions="Collab_CTRL_Account" title="{!$Label.Collab_labelAccountTitle}" tabStyle="Account" standardStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -88,40 +88,14 @@
             <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAccountHelp}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
-            <apex:pageBlock title="Account Fields" rendered="{!$User.UITheme <> 'Theme4t'}">
+            <apex:pageBlock title="Account Fields">
 
-                    <apex:pageBlockSection title="Contact Standard" columns="2">
-                        <apex:repeat value="{!ContactStandardFields}" var="f">
-                                <apex:inputField value="{!contactRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
-                    <apex:pageBlockSection title="Account Standard" columns="2">
-                        <apex:repeat value="{!AccountStandardFields}" var="f">
-                                <apex:inputField value="{!accountRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
-            </apex:pageBlock>
-
-            <!-- Mobile pageBlock -->
-            <apex:pageBlock title="Contact Fields" rendered="{!$User.UITheme == 'Theme4t'}">
-
-                    <apex:pageBlockSection title="Contact Standard" columns="1">
-                        <apex:repeat value="{!ContactStandardFields}" var="f">
-                                <apex:inputField value="{!contactRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
-
-                    <apex:pageBlockSection title="Account Standard" columns="1">
-                        <apex:repeat value="{!AccountStandardFields}" var="f">
-                                <apex:inputField value="{!accountRecord[f.fieldPath]}" 
-                                    required="{!OR(f.required, f.dbrequired)}"/>
-                        </apex:repeat>
-                    </apex:pageBlockSection>
+                <apex:pageBlockSection title="Account Standard" columns="2">
+                    <apex:repeat value="{!AccountStandardFields}" var="f">
+                            <apex:inputField value="{!accountRecord[f.fieldPath]}" 
+                                required="{!OR(f.required, f.dbrequired)}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
 
             </apex:pageBlock>
 
