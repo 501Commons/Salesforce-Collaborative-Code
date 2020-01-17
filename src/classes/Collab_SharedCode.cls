@@ -119,6 +119,14 @@ public with sharing class Collab_SharedCode {
         return '';
     }
 
+    public static String GetHouseholdIdFromAccount(Id objectRecordId) {
+        return objectRecordId;
+    }
+
+    public static String GetHouseholdIdFromContact(Id objectRecordId) {
+        return [SELECT AccountId FROM Contact WHERE Id = :objectRecordId LIMIT 1].AccountId;
+    }
+
     public static void TestSetup() {
 
         List<Account> listAccounts = new List<Account>();   

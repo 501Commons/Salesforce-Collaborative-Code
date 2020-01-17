@@ -53,8 +53,8 @@
         <categories>Account</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the Assessment page</shortDescription>
-        <value>Assessment</value>
+        <shortDescription>title for the Custom Account Fields page</shortDescription>
+        <value>Custom Account Fields</value>
     </labels>
     <labels>
         <fullName>Collab_labelAccountsaveSuccess</fullName>
@@ -165,8 +165,8 @@
         <categories>Contact</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the ContactAssessment page</shortDescription>
-        <value>Contact</value>
+        <shortDescription>title for the Custom Contact Fields page</shortDescription>
+        <value>Custom Contact Fields</value>
     </labels>
     <labels>
         <fullName>Collab_labelContactsaveSuccess</fullName>

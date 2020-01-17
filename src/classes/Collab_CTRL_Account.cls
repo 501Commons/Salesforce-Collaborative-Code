@@ -35,13 +35,13 @@ public virtual with sharing class Collab_CTRL_Account {
     
     private String collaborative;
 
-    public Account accountRecord {
+    public Account AccountRecord {
         get {
-            if (accountRecord == null) {
-                accountRecord = new Account();
+            if (AccountRecord == null) {
+                AccountRecord = new Account();
             }
 
-            return accountRecord;
+            return AccountRecord;
         }
         set;
     }
@@ -55,8 +55,8 @@ public virtual with sharing class Collab_CTRL_Account {
 
         redirect = false;
 
-        this.accountRecord = (Account)controller.getRecord();
-        if (String.isBlank(this.accountRecord.Id)) {
+        this.AccountRecord = (Account)controller.getRecord();
+        if (String.isBlank(this.AccountRecord.Id)) {
             return;
         }
 
@@ -65,7 +65,7 @@ public virtual with sharing class Collab_CTRL_Account {
         }
 
         if (String.isBlank(this.collaborative)) {
-            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(this.accountRecord.Id);
+            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(Collab_SharedCode.GetHouseholdIdFromAccount(this.AccountRecord.Id));
         }
 
         // Account - Get list of fields FROM fieldset
@@ -80,12 +80,12 @@ public virtual with sharing class Collab_CTRL_Account {
         }
 
         String strSoql = 'SELECT ' + String.join(listAccountFields, ',');
-        strSoql += ' FROM Account WHERE Id = \'' + this.accountRecord.Id + '\'';
+        strSoql += ' FROM Account WHERE Id = \'' + this.AccountRecord.Id + '\'';
 
         System.debug('Collab_CTRL_Contact::Collab_CTRL_Contact Account soql: ' + strSoql);
-        for (Account accountExisting :Database.query(strSoql)) {
-            this.accountRecord = accountExisting;
-            System.debug('Collab_CTRL_Account::Collab_CTRL_Account query account record: ' + this.accountRecord);
+        for (Account AccountExisting :Database.query(strSoql)) {
+            this.AccountRecord = AccountExisting;
+            System.debug('Collab_CTRL_Account::Collab_CTRL_Account query Account record: ' + this.AccountRecord);
             break;
         }
     }   
@@ -122,7 +122,7 @@ public virtual with sharing class Collab_CTRL_Account {
         
         try {
             
-            update this.accountRecord;
+            update this.AccountRecord;
 
             return null;
 
@@ -147,7 +147,7 @@ public virtual with sharing class Collab_CTRL_Account {
     
     // user wants to close this page
     public virtual PageReference Cancel() {
-        idRedirect = this.accountRecord.Id;
+        idRedirect = this.AccountRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;

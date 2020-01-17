@@ -28,7 +28,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Contact" title="{!$Label.Collab_labelContactTitle}" tabStyle="Contact" standardStylesheets="true">
+<apex:page standardController="Contact" extensions="Collab_CTRL_Contact" title="{!$Label.Collab_labelContactTitle}" tabStyle="Contact" lightningStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
@@ -55,47 +55,42 @@
     </script>
 
     <apex:form id="vfform">
+
         <c:Collab_UTIL_NavigateBack recordId="{!idRedirect}" redirect="{!redirect}"/>
+
         <div class="sfdo213">
+
             <!-- PAGE SPINNER -->
             <apex:actionStatus id="retrieveStatus" 
                 onstart="document.getElementById('divLoading').style.display='block';"
                 onstop="document.getElementById('divLoading').style.display='none';"/>
+
             <div class="slds-spinner_container" style="z-index:999;position:fixed;display:none;" id="divLoading">
                 <div class="slds-spinner--brand slds-spinner slds-spinner--medium" style="position:fixed;top:30%;" aria-hidden="false" role="alert">
                     <div class="slds-spinner__dot-a"></div>
                     <div class="slds-spinner__dot-b"></div>
                 </div>
             </div>
-            <!-- PAGE HEADER -->
-            <div class="slds-page-header" role="banner">
-                <div class="slds-grid">
-                    <div class="slds-col--padded">
-                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelContactTitle}</h1>
-                    </div>        
-    
-                    <div class="slds-col--padded slds-no-flex slds-align-middle">
-                        <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveContact}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" immediate="false" reRender="vfform,tblContacts"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseContact}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" immediate="false" reRender="vfform"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /PAGE HEADER -->
+
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelContactHelp}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
-            <apex:pageBlock title="Contact Fields">
+            <apex:pageBlock rendered="{!ContactStandardFields.size > 0}">
 
-                <apex:pageBlockSection title="Contact Standard" columns="2">
+                <apex:pageBlockSection title="Contact Custom Fields" columns="2">
                     <apex:repeat value="{!ContactStandardFields}" var="f">
-                            <apex:inputField value="{!contactRecord[f.fieldPath]}" 
+                            <apex:inputField value="{!ContactRecord[f.fieldPath]}" 
                                 required="{!OR(f.required, f.dbrequired)}"/>
                     </apex:repeat>
                 </apex:pageBlockSection>
+
+                <div class="slds-grid">
+                    <div class="slds-col--padded slds-no-flex slds-align-middle">
+                        <div class="slds-button-group" role="group">
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveContact}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblContacts"/>
+                        </div>
+                    </div>
+                </div>
 
             </apex:pageBlock>
 
@@ -116,21 +111,6 @@
                 }
                 fixSearchIMG();
             </script>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-
-            <!-- PAGE FOOTER -->
-            <div class="slds-page-header" role="banner">
-                <div class="slds-grid">
-                    <div class="slds-col--padded slds-no-flex slds-align-middle">
-                        <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vfform"/> 
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveContact}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblContacts"/>
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!SaveAndCloseContact}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" immediate="false" reRender="vfform"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /PAGE FOOTER -->
 
         </div> <!-- slds -->    
     </apex:form>

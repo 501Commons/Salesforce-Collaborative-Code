@@ -35,13 +35,13 @@ public virtual with sharing class Collab_CTRL_Contact {
     
     private String collaborative;
 
-    public Contact contactRecord {
+    public Contact ContactRecord {
         get {
-            if (contactRecord == null) {
-                contactRecord = new Contact();
+            if (ContactRecord == null) {
+                ContactRecord = new Contact();
             }
 
-            return contactRecord;
+            return ContactRecord;
         }
         set;
     }
@@ -55,9 +55,17 @@ public virtual with sharing class Collab_CTRL_Contact {
 
         redirect = false;
 
-        this.contactRecord = (Contact)controller.getRecord();
-        if (String.isBlank(this.contactRecord.Id)) {
+        this.ContactRecord = (Contact)controller.getRecord();
+        if (String.isBlank(this.ContactRecord.Id)) {
             return;
+        }
+
+        if (Test.isRunningTest()) {
+            this.collaborative = 'Making_Life_Work';
+        }
+
+        if (String.isBlank(this.collaborative)) {
+            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(Collab_SharedCode.GetHouseholdIdFromContact(this.ContactRecord.Id));
         }
 
         // Contact - Get list of fields FROM fieldset
@@ -70,29 +78,15 @@ public virtual with sharing class Collab_CTRL_Contact {
         if (!listContactFields.contains('Id')) {
             listContactFields.add('Id');
         }
-        if (!listContactFields.contains('AccountId')) {
-            listContactFields.add('AccountId');
-        }
-        if (!listContactFields.contains('LastName')) {
-            listContactFields.add('LastName');
-        }
 
         String strSoql = 'SELECT ' + String.join(listContactFields, ',');
-        strSoql += ' FROM Contact WHERE Id = \'' + this.contactRecord.Id + '\'';
+        strSoql += ' FROM Contact WHERE Id = \'' + this.ContactRecord.Id + '\'';
 
         System.debug('Collab_CTRL_Contact::Collab_CTRL_Contact Contact soql: ' + strSoql);
-        for (Contact contactExisting :Database.query(strSoql)) {
-            this.contactRecord = contactExisting;
-            System.debug('Collab_CTRL_Contact::Collab_CTRL_Contact query contact record: ' + this.contactRecord);
+        for (Contact ContactExisting :Database.query(strSoql)) {
+            this.ContactRecord = ContactExisting;
+            System.debug('Collab_CTRL_Contact::Collab_CTRL_Contact query Contact record: ' + this.ContactRecord);
             break;
-        }
-
-        if (Test.isRunningTest()) {
-            this.collaborative = 'Making_Life_Work';
-        }
-
-        if (String.isBlank(this.collaborative)) {
-            this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(this.contactRecord.AccountId);
         }
     }   
     
@@ -128,13 +122,14 @@ public virtual with sharing class Collab_CTRL_Contact {
         
         try {
             
-            update this.contactRecord;
+            update this.ContactRecord;
 
             return null;
 
         } catch (Exception e) {
             strSaveResults = Label.Collab_labelContactErrorOnSave;
             ApexPages.addMessages(e); 
+
             return null;
         }
     }
@@ -152,7 +147,7 @@ public virtual with sharing class Collab_CTRL_Contact {
     
     // user wants to close this page
     public virtual PageReference Cancel() {
-        idRedirect = this.contactRecord.Id;
+        idRedirect = this.ContactRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
