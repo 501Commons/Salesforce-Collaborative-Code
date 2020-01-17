@@ -28,18 +28,26 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Account" extensions="Collab_CTRL_Assessment" title="{!$Label.Collab_labelAssessmentTitle}" tabStyle="Account" standardStylesheets="true">
+<apex:page standardController="Account" extensions="Collab_CTRL_Assessment" title="{!$Label.Collab_labelAssessmentTitle}" tabStyle="Account" lightningStylesheets="true" showHeader="false">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
     <style>
+        body{ background-color:white;  }
+
+        .THIS {
+            background-color: white;
+        }
+
         .myTD span.dateFormat {
             display: none !important;
         }
+
         .myTD.datetime,
         .myTD.textarea {
             min-width: 200px;
         }
+
         .myTD.picklist,
         .myTD.multipicklist,
         .myTD.reference,

@@ -28,18 +28,29 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Contact" extensions="Collab_CTRL_Contact" title="{!$Label.Collab_labelContactTitle}" tabStyle="Contact" lightningStylesheets="true">
+<apex:page standardController="Contact" extensions="Collab_CTRL_Contact" title="{!$Label.Collab_labelContactTitle}" tabStyle="Contact" lightningStylesheets="true" showHeader="false">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
 
     <style>
+
+        body .bPageBlock .pbHeader { 
+            background-color:white;
+        }
+
+        .THIS {
+            background-color: white;
+        }
+
         .myTD span.dateFormat {
             display: none !important;
         }
+
         .myTD.datetime,
         .myTD.textarea {
             min-width: 200px;
         }
+
         .myTD.picklist,
         .myTD.multipicklist,
         .myTD.reference,
@@ -77,10 +88,12 @@
             <!-- Default Page Blcok -->
             <apex:pageBlock rendered="{!ContactStandardFields.size > 0}">
 
-                <apex:pageBlockSection title="Contact Custom Fields" columns="2">
+                <apex:pageBlockSection title="Contact Custom Fields" columns="1">
                     <apex:repeat value="{!ContactStandardFields}" var="f">
-                            <apex:inputField value="{!ContactRecord[f.fieldPath]}" 
-                                required="{!OR(f.required, f.dbrequired)}"/>
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!ContactRecord[f.fieldPath]}" required="{!OR(f.required, f.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[f].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[f].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
                     </apex:repeat>
                 </apex:pageBlockSection>
 

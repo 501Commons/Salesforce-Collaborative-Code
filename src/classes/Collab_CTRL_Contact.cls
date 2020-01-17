@@ -29,7 +29,25 @@
 */
 
 public virtual with sharing class Collab_CTRL_Contact {
-    
+
+    //  Dynamic Object - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_globals_objecttype.htm
+    private String objType;
+    public sObject obj { 
+        get; 
+        set {
+	          setObjectType(value);
+        } 
+    }
+
+    // The sObject type as a string
+    public String getObjectType() {
+    	  return(this.objType);
+    }
+    public String setObjectType(sObject newObj) {
+        this.objType = newObj.getSObjectType().getDescribe().getName();
+        return(this.objType);
+    }
+
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
@@ -59,6 +77,8 @@ public virtual with sharing class Collab_CTRL_Contact {
         if (String.isBlank(this.ContactRecord.Id)) {
             return;
         }
+
+        this.obj = (sObject)this.ContactRecord;
 
         if (Test.isRunningTest()) {
             this.collaborative = 'Making_Life_Work';
