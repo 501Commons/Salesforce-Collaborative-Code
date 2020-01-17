@@ -109,12 +109,12 @@ global virtual with sharing class Collab_CTRL_Referral {
 
         Id userId = UserInfo.getUserId();
         if (!String.isBlank(userId)) {
-            List<User> activeUsers = [SELECT AccountId FROM User WHERE Id = :userId];
+            List<User> activeUsers = [SELECT AccountId, Name FROM User WHERE Id = :userId];
             if (!activeUsers.isEmpty()) {
                 List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE Account_Id__c = :activeUsers[0].AccountId];
                 if (!collabs.isEmpty()) {
                     this.collaborativeRecord = collabs[0];
-System.Debug('collab based on user: ' + this.collaborativeRecord);
+System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - collab based on user: ' + this.collaborativeRecord);
                 }
             }
         }
@@ -130,7 +130,13 @@ System.Debug('collab based on user: ' + this.collaborativeRecord);
 
         if (String.isBlank(this.collaborativeRecord.Id)) {
             this.collaborativeRecord = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
-System.Debug('collab based on DeveloperName: ' + collaborativeDeveloperName + ' collab record: ' + this.collaborativeRecord);
+System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - collab based on DeveloperName: ' + collaborativeDeveloperName + ' collab record: ' + this.collaborativeRecord);
+        }
+
+        // Rule - only change the owner if the referral created externally other clear out referral owner so new records don't get reassigned
+        System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - UserInfo.getUserName(): ' + UserInfo.getUserName());
+        if (!UserInfo.getUserName().containsIgnoreCase('Guest')) {
+            this.collaborativeRecord.New_Referral_Owner_Id__c = '';
         }
 
         // Contact - Get list of fields from Referral Contact fieldset
@@ -294,7 +300,10 @@ System.Debug('collab based on DeveloperName: ' + collaborativeDeveloperName + ' 
 
                 if (String.isBlank(contactRecord.Id)) {
 
-                    contactRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    if (!String.isBlank(this.collaborativeRecord.New_Referral_Owner_Id__c)) {
+                        contactRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    }
+
                     updateAccountOwner = true;
                     
                     insert contactRecord;
@@ -323,7 +332,9 @@ System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
             }
 
             if (updateAccountOwner) {
-                this.accountRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                if (!String.isBlank(this.collaborativeRecord.New_Referral_Owner_Id__c)) {
+                    this.accountRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                }
             }
 
             update this.accountRecord;
@@ -334,29 +345,36 @@ System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
             return null;
 
         } catch (Exception e) {
+
             strSaveResults = Label.Collab_labelReferralErrorOnSave;
             ApexPages.addMessages(e); 
+
             return null;
         }
     }
 
     //save the Contacts modified, and then close the page.
     public virtual PageReference SaveAndCloseReferral() {
+
         SaveReferral();
+
         if (ApexPages.hasMessages(ApexPages.Severity.ERROR) ||
-           ApexPages.hasMessages(ApexPages.Severity.FATAL) ||
+            ApexPages.hasMessages(ApexPages.Severity.FATAL) ||
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {
                 return null; // don't close window.
         }
+
         return Cancel();    
     }
     
     // user wants to close this page
     public virtual PageReference Cancel() {
+
         idRedirect = this.accountRecord.Id;
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
+
         return null;
     }
 
@@ -376,7 +394,9 @@ System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
 
     // user wants to add more empty rows to the Contacts table
     global PageReference AddMoreEmptyRows() {
+
         AddMoreEmptyRowsToContacts();
+
         return null;
     }
 

@@ -41,10 +41,14 @@
         />
 
     <script type="text/javascript">
+
         var redirect = {!redirect};
         if (redirect) {
+
+            // sforce - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/salesforce1_dev_jsapi_sforce_one.htm
+            /*
             if ((typeof sforce != 'undefined') && sforce && (!!sforce.one)) {
-                // Manage navigation in Lightning Experience & Salesforce1
+                    // Manage navigation in Lightning Experience & Salesforce1
                     sforce.one.back(true);
             }
             else {
@@ -52,6 +56,12 @@
                 // Manage navigation in Salesforce Classic
                 window.parent.location.href = '/' + recordId;
             }
+            */
+
+            // Manage navigation in Salesforce Communities
+            var recordId = '{!JSENCODE(recordId)}';
+            window.parent.location.href = '/collabpartners/' + recordId;
+
         }
     </script>
     

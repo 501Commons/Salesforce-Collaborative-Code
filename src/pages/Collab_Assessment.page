@@ -138,7 +138,7 @@
             <c:Collab_UTIL_PageMessages />
             <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == ''}" style="font-style:italic" /></p>
 
-            <apex:pageBlock>
+            <apex:pageBlock >
                 <apex:pageBlockSection title="Assessment Fields" columns="2">
                     <apex:repeat value="{!AssessmentFields}" var="af">
                         <apex:pageBlockSection columns="1">
