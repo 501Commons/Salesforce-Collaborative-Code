@@ -31,6 +31,7 @@
 <apex:page standardController="Account" extensions="Collab_CTRL_Referral" title="{!$Label.Collab_labelReferralTitle}" tabStyle="Account" showHeader="false" lightningStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
+    <apex:includeScript value="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" />
 
     <style>
 
@@ -59,6 +60,31 @@
         // hack that prevents Salesforce from always putting focus
         // on the first date field, which pops up the ugly calendar control!
         window.onload = function() {}
+    </script>
+
+    <!--this is where the magic happens-->
+    <script type="text/javascript">
+        //You need to wrap everything in document.ready because the select tag we are taregting needs to
+        //be loaded in the DOM before we can access it.
+        $(document).ready(function() {
+
+            //-----EDIT THE NEXT TWO LINES-----
+            var currentDate = new Date();
+
+            var startYear = parseInt(currentDate.getFullYear()) - 100;
+            var endYear = parseInt(currentDate.getFullYear());
+
+            //-----EDIT BELLOW HERE AT YOUR OWN RISK-----
+            var optionsString='';
+            if(startYear<endYear){
+                //Loops through each date and renders the string for an option tag and addes it to the Optrionsstring variable
+                for(i = startYear; i < endYear+1; i++){
+                    optionsString += "<option value=\""+i+"\">"+i+"</option>";
+                }
+                //Replace the innerHTML of the calendar picker year select tag with the Optionsstring we constructed.
+                $('#calYearPicker').html(optionsString);
+            }
+        });
     </script>
 
     <apex:form id="vfform">
