@@ -230,7 +230,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the ContactAssessment page</shortDescription>
-        <value>Referral Form</value>
+        <value>Referral Details</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralsaveSuccess</fullName>

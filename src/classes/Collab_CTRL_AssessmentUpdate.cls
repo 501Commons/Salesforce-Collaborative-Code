@@ -176,17 +176,21 @@ global virtual with sharing class Collab_CTRL_AssessmentUpdate {
 
     //save the Contacts modified, and then close the page.
     public virtual PageReference SaveAndCloseAssessment() {
+        
         SaveAssessment();
+
         if (ApexPages.hasMessages(ApexPages.Severity.ERROR) ||
            ApexPages.hasMessages(ApexPages.Severity.FATAL) ||
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {
                 return null; // don't close window.
         }
+
         return Cancel();    
     }
 
     // user wants to close this page
     public virtual PageReference Cancel() {
+        
         idRedirect = this.assessmentRecord.Id;
         
         // trigger our redirect component to redirect using javascript.

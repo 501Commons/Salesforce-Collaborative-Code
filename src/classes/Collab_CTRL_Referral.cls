@@ -131,14 +131,6 @@ global virtual with sharing class Collab_CTRL_Referral {
             this.collaborativeRecord = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
         }
 
-        // Rule - only change the owner if the referral created externally other clear out referral owner so new records don't get reassigned
-        System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - UserInfo.getUserName(): ' + UserInfo.getUserName());
-        if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
-            this.collaborativeRecord.New_Referral_Owner_Id__c = '';
-        }
-
-        System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - this.collaborativeRecord.New_Referral_Owner_Id__c: ' + this.collaborativeRecord.New_Referral_Owner_Id__c);
-
         // Contact - Get list of fields from Referral Contact fieldset
         List<String> listContactFields = new List<String>();
         for (Schema.FieldSetMember f : this.getReferralContactFields()) {
@@ -308,8 +300,10 @@ global virtual with sharing class Collab_CTRL_Referral {
                         contactRecord.AccountId = householdId;
                     }
 
-                    contactRecord.Collab_Name__c = this.collaborativeRecord.DeveloperName;
-                    
+                    // Save the Referral fields on the Contact for future delegation
+                    contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
+                    contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
+
                     insert contactRecord;
 
                     if (String.isBlank(householdId)) {
