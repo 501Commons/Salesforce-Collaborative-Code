@@ -78,7 +78,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>help text for the Assessment page</shortDescription>
-        <value>Update Assessment fields and manage Assessment subscriptions.  Update all data as appropriate, and then click Save.</value>
+        <value>Update all data as appropriate, and then click Save and Close.</value>
     </labels>
     <labels>
         <fullName>Collab_labelAssessmentTitle</fullName>
@@ -86,7 +86,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Assessment page</shortDescription>
-        <value>Assessment</value>
+        <value>New Assessment</value>
     </labels>
     <labels>
         <fullName>Collab_labelAssessmentsaveSuccess</fullName>
@@ -222,7 +222,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>help text for the ContactAssessment page</shortDescription>
-        <value>Update family and eligibility fields then add/update all the family members.  Update all data as appropriate, and then click Save or Save/Close.</value>
+        <value>Update family and eligibility fields then add/update all the family members.</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralTitle</fullName>

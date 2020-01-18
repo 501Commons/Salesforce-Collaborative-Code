@@ -144,6 +144,18 @@
                         </apex:repeat>
                     </apex:dataTable>
                 </apex:pageBlockSection>
+
+                <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
+
+                <div class="slds-grid">
+                    <div class="slds-col--padded slds-no-flex slds-align-middle">
+                        <div class="slds-button-group" role="group">
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
+                        </div>
+                    </div>
+                </div>
+
             </apex:pageBlock>
 
             <script type="text/javascript">
@@ -163,21 +175,6 @@
                 }
                 fixSearchIMG();
             </script>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" rendered="{!accountRecord.Id == ''}" immediate="true" reRender="tblContacts" oncomplete="javascript:fixSearchIMG()"/>
-
-            <!-- PAGE FOOTER -->
-            <div class="slds-page-header" role="banner">
-                <div class="slds-grid">
-                    <div class="slds-col--padded slds-no-flex slds-align-middle">
-                        <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveReferral}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!accountRecord.Id <> ''}" immediate="false" reRender="vfform,tblReferrals"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseReferral}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!accountRecord.Id == ''}" immediate="false" reRender="vfform"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /PAGE FOOTER -->
 
         </div> <!-- slds -->    
     </apex:form>

@@ -114,7 +114,6 @@ global virtual with sharing class Collab_CTRL_Referral {
                 List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE Account_Id__c = :activeUsers[0].AccountId];
                 if (!collabs.isEmpty()) {
                     this.collaborativeRecord = collabs[0];
-System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - collab based on user: ' + this.collaborativeRecord);
                 }
             }
         }
@@ -130,14 +129,15 @@ System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral
 
         if (String.isBlank(this.collaborativeRecord.Id)) {
             this.collaborativeRecord = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
-System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - collab based on DeveloperName: ' + collaborativeDeveloperName + ' collab record: ' + this.collaborativeRecord);
         }
 
         // Rule - only change the owner if the referral created externally other clear out referral owner so new records don't get reassigned
         System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - UserInfo.getUserName(): ' + UserInfo.getUserName());
-        if (!UserInfo.getUserName().containsIgnoreCase('Guest')) {
+        if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
             this.collaborativeRecord.New_Referral_Owner_Id__c = '';
         }
+
+        System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral - this.collaborativeRecord.New_Referral_Owner_Id__c: ' + this.collaborativeRecord.New_Referral_Owner_Id__c);
 
         // Contact - Get list of fields from Referral Contact fieldset
         List<String> listContactFields = new List<String>();
@@ -148,6 +148,9 @@ System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral
         // Contact - Required fields
         if (!listContactFields.contains('Id')) {
             listContactFields.add('Id');
+        }
+        if (!listContactFields.contains('OwnerId')) {
+            listContactFields.add('OwnerId');
         }
         if (!listContactFields.contains('AccountId')) {
             listContactFields.add('AccountId');
@@ -171,6 +174,10 @@ System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral
         //
         if (!listAccountFields.contains('Id')) {
             listAccountFields.add('Id');
+        }
+
+        if (!listAccountFields.contains('OwnerId')) {
+            listAccountFields.add('OwnerId');
         }
 
         if (!listAccountFields.contains('Name')) {
@@ -290,54 +297,33 @@ System.Debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral:Collab_CTRL_Referral
             Boolean updateAccountOwner = false;
             Id householdId;            
             for (Contact contactRecord :this.contactRecords) {
+
                 if (String.isBlank(contactRecord.LastName)) {
                     continue;
                 }
 
-                if (!String.isBlank(householdId)) {
-                    contactRecord.AccountId = householdId;
-                }
-
                 if (String.isBlank(contactRecord.Id)) {
 
-                    if (!String.isBlank(this.collaborativeRecord.New_Referral_Owner_Id__c)) {
-                        contactRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    if (!String.isBlank(householdId)) {
+                        contactRecord.AccountId = householdId;
                     }
 
-                    updateAccountOwner = true;
+                    contactRecord.Collab_Name__c = this.collaborativeRecord.DeveloperName;
                     
                     insert contactRecord;
+
+                    if (String.isBlank(householdId)) {
+                        householdId = [SELECT AccountId FROM Contact WHERE Id = :contactRecord.Id LIMIT 1].AccountId;
+                    }
                 }
                 else {
                     update contactRecord;
                 }
-
-                if (String.isBlank(householdId)) {
-System.debug('contactRecord.AccountId before: ' + contactRecord.AccountId);
-                    if (String.isBlank(contactRecord.AccountId)) {
-                        contactRecord.AccountId = [SELECT AccountId FROM Contact WHERE Id = :contactRecord.Id LIMIT 1].AccountId;
-                    }
-                    
-                    householdId = contactRecord.AccountId;
-System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
-                }
             }
 
-            if (String.isBlank(this.accountRecord.Id)) {
-                this.accountRecord.Id = householdId;
+            if (!String.isBlank(this.accountRecord.Id)) {
+                update this.accountRecord;
             }
-
-            if (String.isBlank(this.accountRecord.Collaborative__c)) {
-                this.accountRecord.Collaborative__c = this.collaborativeRecord.Account_Id__c;
-            }
-
-            if (updateAccountOwner) {
-                if (!String.isBlank(this.collaborativeRecord.New_Referral_Owner_Id__c)) {
-                    this.accountRecord.OwnerId = this.collaborativeRecord.New_Referral_Owner_Id__c;
-                }
-            }
-
-            update this.accountRecord;
 
             // Create a Referral Service Record
             // TBD
@@ -369,6 +355,11 @@ System.debug('contactRecord.AccountId after: ' + contactRecord.AccountId);
     
     // user wants to close this page
     public virtual PageReference Cancel() {
+
+        if (UserInfo.getUserName().containsIgnoreCase('referral')) {
+            Pagereference pageRef = new Pagereference('/referral/Collab_ReferralSubmitted');
+            return pageRef;
+        }
 
         idRedirect = this.accountRecord.Id;
         

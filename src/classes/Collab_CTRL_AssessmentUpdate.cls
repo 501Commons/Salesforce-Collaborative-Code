@@ -50,7 +50,7 @@ global virtual with sharing class Collab_CTRL_AssessmentUpdate {
 
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
-    
+
     private String collaborative;
 
     public Assessment__c assessmentRecord {
@@ -191,6 +191,7 @@ global virtual with sharing class Collab_CTRL_AssessmentUpdate {
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
+
         return null;
     }
 }

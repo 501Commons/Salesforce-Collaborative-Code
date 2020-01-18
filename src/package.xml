@@ -24,6 +24,7 @@
         <members>Collab_Contact</members>
         <members>Collab_CustomContactSearch</members>
         <members>Collab_Referral</members>
+        <members>Collab_ReferralSubmitted</members>
         <name>ApexPage</name>
     </types>
     <types>

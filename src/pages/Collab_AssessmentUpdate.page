@@ -62,7 +62,9 @@
     </script>
 
     <apex:form id="vaform">
+        
         <c:Collab_UTIL_NavigateBack recordId="{!idRedirect}" redirect="{!redirect}"/>
+
         <div class="sfdo213">
             <!-- PAGE SPINNER -->
             <apex:actionStatus id="retrieveStatus" 
@@ -74,27 +76,22 @@
                     <div class="slds-spinner__dot-b"></div>
                 </div>
             </div>
+
             <!-- PAGE HEADER -->
             <div class="slds-page-header" role="banner">
                 <div class="slds-grid">
-                    <div class="slds-col--padded">
-                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelAssessmentTitle}</h1>
-                    </div>        
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
-<!--
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
--->
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="assessmentForm,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="assessmentForm"/>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /PAGE HEADER -->
+
             <c:Collab_UTIL_PageMessages />
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == ''}" style="font-style:italic" /></p>
 
             <!-- Default Page Blcok -->
             <apex:pageBlock rendered="{!$User.UITheme <> 'Theme4t'}">
@@ -113,12 +110,24 @@
             <!-- Mobile pageBlock -->
             <apex:pageBlock rendered="{!$User.UITheme == 'Theme4t'}">
 
-                <apex:pageBlockSection title="Assessment Fields" columns="1">
+                <apex:pageBlockSection title="Assessment Custom Fields" columns="1">
                     <apex:repeat value="{!AssessmentFields}" var="af">
-                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" 
-                                required="{!OR(af.required, af.dbrequired)}"/>
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecord[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
                     </apex:repeat>
                 </apex:pageBlockSection>
+
+                <div class="slds-grid">
+                    <div class="slds-col--padded slds-no-flex slds-align-middle">
+                        <div class="slds-button-group" role="group">
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
+                        </div>
+                    </div>
+                </div>
+
             </apex:pageBlock>
 
             <script type="text/javascript">
@@ -138,23 +147,6 @@
                 }
                 fixSearchIMG();
             </script>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-
-            <!-- PAGE FOOTER -->
-            <div class="slds-page-header" role="banner">
-                <div class="slds-grid">
-                    <div class="slds-col--padded slds-no-flex slds-align-middle">
-                        <div class="slds-button-group" role="group">
-<!--
-                            <apex:commandButton styleClass="slds-button slds-button--neutral" action="{!Cancel}" value="{!IF(ISNULL(strSaveResults), $Label.Collab_labelButtonCancel, $Label.Collab_labelButtonClose)}" immediate="true" reRender="vaform"/> 
--->
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="vaform,tblAssessments"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="vaform"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /PAGE FOOTER -->
 
         </div> <!-- slds -->    
     </apex:form>
