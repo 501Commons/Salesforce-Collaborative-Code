@@ -48,7 +48,7 @@
         <fullName>C501_Referral_Source__c</fullName>
         <description>ISA Referral: &quot;Referral Source&quot;; Also used for CCR, MLW and NCCC referrals</description>
         <externalId>false</externalId>
-        <label>Referral Source</label>
+        <label>Referral Organization</label>
         <length>255</length>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>

@@ -75,7 +75,7 @@ global virtual with sharing class Collab_CTRL_Referral {
     public Account accountRecord {
         get {
             if (accountRecord == null) {
-                accountRecord = new Account();
+                accountRecord = new Account(Id = '');
             }
 
             return accountRecord;
@@ -102,33 +102,61 @@ global virtual with sharing class Collab_CTRL_Referral {
 
     global Collab_CTRL_Referral(ApexPages.StandardController controller) {
 
+        System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral');
         redirect = false;
 
         this.accountRecord = (Account)controller.getRecord();
+        System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral this.accountRecord: ' + this.accountRecord);
         this.obj = (sObject)this.accountRecord;
+        System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral this.obj: ' + this.obj);
 
-        Id userId = UserInfo.getUserId();
-        if (!String.isBlank(userId)) {
-            List<User> activeUsers = [SELECT AccountId, Name FROM User WHERE Id = :userId];
-            if (!activeUsers.isEmpty()) {
-                List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE Account_Id__c = :activeUsers[0].AccountId];
+        if (Test.isRunningTest()) {
+
+            List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt LIMIT 1];
+            if (!collabs.isEmpty()) {
+                this.collaborativeRecord = collabs[0];
+            }
+        }
+
+        if (String.isBlank(this.collaborativeRecord.Id)) {
+
+            String collaborativeDeveloperName = System.currentPageReference().getParameters().get('collab');
+
+            if (!String.isBlank(collaborativeDeveloperName)) {
+
+                // Security Injection Checks
+                collaborativeDeveloperName = Collab_SharedCode.GetCodeSafeString(collaborativeDeveloperName);
+    
+                List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
                 if (!collabs.isEmpty()) {
                     this.collaborativeRecord = collabs[0];
                 }
             }
         }
 
-        String collaborativeDeveloperName = System.currentPageReference().getParameters().get('collab');
+        Id userId = UserInfo.getUserId();
+        System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral userId: ' + userId);
+        if (String.isBlank(this.collaborativeRecord.Id) && !String.isBlank(userId)) {
 
-        // Security Injection Checks
-        collaborativeDeveloperName = Collab_SharedCode.GetCodeSafeString(collaborativeDeveloperName);
+            List<User> activeUsers = [SELECT AccountId, Name FROM User WHERE Id = :userId];
+            System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral activeUsers: ' + activeUsers);
+            if (!activeUsers.isEmpty() && !String.isBlank(activeUsers[0].AccountId)) {
 
-        if (Test.isRunningTest()) {
-            collaborativeDeveloperName = 'Making_Life_Work';
-        }
+                List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE Account_Id__c = :activeUsers[0].AccountId];
+                System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral User Collab: ' + collabs);
+                if (!collabs.isEmpty()) {
+                    this.collaborativeRecord = collabs[0];
+                }
+            }
+            else if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
 
-        if (String.isBlank(this.collaborativeRecord.Id)) {
-            this.collaborativeRecord = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt WHERE DeveloperName = :collaborativeDeveloperName LIMIT 1];
+                // Valid SF user but no associated collab so just grab a collab for relating to family
+                List<Collab_Setting__mdt> collabs = [SELECT Id, Account_Id__c, DeveloperName, New_Referral_Owner_Id__c, Eligibility_Report_URL__c FROM Collab_Setting__mdt LIMIT 1];
+                System.debug(LoggingLevel.DEBUG, '*****Collab_CTRL_Referral.Collab_CTRL_Referral Defalt Collab: ' + collabs);
+                if (!collabs.isEmpty()) {
+                    this.collaborativeRecord = collabs[0];
+                }
+            }
         }
 
         // Contact - Get list of fields from Referral Contact fieldset
@@ -208,6 +236,47 @@ global virtual with sharing class Collab_CTRL_Referral {
         AddMoreEmptyRowsToContacts();
     }   
     
+    private void QueueMergeRecord(Id masterRecord, Id mergeRecord) {
+
+        // Setup Steps
+        //
+        //  1) Need to create this report in Mass Merge Reports
+        //  2) Merge Metric created automatically in SF need to change owner to Guest User if Possible
+        //      otherwise let this run to create Guest User created merge metric and then delete the other one
+        //
+        String mergeMetricName = 'Merge Rule Pending Merge Public Referral';
+        List<c501mm__C501_Merge_Metric__c> mergeMetrics = Database.Query('SELECT Id, c501mm__AutoMerge_Percentage__c FROM c501mm__C501_Merge_Metric__c WHERE Name = \'' + mergeMetricName + '\'');
+
+        if (mergeMetrics.isEmpty()) {
+
+            mergeMetrics.add( new c501mm__C501_Merge_Metric__c (
+                Name = (Test.isRunningTest() ? ('TESTDATA ' + mergeMetricName) : mergeMetricName),
+                c501mm__Confidence__c = 90.0,
+                c501mm__AutoMerge_Percentage__c = 100.0,
+                c501mm__AutoMerge_Objects__c = 'Account',
+                c501mm__Enable_Contact_Merge_Discovery__c = false,
+                c501mm__Enable_Account_Merge_Discovery__c = false,
+                c501mm__Source_Report__c = 'Merge_Rule_Pending_Merge_Public_Referral',
+                c501mm__Source_Object__c = 'Account',
+                c501mm__Source_Object_Account_Id__c = 'Id',
+                c501mm__Source_Object_Contact_Id__c = 'Id',
+                c501mm__Description__c = mergeMetricName,
+                c501mm__Unique_Id__c = 'Merge_Rule_Pending_Merge_Public_Referral'
+            ));
+
+            insert mergeMetrics;
+        }
+
+        insert new c501mm__C501_Account_Merge__c(
+            c501mm__Unique_Id__c = mergeMetricName + masterRecord + mergeRecord,
+            c501mm__Merge_Confidence__c = mergeMetrics[0].c501mm__AutoMerge_Percentage__c,
+            c501mm__Account__c = masterRecord,
+            c501mm__Merge_Target_Account__c = mergeRecord,
+            c501mm__Merge_Metric__c = mergeMetrics[0].Id
+        );
+
+    }
+
     // getter - reference in Visualforce as ReferralContactFields
     public List<Schema.FieldSetMember> getReferralContactFields() {
         return fieldSetReferralContactActive.getFields();
@@ -287,7 +356,7 @@ global virtual with sharing class Collab_CTRL_Referral {
             // NPSP - Create Contact first which will create the Household
             //
             Boolean updateAccountOwner = false;
-            Id householdId;            
+            Id householdId = this.accountRecord.Id;            
             for (Contact contactRecord :this.contactRecords) {
 
                 if (String.isBlank(contactRecord.LastName)) {
@@ -308,6 +377,19 @@ global virtual with sharing class Collab_CTRL_Referral {
 
                     if (String.isBlank(householdId)) {
                         householdId = [SELECT AccountId FROM Contact WHERE Id = :contactRecord.Id LIMIT 1].AccountId;
+
+                        // Check if Public Referral then create related referral account to later copy values into referral
+                        if (UserInfo.getUserName().containsIgnoreCase('referral')) {
+                            
+                            this.accountRecord.Name = 'Merge With ' + householdId;
+                            insert this.accountRecord;
+
+                            // Queue up a Merge Record
+                            this.QueueMergeRecord(householdId, this.accountRecord.Id);
+                        }
+                        else { 
+                            this.accountRecord.Id = householdId;    
+                        }
                     }
                 }
                 else {
@@ -344,12 +426,6 @@ global virtual with sharing class Collab_CTRL_Referral {
                 return null; // don't close window.
         }
 
-        return Cancel();    
-    }
-    
-    // user wants to close this page
-    public virtual PageReference Cancel() {
-
         if (UserInfo.getUserName().containsIgnoreCase('referral')) {
             Pagereference pageRef = new Pagereference('/referral/Collab_ReferralSubmitted');
             return pageRef;
@@ -359,6 +435,12 @@ global virtual with sharing class Collab_CTRL_Referral {
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
+
+        return null;
+    }
+    
+    // user wants to close this page
+    public virtual PageReference Cancel() {
 
         return null;
     }

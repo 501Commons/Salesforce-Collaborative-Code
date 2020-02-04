@@ -225,11 +225,19 @@
         <value>Update family and eligibility fields then add/update all the family members.</value>
     </labels>
     <labels>
+        <fullName>Collab_labelReferralSubmittedTitle</fullName>
+        <categories>Referral</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title for the referral submitted page</shortDescription>
+        <value>Referral Submitted</value>
+    </labels>
+    <labels>
         <fullName>Collab_labelReferralTitle</fullName>
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>title for the ContactAssessment page</shortDescription>
+        <shortDescription>Title for the referral page</shortDescription>
         <value>Referral Details</value>
     </labels>
     <labels>
