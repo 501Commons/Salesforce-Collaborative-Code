@@ -28,6 +28,11 @@
         <name>ApexPage</name>
     </types>
     <types>
+        <members>defaultTokens</members>
+        <members>uwCommThemeLayout</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
         <members>Account.C501_Needs_Interpreter__c</members>
         <members>Account.C501_Primary_Languages__c</members>
         <members>Account.C501_Referral_Date__c</members>
