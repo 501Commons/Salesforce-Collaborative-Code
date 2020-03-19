@@ -30,6 +30,7 @@
 
 public with sharing class Collab_SharedCode { 
 
+    public class InvalidParameterValueException extends Exception {}
     public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment, Custom_Contact, Custom_Account }
 
     public static String GetCodeSafeString(String potentialCodeUnsafeString) {
@@ -129,6 +130,29 @@ public with sharing class Collab_SharedCode {
 
     public static void TestSetup() {
 
+        String collaborativeRecordType = '';
+        String familyRecordType = '';
+        for (RecordType recordTypeRecord :[SELECT Id, DeveloperName FROM RecordType WHERE SObjectType = 'Account']) {
+            if (recordTypeRecord.DeveloperName.equalsIgnoreCase('Collaborative')) {
+                collaborativeRecordType = recordTypeRecord.Id;
+            }
+            else if (recordTypeRecord.DeveloperName.equalsIgnoreCase('HH_Account')) {
+                familyRecordType = recordTypeRecord.Id;
+            }
+        }
+
+        if (String.isBlank(collaborativeRecordType) || String.isBlank(familyRecordType)) {
+            throw new InvalidParameterValueException('RecordType Error - Account missing expected record type - collaborativeRecordType: ' + collaborativeRecordType + ' familyRecordType: ' + familyRecordType);
+        }
+
+        // Create a Collaborative
+        Account collaborative = new Account(
+            Name = 'Collaborative',
+            RecordTypeId = collaborativeRecordType
+        );
+
+        insert collaborative;
+
         List<Account> listAccounts = new List<Account>();   
         Integer cAccounts = 10;     
         Integer matchIndex = 1;
@@ -140,12 +164,14 @@ public with sharing class Collab_SharedCode {
 
             Account account = new Account(
                 
-                Name='TESTDATA Flintstone Household',
+                Name = 'TESTDATA Flintstone Household',
                 BillingStreet = String.valueOf(matchIndex) + ' BillingStreet',
                 BillingCity = 'BillingCity',
                 BillingState = 'WA',
                 BillingPostalCode =  '12345',
-                Website = 'https://www.flintstone.org' + String.valueOf(matchIndex)
+                Website = 'https://www.flintstone.org' + String.valueOf(matchIndex),
+                Collaborative__c = collaborative.Id,
+                RecordTypeId = familyRecordType
             );
 
             listAccounts.add(account);

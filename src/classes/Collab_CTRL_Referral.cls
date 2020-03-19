@@ -34,6 +34,8 @@
 
 global virtual with sharing class Collab_CTRL_Referral {
 
+    public class InvalidParameterValueException extends Exception {}
+
     //  Dynamic Object - https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_globals_objecttype.htm
     private String objType;
     public sObject obj { 
@@ -231,9 +233,11 @@ global virtual with sharing class Collab_CTRL_Referral {
 
             this.accountRecord.Eligibility_Criteria__c = this.collaborativeRecord.Eligibility_Report_URL__c;
         }
-
-        // Insert empty rows into contacts datatable
-        AddMoreEmptyRowsToContacts();
+        else {
+            
+            // Insert empty rows into contacts datatable
+            AddMoreEmptyRowsToContacts();
+        }
     }   
     
     private void QueueMergeRecord(Id masterRecord, Id mergeRecord) {
@@ -241,8 +245,8 @@ global virtual with sharing class Collab_CTRL_Referral {
         // Setup Steps
         //
         //  1) Need to create this report in Mass Merge Reports
-        //  2) Merge Metric created automatically in SF need to change owner to Guest User if Possible
-        //      otherwise let this run to create Guest User created merge metric and then delete the other one
+        //  2) Merge Metric created automatically in SF need to change owner to referral User if Possible
+        //      otherwise let this run to create referral User created merge metric and then delete the other one
         //
         String mergeMetricName = 'Merge Rule Pending Merge Public Referral';
         List<c501mm__C501_Merge_Metric__c> mergeMetrics = Database.Query('SELECT Id, c501mm__AutoMerge_Percentage__c FROM c501mm__C501_Merge_Metric__c WHERE Name = \'' + mergeMetricName + '\'');
@@ -359,10 +363,6 @@ global virtual with sharing class Collab_CTRL_Referral {
             Id householdId = this.accountRecord.Id;            
             for (Contact contactRecord :this.contactRecords) {
 
-                if (String.isBlank(contactRecord.LastName)) {
-                    continue;
-                }
-
                 if (String.isBlank(contactRecord.Id)) {
 
                     if (!String.isBlank(householdId)) {
@@ -371,14 +371,28 @@ global virtual with sharing class Collab_CTRL_Referral {
 
                     // Save the Referral fields on the Contact for future delegation
                     contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
-                    contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    contactRecord.npe01__PreferredPhone__c = 'Mobile';
+
+                    // Check if valid SF user or external referral (external referral is assigned to New Referral Owner)
+                    if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
+                        contactRecord.Referral_OwnerId__c = UserInfo.getUserId();
+                    }
+                    else {
+                        contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    }
 
                     insert contactRecord;
 
-                    if (String.isBlank(householdId)) {
-                        householdId = [SELECT AccountId FROM Contact WHERE Id = :contactRecord.Id LIMIT 1].AccountId;
+                    if (String.isBlank(householdId) || String.isBlank(this.accountRecord.Id)) {
 
-                        // Check if Public Referral then create related referral account to later copy values into referral
+                        List<Contact> contactRecords = [SELECT AccountId, LastName, Id FROM Contact WHERE Id = :contactRecord.Id];
+                        if (contactRecords.isEmpty()) {
+                            throw new InvalidParameterValueException('NPSP Error - Household Account not Created for Contact Id: ' + contactRecord.Id);
+                        }
+
+                        householdId = contactRecords[0].AccountId;
+
+                        // Check if Public Referral then create related referral account to later merge values into referral account created by NPSP
                         if (UserInfo.getUserName().containsIgnoreCase('referral')) {
                             
                             this.accountRecord.Name = 'Merge With ' + householdId;
@@ -387,17 +401,18 @@ global virtual with sharing class Collab_CTRL_Referral {
                             // Queue up a Merge Record
                             this.QueueMergeRecord(householdId, this.accountRecord.Id);
                         }
-                        else { 
+                        else {
                             this.accountRecord.Id = householdId;    
                         }
                     }
                 }
                 else {
+                    System.debug(LoggingLevel.DEBUG, '****Collab_CTRL_Referral::SaveReferral - Update contactRecord: ' + contactRecord);
                     update contactRecord;
                 }
             }
 
-            if (!String.isBlank(this.accountRecord.Id)) {
+            if (!UserInfo.getUserName().containsIgnoreCase('referral') && !String.isBlank(this.accountRecord.Id)) {
                 update this.accountRecord;
             }
 

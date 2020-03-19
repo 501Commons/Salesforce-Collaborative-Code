@@ -146,7 +146,7 @@
                     <apex:outputText value="{!accountRecord.Eligibility_Criteria__c}" />
                 </apex:pageBlockSection>
 
-                <apex:pageBlockSection title="Family Members" rendered="{!accountRecord.Id == ''}">
+                <apex:pageBlockSection title="Family Members" rendered="{!accountRecord.Id == ''}" id="contactList">
                     <apex:dataTable value="{!contactRecords}" var="contactRecord" id="tblContacts" 
                         styleClass="slds-table slds-table--compact slds-table--bordered"
                         headerClass="slds-text-heading--label slds-theme--shade" style="width:100%" >  
@@ -172,7 +172,7 @@
                 
                 <div class="slds-grid">
                     <br/>
-                    <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" immediate="true" rendered="{!accountRecord.Id == ''}" oncomplete="javascript:fixSearchIMG()"/>
+                    <apex:commandLink action="{!AddMoreEmptyRows}" value="{!$Label.labelLinkAddMoreRows}" id="linkAdd" immediate="true" rendered="{!accountRecord.Id == ''}" reRender="contactList" oncomplete="javascript:fixSearchIMG()"/>
                     <br/>
                 </div>
                                 
