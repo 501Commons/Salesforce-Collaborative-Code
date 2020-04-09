@@ -395,11 +395,12 @@ global virtual with sharing class Collab_CTRL_Referral {
                         // Check if Public Referral then create related referral account to later merge values into referral account created by NPSP
                         if (UserInfo.getUserName().containsIgnoreCase('referral')) {
                             
-                            this.accountRecord.Name = 'Merge With ' + householdId;
+                            this.accountRecord.C501_Swap_Household_Id__c = householdId;
+                            this.accountRecord.Name = 'SwapWithHousehold:' + householdId;
                             insert this.accountRecord;
 
                             // Queue up a Merge Record
-                            this.QueueMergeRecord(householdId, this.accountRecord.Id);
+                            //this.QueueMergeRecord(householdId, this.accountRecord.Id);
                         }
                         else {
                             this.accountRecord.Id = householdId;    
