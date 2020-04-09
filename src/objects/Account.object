@@ -68,4 +68,16 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>C501_Swap_Household_Id__c</fullName>
+        <description>Id to Swap out the Household</description>
+        <externalId>false</externalId>
+        <label>Swap Household Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
 </CustomObject>

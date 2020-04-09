@@ -6,6 +6,7 @@
         <members>Collab_CTRL_AssessmentUpdate</members>
         <members>Collab_CTRL_Contact</members>
         <members>Collab_CTRL_CustomContactSearch</members>
+        <members>Collab_CTRL_Delete</members>
         <members>Collab_CTRL_Referral</members>
         <members>Collab_CTRL_TEST</members>
         <members>Collab_SharedCode</members>
@@ -23,6 +24,7 @@
         <members>Collab_AssessmentUpdate</members>
         <members>Collab_Contact</members>
         <members>Collab_CustomContactSearch</members>
+        <members>Collab_Delete</members>
         <members>Collab_Referral</members>
         <members>Collab_ReferralSubmitted</members>
         <name>ApexPage</name>
@@ -39,6 +41,7 @@
         <members>Account.C501_Referral_Notes__c</members>
         <members>Account.C501_Referral_Source__c</members>
         <members>Account.C501_Referrers_Name__c</members>
+        <members>Account.C501_Swap_Household_Id__c</members>
         <members>Contact.C501_Best_Contact_Time_Method__c</members>
         <name>CustomField</name>
     </types>
@@ -68,6 +71,7 @@
         <members>Collab_labelContactHelp</members>
         <members>Collab_labelContactTitle</members>
         <members>Collab_labelContactsaveSuccess</members>
+        <members>Collab_labelDeleteTitle</members>
         <members>Collab_labelEligibilityErrorOnSave</members>
         <members>Collab_labelEligibilityHelp</members>
         <members>Collab_labelEligibilityHelp</members>
