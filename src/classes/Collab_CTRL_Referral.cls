@@ -468,6 +468,7 @@ global virtual with sharing class Collab_CTRL_Referral {
             for (integer i = 0; i < cEmptyContactRecords; i++) { 
                 Contact contactRecord = new Contact();
                 contactRecord.AccountId = this.accountRecord.Id;
+                contactRecord.RecordTypeId = '0121U000000WxDnQAK';
                 this.contactRecords.add(contactRecord);
             }
         } catch (Exception e) {

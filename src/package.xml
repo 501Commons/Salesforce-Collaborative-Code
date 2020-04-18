@@ -3,7 +3,6 @@
     <types>
         <members>Collab_CTRL_Account</members>
         <members>Collab_CTRL_Assessment</members>
-        <members>Collab_CTRL_AssessmentUpdate</members>
         <members>Collab_CTRL_Contact</members>
         <members>Collab_CTRL_CustomContactSearch</members>
         <members>Collab_CTRL_Delete</members>
@@ -42,6 +41,8 @@
         <members>Account.C501_Referral_Source__c</members>
         <members>Account.C501_Referrers_Name__c</members>
         <members>Account.C501_Swap_Household_Id__c</members>
+        <members>Assessment__c.Account__c</members>
+        <members>Assessment__c.Family_Member__c</members>
         <members>Contact.C501_Best_Contact_Time_Method__c</members>
         <name>CustomField</name>
     </types>
@@ -71,7 +72,6 @@
         <members>Collab_labelContactHelp</members>
         <members>Collab_labelContactTitle</members>
         <members>Collab_labelContactsaveSuccess</members>
-        <members>Collab_labelDeleteTitle</members>
         <members>Collab_labelEligibilityErrorOnSave</members>
         <members>Collab_labelEligibilityHelp</members>
         <members>Collab_labelEligibilityHelp</members>
@@ -85,6 +85,40 @@
         <members>Collab_labelReferralsaveSuccess</members>
         <members>labelLinkAddMoreRows</members>
         <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>Assessment__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Assessment__c.CCR_AFAR</members>
+        <members>Assessment__c.CCR_AFAR_Early_Childhood</members>
+        <members>Assessment__c.CCR_AFAR_Economic_Assets</members>
+        <members>Assessment__c.CCR_AFAR_Health_Well_Being</members>
+        <members>Assessment__c.CCR_AFAR_Post_Secondary_Employment</members>
+        <members>Assessment__c.CCR_AFAR_Social_Capital</members>
+        <members>Assessment__c.HH_Needs</members>
+        <members>Assessment__c.HH_Needs_Early_Childhood</members>
+        <members>Assessment__c.HH_Needs_Economic_Assets</members>
+        <members>Assessment__c.HH_Needs_Health_Well_Being</members>
+        <members>Assessment__c.HH_Needs_Post_Secondary_Employment</members>
+        <members>Assessment__c.HH_Needs_Social_Capital</members>
+        <members>Assessment__c.ISA_Assessment</members>
+        <members>Assessment__c.ISA_Assessment_Early_Childhood</members>
+        <members>Assessment__c.ISA_Assessment_Health_Well_Being</members>
+        <members>Assessment__c.MLW_Bridge</members>
+        <members>Assessment__c.MLW_Bridge_Early_Childhood</members>
+        <members>Assessment__c.MLW_Bridge_Economic_Assets</members>
+        <members>Assessment__c.MLW_Bridge_Health_Well_Being</members>
+        <members>Assessment__c.MLW_Bridge_Post_Secondary_Employment</members>
+        <members>Assessment__c.MLW_Bridge_Social_Capital</members>
+        <members>Assessment__c.NCCC</members>
+        <members>Assessment__c.NCCC_Early_Childhood</members>
+        <members>Assessment__c.NCCC_Economic_Assets</members>
+        <members>Assessment__c.NCCC_Health_Well_Being</members>
+        <members>Assessment__c.NCCC_Post_Secondary_Employment</members>
+        <members>Assessment__c.NCCC_Social_Capital</members>
+        <name>FieldSet</name>
     </types>
     <types>
         <members>Bootstrap</members>

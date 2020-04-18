@@ -89,14 +89,6 @@
         <value>New Assessment</value>
     </labels>
     <labels>
-        <fullName>Collab_labelDeleteTitle</fullName>
-        <categories>Delete</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>title for the Delete page</shortDescription>
-        <value>Delete</value>
-    </labels>
-    <labels>
         <fullName>Collab_labelAssessmentsaveSuccess</fullName>
         <categories>Assessment</categories>
         <language>en_US</language>

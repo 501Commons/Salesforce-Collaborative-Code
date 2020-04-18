@@ -155,6 +155,66 @@
                             <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
                         </apex:pageBlockSection>
                     </apex:repeat>
+
+                    <div class="slds-form-element slds-p-top--small">
+                        <apex:outputLabel value="Family Member" styleClass="slds-form-element__label" />
+                        <div class="slds-form-element__control">
+                            <apex:selectList value="{!familyMemberId}" size="1" styleClass="slds-select">
+                                <apex:selectOptions value="{!listFamilyMembers}" /> 
+                            </apex:selectList>
+                        </div>
+                    </div>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Early Childhood Domain Fields" columns="2" rendered="{!AssessmentFieldsEarlyChildhood <> null}">
+                    <apex:repeat value="{!AssessmentFieldsEarlyChildhood}" var="af">
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecordEarlyChildhood[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
+                    </apex:repeat>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Economic Assets Domain Fields" columns="2" rendered="{!AssessmentFieldsEconomicAssets <> null}">
+                    <apex:repeat value="{!AssessmentFieldsEconomicAssets}" var="af">
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecordEconomicAssets[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
+                    </apex:repeat>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Health & Well-Being Domain Fields" columns="2" rendered="{!AssessmentFieldsHealthWellBeing <> null}">
+                    <apex:repeat value="{!AssessmentFieldsHealthWellBeing}" var="af">
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecordHealthWellBeing[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
+                    </apex:repeat>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Post-Secondary & Employment Domain Fields" columns="2" rendered="{!AssessmentFieldsPostSecondaryEmployment <> null}">
+                    <apex:repeat value="{!AssessmentFieldsPostSecondaryEmployment}" var="af">
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecordPostSecondaryEmployment[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
+                    </apex:repeat>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Social Capital Domain Fields" columns="2" rendered="{!AssessmentFieldsSocialCapital <> null}">
+                    <apex:repeat value="{!AssessmentFieldsSocialCapital}" var="af">
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!assessmentRecordSocialCapital[af.fieldPath]}" required="{!OR(af.required, af.dbrequired)}"/>
+                            <apex:outputText value="{!$ObjectType[objectType].fields[af].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[af].inlineHelpText <> ''}" />                                
+                        </apex:pageBlockSection>
+                    </apex:repeat>
+
                 </apex:pageBlockSection>
 
                 <div class="slds-grid">

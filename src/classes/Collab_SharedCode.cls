@@ -32,6 +32,7 @@ public with sharing class Collab_SharedCode {
 
     public class InvalidParameterValueException extends Exception {}
     public enum FieldSetScenarios { Referral_Account, Referral_Contact, Eligibility_Account, Eligibility_Contact, Assessment, Custom_Contact, Custom_Account }
+    public enum Domains { Early_Childhood, Economic_Assets, Health_Well_Being, Post_Secondary_Employment, Social_Capital }
 
     public static String GetCodeSafeString(String potentialCodeUnsafeString) {
 
