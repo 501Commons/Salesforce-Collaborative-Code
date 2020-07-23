@@ -162,6 +162,7 @@ public virtual with sharing class Collab_CTRL_Account {
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {
                 return null; // don't close window.
         }
+        
         return Cancel();    
     }
     

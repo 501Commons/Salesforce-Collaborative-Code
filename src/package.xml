@@ -42,6 +42,22 @@
         <members>Account.C501_Referrers_Name__c</members>
         <members>Account.C501_Swap_Household_Id__c</members>
         <members>Assessment__c.Account__c</members>
+        <members>Assessment__c.C501_NCCC_Childcare__c</members>
+        <members>Assessment__c.C501_NCCC_Children_s_Education__c</members>
+        <members>Assessment__c.C501_NCCC_Daily_Functioning__c</members>
+        <members>Assessment__c.C501_NCCC_Employment__c</members>
+        <members>Assessment__c.C501_NCCC_English_Literacy_Comprehension__c</members>
+        <members>Assessment__c.C501_NCCC_Financial_Income__c</members>
+        <members>Assessment__c.C501_NCCC_Food__c</members>
+        <members>Assessment__c.C501_NCCC_Healthcare__c</members>
+        <members>Assessment__c.C501_NCCC_Housing__c</members>
+        <members>Assessment__c.C501_NCCC_Legal_Civil__c</members>
+        <members>Assessment__c.C501_NCCC_Legal_Criminal__c</members>
+        <members>Assessment__c.C501_NCCC_Mental_Health__c</members>
+        <members>Assessment__c.C501_NCCC_Security__c</members>
+        <members>Assessment__c.C501_NCCC_Substance_Abuse__c</members>
+        <members>Assessment__c.C501_NCCC_Support__c</members>
+        <members>Assessment__c.C501_NCCC_Transportation__c</members>
         <members>Assessment__c.Family_Member__c</members>
         <members>Contact.C501_Best_Contact_Time_Method__c</members>
         <name>CustomField</name>

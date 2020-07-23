@@ -162,7 +162,8 @@ public virtual with sharing class Collab_CTRL_Contact {
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {
                 return null; // don't close window.
         }
-        return Cancel();    
+
+        return null;
     }
     
     // user wants to close this page

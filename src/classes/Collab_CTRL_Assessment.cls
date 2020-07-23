@@ -53,6 +53,17 @@ global virtual with sharing class Collab_CTRL_Assessment {
     
     private String collaborative;
 
+    public Account accountRecord {
+        get {
+            if (accountRecord == null) {
+                accountRecord = new Account(Id = '');
+            }
+
+            return accountRecord;
+        }
+        set;
+    }
+
     public Assessment__c assessmentRecord {
         get {
             if (assessmentRecord == null) {
@@ -130,13 +141,14 @@ global virtual with sharing class Collab_CTRL_Assessment {
         redirect = false;
 
         if (controller.getRecord().getSObjectType() == Schema.Account.getSObjectType()) {
-            Account accountControllerRecord = (Account)controller.getRecord();
-            System.debug('****Collab_CTRL_Assessment Controller for Account: ' + accountControllerRecord);
-            this.assessmentRecord.Account__c = accountControllerRecord.Id;
+            this.accountRecord = (Account)controller.getRecord();
+            System.debug('****Collab_CTRL_Assessment Controller for Account: ' + this.accountRecord);
+            this.assessmentRecord.Account__c = this.accountRecord.Id;
         }
         else {
             Assessment__c assessmentControllerRecord = (Assessment__c)controller.getRecord();
             this.assessmentRecord = [SELECT Id, Name, Account__c, Domain__c FROM Assessment__c WHERE Id = :assessmentControllerRecord.Id LIMIT 1];
+            this.accountRecord.Id = this.assessmentRecord.Account__c;
             System.debug('****Collab_CTRL_Assessment Controller for Assessment: ' + this.assessmentRecord);
         }
 
@@ -355,7 +367,9 @@ global virtual with sharing class Collab_CTRL_Assessment {
                 if (this.domainFieldValid(this.assessmentRecord.Domain__c)) {
                     System.debug('**** domainFieldValid - ' + this.assessmentRecord.Domain__c);
                     this.assessmentRecord.Id = null;
+                    System.debug('**** before insert - ' + this.assessmentRecord);
                     insert this.assessmentRecord;
+                    System.debug('**** after insert - ' + this.assessmentRecord);
                     this.assessmentRecordEarlyChildhood.Id = this.assessmentRecord.Id;
                     update this.assessmentRecordEarlyChildhood;
                 }
@@ -443,7 +457,13 @@ global virtual with sharing class Collab_CTRL_Assessment {
             ApexPages.hasMessages(ApexPages.Severity.WARNING)) {
                 return null; // don't close window.
         }
-        return Cancel();    
+
+        idRedirect = this.accountRecord.Id;
+
+        // trigger our redirect component to redirect using javascript.
+        redirect = true;
+
+        return null;
     }
 
     // user wants to close this page

@@ -1037,9 +1037,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Childcare__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Childcare&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Childcare&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Childcare&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Childcare&quot;</inlineHelpText>
         <label>Childcare</label>
         <length>4</length>
         <required>false</required>
@@ -1050,9 +1050,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Children_s_Education__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Children&apos;s Education&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Children&apos;s Education&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Children&apos;s Education&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Children&apos;s Education&quot;</inlineHelpText>
         <label>Children&apos;s Education</label>
         <length>4</length>
         <required>false</required>
@@ -1063,9 +1063,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Daily_Functioning__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Skills for Daily Functioning&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Skills for Daily Functioning&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Skills for Daily Functioning&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Skills for Daily Functioning&quot;</inlineHelpText>
         <label>Daily Functioning</label>
         <length>4</length>
         <required>false</required>
@@ -1076,9 +1076,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Employment__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Employment&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Employment&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Employment&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Employment&quot;</inlineHelpText>
         <label>Employment</label>
         <length>4</length>
         <required>false</required>
@@ -1102,9 +1102,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Financial_Income__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Financial/Income&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Financial/Income&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Financial/Income&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Financial/Income&quot;</inlineHelpText>
         <label>Financial/Income</label>
         <length>4</length>
         <required>false</required>
@@ -1115,9 +1115,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Food__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Food&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Food&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Food&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Food&quot;</inlineHelpText>
         <label>Food</label>
         <length>4</length>
         <required>false</required>
@@ -1128,9 +1128,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Healthcare__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Healthcare&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Healthcare&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Healthcare&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Healthcare&quot;</inlineHelpText>
         <label>Healthcare</label>
         <length>4</length>
         <required>false</required>
@@ -1141,9 +1141,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Housing__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Housing&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Housing&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Housing&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Housing&quot;</inlineHelpText>
         <label>Housing</label>
         <length>4</length>
         <required>false</required>
@@ -1154,9 +1154,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Legal_Civil__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Legal -- Civil&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Legal -- Civil&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Legal -- Civil&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Legal -- Civil&quot;</inlineHelpText>
         <label>Legal-Civil</label>
         <length>4</length>
         <required>false</required>
@@ -1167,9 +1167,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Legal_Criminal__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Legal -- Criminal&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Legal -- Criminal&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Legal -- Criminal&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Legal -- Criminal&quot;</inlineHelpText>
         <label>Legal-Criminal</label>
         <length>4</length>
         <required>false</required>
@@ -1222,9 +1222,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Mental_Health__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Mental Health&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Mental Health&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Mental Health&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Mental Health&quot;</inlineHelpText>
         <label>Mental Health</label>
         <length>4</length>
         <required>false</required>
@@ -1235,9 +1235,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Security__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Security&quot;</description>
+        <description>Scale of 1-5</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Security&quot;</inlineHelpText>
+        <inlineHelpText>Scale of 1-5</inlineHelpText>
         <label>Security</label>
         <length>4</length>
         <required>false</required>
@@ -1248,9 +1248,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Substance_Abuse__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Substance Abuse&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Substance Abuse&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Substance Abuse&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Substance Abuse&quot;</inlineHelpText>
         <label>Substance Abuse</label>
         <length>4</length>
         <required>false</required>
@@ -1261,9 +1261,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Support__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Social and/or Family Support&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Social and/or Family Support&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Social and/or Family Support&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Social and/or Family Support&quot;</inlineHelpText>
         <label>Support</label>
         <length>4</length>
         <required>false</required>
@@ -1274,9 +1274,9 @@
     </fields>
     <fields>
         <fullName>C501_NCCC_Transportation__c</fullName>
-        <description>NCCC. Scale of 1-4 or N/A. &quot;Transportation&quot;</description>
+        <description>NCCC. Scale of 1-5. &quot;Transportation&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>NCCC. Scale of 1-4 or N/A. &quot;Transportation&quot;</inlineHelpText>
+        <inlineHelpText>NCCC. Scale of 1-5. &quot;Transportation&quot;</inlineHelpText>
         <label>Transportation</label>
         <length>4</length>
         <required>false</required>

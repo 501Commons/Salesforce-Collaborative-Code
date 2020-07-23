@@ -354,71 +354,49 @@ global virtual with sharing class Collab_CTRL_Referral {
     public virtual PageReference SaveReferral() {
         
         strSaveResults = null;
+
+        if (this.contactRecords.isEmpty() || String.isBlank(this.contactRecords[0].LastName)) {
+            return null;
+        }
         
         try {
 
             // NPSP - Create Contact first which will create the Household
             //
             Boolean updateAccountOwner = false;
-            Id householdId = this.accountRecord.Id;            
+            Id householdId = this.accountRecord.Id;
+
+            if (String.isBlank(householdId)) {
+                        
+                this.accountRecord.Name = this.contactRecords[0].LastName + ' Household';
+                this.accountRecord.RecordTypeId = [SELECT Id FROM RecordType WHERE DeveloperName = 'HH_Account' LIMIT 1].Id;
+                insert this.accountRecord;
+
+                householdId = this.accountRecord.Id;
+            }
+
+            List<Contact> insertContacts = new List<Contact>();
             for (Contact contactRecord :this.contactRecords) {
+    
+                // Save the Referral fields on the Contact for future delegation
+                contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
+                contactRecord.npe01__PreferredPhone__c = 'Mobile';
 
-                if (String.isBlank(contactRecord.Id)) {
-
-                    if (!String.isBlank(householdId)) {
-                        contactRecord.AccountId = householdId;
-                    }
-
-                    // Save the Referral fields on the Contact for future delegation
-                    contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
-                    contactRecord.npe01__PreferredPhone__c = 'Mobile';
-
-                    // Check if valid SF user or external referral (external referral is assigned to New Referral Owner)
-                    if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
-                        contactRecord.Referral_OwnerId__c = UserInfo.getUserId();
-                    }
-                    else {
-                        contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
-                    }
-
-                    insert contactRecord;
-
-                    if (String.isBlank(householdId) || String.isBlank(this.accountRecord.Id)) {
-
-                        List<Contact> contactRecords = [SELECT AccountId, LastName, Id FROM Contact WHERE Id = :contactRecord.Id];
-                        if (contactRecords.isEmpty()) {
-                            throw new InvalidParameterValueException('NPSP Error - Household Account not Created for Contact Id: ' + contactRecord.Id);
-                        }
-
-                        householdId = contactRecords[0].AccountId;
-
-                        // Check if Public Referral then create related referral account to later merge values into referral account created by NPSP
-                        if (UserInfo.getUserName().containsIgnoreCase('referral')) {
-                            
-                            this.accountRecord.C501_Swap_Household_Id__c = householdId;
-                            this.accountRecord.Name = 'SwapWithHousehold:' + householdId;
-                            insert this.accountRecord;
-
-                            // Queue up a Merge Record
-                            //this.QueueMergeRecord(householdId, this.accountRecord.Id);
-                        }
-                        else {
-                            this.accountRecord.Id = householdId;    
-                        }
-                    }
+                if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
+                    contactRecord.AccountId = householdId;
+                    contactRecord.Referral_OwnerId__c = UserInfo.getUserId();
                 }
                 else {
-                    System.debug(LoggingLevel.DEBUG, '****Collab_CTRL_Referral::SaveReferral - Update contactRecord: ' + contactRecord);
-                    update contactRecord;
+                    contactRecord.C501_Swap_Household_Id__c = householdId;
+                    contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
                 }
+
+                insertContacts.add(contactRecord);
             }
 
-            if (!UserInfo.getUserName().containsIgnoreCase('referral') && !String.isBlank(this.accountRecord.Id)) {
-                update this.accountRecord;
+            if (!insertContacts.isEmpty()) {
+                insert insertContacts;
             }
-
-            // Create a Referral Service Record
-            // TBD
 
             return null;
 
