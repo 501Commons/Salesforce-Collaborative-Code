@@ -180,6 +180,11 @@
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
+        <displayedFields>
+            <field>CCR_Safe_and_Positive_Home_Environment__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
         <label>AFAR Self Assessment Social Capital</label>
     </fieldSets>
     <fieldSets>
@@ -286,17 +291,47 @@
         <fullName>ISA_Assessment_Early_Childhood</fullName>
         <description>Improving School Attendance - Assessment</description>
         <displayedFields>
-            <field>C501_ISA_Literacy__c</field>
+            <field>C501_ISA_Literacy_Scale_Score__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
-            <field>C501_ISA_Math__c</field>
+            <field>C501_ISA_Literacy_Performance_Level__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
-            <field>Attendance__c</field>
+            <field>C501_ISA_Math_Scale_Scor__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Math_Performance_Level__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Attendance_Full_of_days__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Attendance_Partial_of_days__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Attendance_Tardy_of_days__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Attendance_of_days_absent__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_ISA_Percent_Attendance__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -877,6 +912,58 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>C501_ISA_Attendance_Full_of_days__c</fullName>
+        <description>ISA</description>
+        <externalId>false</externalId>
+        <label>Attendance - Full # of days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Attendance_Partial_of_days__c</fullName>
+        <description>ISA</description>
+        <externalId>false</externalId>
+        <label>Attendance - Partial # of days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Attendance_Tardy_of_days__c</fullName>
+        <description>ISA</description>
+        <externalId>false</externalId>
+        <label>Attendance - Tardy # of days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Attendance_of_days_absent__c</fullName>
+        <description>ISA</description>
+        <externalId>false</externalId>
+        <label>Attendance - # of days absent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>C501_ISA_Health_Wellbeing__c</fullName>
         <description>ISA. Free Text: &quot;Health &amp; Wellbeing&quot;</description>
         <externalId>false</externalId>
@@ -886,6 +973,78 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Literacy_Performance_Level__c</fullName>
+        <description>ISA. Picklist</description>
+        <externalId>false</externalId>
+        <label>Literacy - Performance Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Well Below Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Well Below Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Approaching Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Approaching Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Meeting Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Meeting Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Exceeding Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Exceeding Grade Level Expectations</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Literacy_Scale_Score__c</fullName>
+        <description>ISA. Picklist</description>
+        <externalId>false</externalId>
+        <label>Literacy - ISA Scale Score</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
         <fullName>C501_ISA_Literacy__c</fullName>
@@ -899,6 +1058,78 @@
         <type>TextArea</type>
     </fields>
     <fields>
+        <fullName>C501_ISA_Math_Performance_Level__c</fullName>
+        <description>ISA. Picklist</description>
+        <externalId>false</externalId>
+        <label>Math - Performance Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Well Below Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Well Below Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Approaching Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Approaching Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Meeting Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Meeting Grade Level Expectations</label>
+                </value>
+                <value>
+                    <fullName>Exceeding Grade Level Expectations</fullName>
+                    <default>false</default>
+                    <label>Exceeding Grade Level Expectations</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Math_Scale_Scor__c</fullName>
+        <description>ISA. Picklist</description>
+        <externalId>false</externalId>
+        <label>Math - ISA Scale Scor</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>C501_ISA_Math__c</fullName>
         <description>ISA. Free Text: &quot;Math&quot;</description>
         <externalId>false</externalId>
@@ -908,6 +1139,20 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>C501_ISA_Percent_Attendance__c</fullName>
+        <description>ISA</description>
+        <externalId>false</externalId>
+        <formula>C501_ISA_Attendance_Full_of_days__c /( C501_ISA_Attendance_Full_of_days__c + C501_ISA_Attendance_of_days_absent__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Attendance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
     </fields>
     <fields>
         <fullName>C501_MLW_Daycare__c</fullName>
@@ -1295,6 +1540,20 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CCR_Safe_and_Positive_Home_Environment__c</fullName>
+        <description>CCR. Scale of 1-5: &quot;I feel my family lives in a safe and positive home environment.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel my family lives in a safe and positive home environment.&quot;</inlineHelpText>
+        <label>Safe and Positive Home Environment</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Days_Remaining_Until_Next_Assessment__c</fullName>
