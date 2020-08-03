@@ -301,7 +301,7 @@
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
-            <field>C501_ISA_Math_Scale_Scor__c</field>
+            <field>C501_ISA_Math_Scale_Score__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -1094,7 +1094,7 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>C501_ISA_Math_Scale_Scor__c</fullName>
+        <fullName>C501_ISA_Math_Scale_Score__c</fullName>
         <description>ISA. Picklist</description>
         <externalId>false</externalId>
         <label>Math - ISA Scale Scor</label>
