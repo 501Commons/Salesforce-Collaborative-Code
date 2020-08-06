@@ -81,12 +81,36 @@
         <value>Update all data as appropriate, and then click Save and Close.</value>
     </labels>
     <labels>
+        <fullName>Collab_labelAssessmentTypeHelp</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the type on the Assessment page</shortDescription>
+        <value>Choose which type of assessment you want to create.</value>
+    </labels>
+    <labels>
         <fullName>Collab_labelAssessmentTitle</fullName>
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Assessment page</shortDescription>
         <value>New Assessment</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelAssessmentUpdateTitle</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Assessment page</shortDescription>
+        <value>Update Assessment</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelCollabDeleteTitle</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Collab Delete page</shortDescription>
+        <value>Delete Collab</value>
     </labels>
     <labels>
         <fullName>Collab_labelAssessmentsaveSuccess</fullName>

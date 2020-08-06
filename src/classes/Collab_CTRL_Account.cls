@@ -81,7 +81,7 @@ public virtual with sharing class Collab_CTRL_Account {
         this.obj = (sObject)this.AccountRecord;
 
         if (Test.isRunningTest()) {
-            this.collaborative = 'Making_Life_Work';
+            this.collaborative = 'Casino_Road';
         }
 
         if (String.isBlank(this.collaborative)) {

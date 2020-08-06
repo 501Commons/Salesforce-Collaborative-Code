@@ -42,6 +42,7 @@
         <members>Account.C501_Referrers_Name__c</members>
         <members>Account.C501_Swap_Household_Id__c</members>
         <members>Assessment__c.Account__c</members>
+        <members>Assessment__c.Assessment_Type__c</members>
         <members>Assessment__c.C501_NCCC_Childcare__c</members>
         <members>Assessment__c.C501_NCCC_Children_s_Education__c</members>
         <members>Assessment__c.C501_NCCC_Daily_Functioning__c</members>
@@ -60,6 +61,7 @@
         <members>Assessment__c.C501_NCCC_Transportation__c</members>
         <members>Assessment__c.Family_Member__c</members>
         <members>Contact.C501_Best_Contact_Time_Method__c</members>
+        <members>Contact.C501_Swap_Household_Id__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -76,6 +78,8 @@
         <members>Collab_labelAssessmentHelp</members>
         <members>Collab_labelAssessmentHelp</members>
         <members>Collab_labelAssessmentTitle</members>
+        <members>Collab_labelAssessmentTypeHelp</members>
+        <members>Collab_labelAssessmentUpdateTitle</members>
         <members>Collab_labelAssessmentsaveSuccess</members>
         <members>Collab_labelButtonCancel</members>
         <members>Collab_labelButtonClose</members>
@@ -83,6 +87,7 @@
         <members>Collab_labelButtonSave</members>
         <members>Collab_labelButtonSaveAndClose</members>
         <members>Collab_labelButtonSubscribe</members>
+        <members>Collab_labelCollabDeleteTitle</members>
         <members>Collab_labelContactErrorOnSave</members>
         <members>Collab_labelContactHelp</members>
         <members>Collab_labelContactHelp</members>
@@ -122,12 +127,13 @@
         <members>Assessment__c.ISA_Assessment</members>
         <members>Assessment__c.ISA_Assessment_Early_Childhood</members>
         <members>Assessment__c.ISA_Assessment_Health_Well_Being</members>
-        <members>Assessment__c.MLW_Bridge</members>
-        <members>Assessment__c.MLW_Bridge_Early_Childhood</members>
-        <members>Assessment__c.MLW_Bridge_Economic_Assets</members>
-        <members>Assessment__c.MLW_Bridge_Health_Well_Being</members>
-        <members>Assessment__c.MLW_Bridge_Post_Secondary_Employment</members>
-        <members>Assessment__c.MLW_Bridge_Social_Capital</members>
+        <members>Assessment__c.MLW</members>
+        <members>Assessment__c.MLW_Early_Childhood_Adult</members>
+        <members>Assessment__c.MLW_Early_Childhood_Child</members>
+        <members>Assessment__c.MLW_Economic_Assets_Adult</members>
+        <members>Assessment__c.MLW_Health_Well_Being_Adult</members>
+        <members>Assessment__c.MLW_Post_Secondary_Employment_Adult</members>
+        <members>Assessment__c.MLW_Social_Capital_Adult</members>
         <members>Assessment__c.NCCC</members>
         <members>Assessment__c.NCCC_Early_Childhood</members>
         <members>Assessment__c.NCCC_Economic_Assets</members>

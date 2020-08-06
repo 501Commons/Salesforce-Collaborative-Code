@@ -48,9 +48,15 @@ global virtual with sharing class Collab_CTRL_Assessment {
         return(this.objType);
     }
 
+    public boolean testFlightEnabled { get; private set;}
+
     public boolean redirect { get; private set; }
     public ID idRedirect { get; private set; }
     
+    public boolean assessmentTypeSelect {get; private set; }
+    public String assessmentType1Label {get; private set; }
+    public String assessmentType2Label {get; private set; }
+
     private String collaborative;
 
     public Account accountRecord {
@@ -147,85 +153,106 @@ global virtual with sharing class Collab_CTRL_Assessment {
         }
         else {
             Assessment__c assessmentControllerRecord = (Assessment__c)controller.getRecord();
-            this.assessmentRecord = [SELECT Id, Name, Account__c, Domain__c FROM Assessment__c WHERE Id = :assessmentControllerRecord.Id LIMIT 1];
-            this.accountRecord.Id = this.assessmentRecord.Account__c;
+            this.assessmentRecord = [SELECT Id, Name, Account__c, Domain__c, Assessment_Type__c FROM Assessment__c WHERE Id = :assessmentControllerRecord.Id LIMIT 1];
+            this.accountRecord = new Account(
+                Id = this.assessmentRecord.Account__c
+            );
             System.debug('****Collab_CTRL_Assessment Controller for Assessment: ' + this.assessmentRecord);
+        }
+
+        this.testFlightEnabled = false;
+        if ([SELECT Name FROM Account WHERE Id = :this.accountRecord.Id LIMIT 1].Name.containsIgnoreCase('test')) {
+            this.testFlightEnabled = true;
         }
 
         this.obj = (sObject)this.assessmentRecord;
 
         if (Test.isRunningTest()) {
-            this.collaborative = 'Making_Life_Work';
+            this.collaborative = 'Casino_Road';
         }
 
         if (String.isBlank(this.collaborative)) {
             this.collaborative = Collab_SharedCode.GetCollaborativeDeveloperName(this.assessmentRecord.Account__c);
         }
 
-        // Assessment - Get list of fields from Assessment fieldset
-        List<String> listAssessmentFields = new List<String>();
-        for (Schema.FieldSetMember f : this.getAssessmentFields()) {
-            listAssessmentFields.add(f.getFieldPath());
-        }
+        this.assessmentTypeSelect = false;
+        this.assessmentType1Label = '';
+        this.assessmentType2Label = '';
 
-        if (this.getAssessmentFieldsEarlyChildhood() <> null) {
-            for (Schema.FieldSetMember f : this.getAssessmentFieldsEarlyChildhood()) {
-                if (!listAssessmentFields.contains(f.getFieldPath())) {
-                    listAssessmentFields.add(f.getFieldPath());
-                }
-            }
-        }
-
-        if (this.getAssessmentFieldsEconomicAssets() <> null) {
-            for (Schema.FieldSetMember f : this.getAssessmentFieldsEconomicAssets()) {
-                if (!listAssessmentFields.contains(f.getFieldPath())) {
-                    listAssessmentFields.add(f.getFieldPath());
-                }
-            }
-        }
-
-        if (this.getAssessmentFieldsHealthWellBeing() <> null) {
-            for (Schema.FieldSetMember f : this.getAssessmentFieldsHealthWellBeing()) {
-                if (!listAssessmentFields.contains(f.getFieldPath())) {
-                    listAssessmentFields.add(f.getFieldPath());
-                }
-            }
-        }
-
-        if (this.getAssessmentFieldsPostSecondaryEmployment() <> null) {
-            for (Schema.FieldSetMember f : this.getAssessmentFieldsPostSecondaryEmployment()) {
-                if (!listAssessmentFields.contains(f.getFieldPath())) {
-                    listAssessmentFields.add(f.getFieldPath());
-                }
-            }
-        }
-
-        if (this.getAssessmentFieldsSocialCapital() <> null) {
-            for (Schema.FieldSetMember f : this.getAssessmentFieldsSocialCapital()) {
-                if (!listAssessmentFields.contains(f.getFieldPath())) {
-                    listAssessmentFields.add(f.getFieldPath());
-                }
-            }
-        }
-
-        // Assessment - Required fields
-        if (!listAssessmentFields.contains('Id')) {
-            listAssessmentFields.add('Id');
-        }
-
-        if (!listAssessmentFields.contains('Name')) {
-            listAssessmentFields.add('Name');
-        }
-
-        if (!listAssessmentFields.contains('Account__c')) {
-            listAssessmentFields.add('Account__c');
-        }
-
-        if (!listAssessmentFields.contains('Domain__c')) {
-            listAssessmentFields.add('Domain__c');
+        if (this.collaborative == 'Making_Life_Work') {
+            this.assessmentTypeSelect = true;
+            this.assessmentType1Label = 'Child';
+            this.assessmentType2Label = 'Adult';
         }
 
         if (!String.isBlank(this.assessmentRecord.Id)) {
+
+            // Assessment - Get list of fields from Assessment fieldset
+            List<String> listAssessmentFields = new List<String>();
+            for (Schema.FieldSetMember f : this.getAssessmentFields()) {
+                listAssessmentFields.add(f.getFieldPath());
+            }
+
+            if (this.getAssessmentFieldsEarlyChildhood() <> null) {
+                for (Schema.FieldSetMember f : this.getAssessmentFieldsEarlyChildhood()) {
+                    if (!listAssessmentFields.contains(f.getFieldPath())) {
+                        listAssessmentFields.add(f.getFieldPath());
+                    }
+                }
+            }
+
+            if (this.getAssessmentFieldsEconomicAssets() <> null) {
+                for (Schema.FieldSetMember f : this.getAssessmentFieldsEconomicAssets()) {
+                    if (!listAssessmentFields.contains(f.getFieldPath())) {
+                        listAssessmentFields.add(f.getFieldPath());
+                    }
+                }
+            }
+
+            if (this.getAssessmentFieldsHealthWellBeing() <> null) {
+                for (Schema.FieldSetMember f : this.getAssessmentFieldsHealthWellBeing()) {
+                    if (!listAssessmentFields.contains(f.getFieldPath())) {
+                        listAssessmentFields.add(f.getFieldPath());
+                    }
+                }
+            }
+
+            if (this.getAssessmentFieldsPostSecondaryEmployment() <> null) {
+                for (Schema.FieldSetMember f : this.getAssessmentFieldsPostSecondaryEmployment()) {
+                    if (!listAssessmentFields.contains(f.getFieldPath())) {
+                        listAssessmentFields.add(f.getFieldPath());
+                    }
+                }
+            }
+
+            if (this.getAssessmentFieldsSocialCapital() <> null) {
+                for (Schema.FieldSetMember f : this.getAssessmentFieldsSocialCapital()) {
+                    if (!listAssessmentFields.contains(f.getFieldPath())) {
+                        listAssessmentFields.add(f.getFieldPath());
+                    }
+                }
+            }
+
+            // Assessment - Required fields
+            if (!listAssessmentFields.contains('Id')) {
+                listAssessmentFields.add('Id');
+            }
+
+            if (!listAssessmentFields.contains('Name')) {
+                listAssessmentFields.add('Name');
+            }
+
+            if (!listAssessmentFields.contains('Account__c')) {
+                listAssessmentFields.add('Account__c');
+            }
+
+            if (!listAssessmentFields.contains('Domain__c')) {
+                listAssessmentFields.add('Domain__c');
+            }
+
+            if (!listAssessmentFields.contains('Assessment_Type__c')) {
+                listAssessmentFields.add('Assessment_Type__c');
+            }
 
             String strSoql = 'SELECT ' + String.join(listAssessmentFields, ',');
             strSoql += ' FROM Assessment__c WHERE Id = \'' + this.assessmentRecord.Id + '\'';
@@ -280,15 +307,24 @@ global virtual with sharing class Collab_CTRL_Assessment {
     
     // getter - reference in Visualforce as AssessmentFields
     public List<Schema.FieldSetMember> getAssessmentFields() {
-        return fieldSetAssessmentActive('');
+        return fieldSetAssessmentActive('', '');
     }
 
-    public List<Schema.FieldSetMember> fieldSetAssessmentActive(String domain) {
-        String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Assessment, this.collaborative) + domain;
+    public List<Schema.FieldSetMember> fieldSetAssessmentActive(String domain, String type) {
+        String fieldSetNameMetadata = Collab_SharedCode.GetFieldSetName(Collab_SharedCode.FieldSetScenarios.Assessment, this.collaborative) +
+            (String.isBlank(domain) ? '' : '_' + domain) +
+            (String.isBlank(type) ? '' : '_' + type);
+
+        System.debug('*****Collab_CTRL_Assessment::fieldSetAssessmentActive - fieldSetNameMetadata: ' + fieldSetNameMetadata);
+
         for (String fieldSetName :Schema.SObjectType.Assessment__c.fieldSets.getMap().keySet()) {
+
+            System.debug('*****Collab_CTRL_Assessment::fieldSetAssessmentActive - fieldSetName: ' + fieldSetName);
 
             // Check for custom fields set
             if (fieldSetName.equalsIgnoreCase(fieldSetNameMetadata)) {
+
+                System.debug('*****Collab_CTRL_Assessment::fieldSetAssessmentActive - foundMatch: ');
                 return Schema.SObjectType.Assessment__c.fieldSets.getMap().get(fieldSetNameMetadata).getFields();
             }
         }
@@ -299,11 +335,13 @@ global virtual with sharing class Collab_CTRL_Assessment {
     // getter - reference in Visualforce as AssessmentFields Early Childhood
     public List<Schema.FieldSetMember> getAssessmentFieldsEarlyChildhood() {
 
+        System.debug('*****Collab_CTRL_Assessment::getAssessmentFieldsEarlyChildhood - domain: ' + Collab_Sharedcode.Domains.Early_Childhood.name() + ' type: ' + this.assessmentRecord.Assessment_Type__c);
+
         if (!String.isBlank(this.assessmentRecord.Id) && this.assessmentRecord.Domain__c <> Collab_Sharedcode.Domains.Early_Childhood.name()) {
             return null;
         }
 
-        return fieldSetAssessmentActive('_' + Collab_Sharedcode.Domains.Early_Childhood.name());
+        return fieldSetAssessmentActive(Collab_Sharedcode.Domains.Early_Childhood.name(), this.assessmentRecord.Assessment_Type__c);
     }
 
     // getter - reference in Visualforce as AssessmentFields Economic Assets
@@ -313,7 +351,7 @@ global virtual with sharing class Collab_CTRL_Assessment {
             return null;
         }
 
-        return fieldSetAssessmentActive('_' + Collab_Sharedcode.Domains.Economic_Assets.name());
+        return fieldSetAssessmentActive(Collab_Sharedcode.Domains.Economic_Assets.name(), this.assessmentRecord.Assessment_Type__c);
     }
 
     // getter - reference in Visualforce as AssessmentFields Health Well-Being
@@ -323,7 +361,7 @@ global virtual with sharing class Collab_CTRL_Assessment {
             return null;
         }
 
-        return fieldSetAssessmentActive('_' + Collab_Sharedcode.Domains.Health_Well_Being.name());
+        return fieldSetAssessmentActive(Collab_Sharedcode.Domains.Health_Well_Being.name(), this.assessmentRecord.Assessment_Type__c);
     }
 
     // getter - reference in Visualforce as AssessmentFields Post-Secondary & Employment
@@ -333,7 +371,7 @@ global virtual with sharing class Collab_CTRL_Assessment {
             return null;
         }
 
-        return fieldSetAssessmentActive('_' + Collab_Sharedcode.Domains.Post_Secondary_Employment.name());
+        return fieldSetAssessmentActive(Collab_Sharedcode.Domains.Post_Secondary_Employment.name(), this.assessmentRecord.Assessment_Type__c);
     }
 
     // getter - reference in Visualforce as AssessmentFields Social Capital
@@ -343,7 +381,7 @@ global virtual with sharing class Collab_CTRL_Assessment {
             return null;
         }
 
-        return fieldSetAssessmentActive('_' + Collab_Sharedcode.Domains.Social_Capital);
+        return fieldSetAssessmentActive(Collab_Sharedcode.Domains.Social_Capital.name(), this.assessmentRecord.Assessment_Type__c);
     }
 
     // status string for reporting the results of saving.
@@ -472,6 +510,22 @@ global virtual with sharing class Collab_CTRL_Assessment {
         
         // trigger our redirect component to redirect using javascript.
         redirect = true;
+        return null;
+    }
+
+    public PageReference AssessmentType1() {
+
+        this.assessmentTypeSelect = false;
+        this.assessmentRecord.Assessment_Type__c = this.assessmentType1Label;
+
+        return null;
+    }
+
+    public PageReference AssessmentType2() {
+
+        this.assessmentTypeSelect = false;
+        this.assessmentRecord.Assessment_Type__c = this.assessmentType2Label;
+
         return null;
     }
 

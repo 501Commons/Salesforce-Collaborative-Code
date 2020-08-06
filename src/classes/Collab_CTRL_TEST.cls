@@ -55,7 +55,7 @@ class Collab_CTRL_TEST {
 
       // Referral
       //
-//      System.currentPageReference().getParameters().put('collab', 'Making_Life_Work');
+//      System.currentPageReference().getParameters().put('collab', 'Casino_Road');
       Collab_CTRL_Referral ctrlReferral = new Collab_CTRL_Referral(new Apexpages.StandardController(objRecord));
   
       // test the save!
@@ -82,7 +82,7 @@ class Collab_CTRL_TEST {
 
       // Referral
       //
-//      System.currentPageReference().getParameters().put('collab', 'Making_Life_Work');
+//      System.currentPageReference().getParameters().put('collab', 'Casino_Road');
       Collab_CTRL_Referral ctrlReferral = new Collab_CTRL_Referral(new Apexpages.StandardController(objRecord));
 
       // test the save!

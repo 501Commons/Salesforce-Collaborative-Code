@@ -135,8 +135,8 @@
     
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> ''}" immediate="false" reRender="assessmentForm,tblAssessments"/>
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == ''}" immediate="false" reRender="assessmentForm"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAssessment}" value="{!$Label.Collab_labelButtonSave}" id="btnSave" rendered="{!assessmentRecord.Id <> '' && assessmentTypeSelect == false}" immediate="false" reRender="assessmentForm,tblAssessments"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndCloseAssessment}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!assessmentRecord.Id == '' && assessmentTypeSelect == false}" immediate="false" reRender="assessmentForm"/>
                         </div>
                     </div>
                 </div>
@@ -145,9 +145,17 @@
 
             <c:Collab_UTIL_PageMessages />
             
-            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == ''}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentHelp}" rendered="{!assessmentRecord.Id == '' && assessmentTypeSelect == false}" style="font-style:italic" /></p>
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelAssessmentTypeHelp}" rendered="{!assessmentRecord.Id == '' && assessmentTypeSelect == true}" style="font-style:italic" /></p>
 
-            <apex:pageBlock >
+            <div class="slds-col--padded slds-no-flex slds-align-middle">
+                <div class="slds-button-group" role="group">
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType1}" value="{!assessmentType1Label}" rendered="{!testFlightEnabled && assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType2}" value="{!assessmentType2Label}" rendered="{!testFlightEnabled && assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
+                </div>
+            </div>
+
+            <apex:pageBlock rendered="{!assessmentTypeSelect == false}" >
                 <apex:pageBlockSection title="Assessment Fields" columns="2">
                     <apex:repeat value="{!AssessmentFields}" var="af">
                         <apex:pageBlockSection columns="1">
@@ -157,7 +165,7 @@
                     </apex:repeat>
 
                     <div class="slds-form-element slds-p-top--small">
-                        <apex:outputLabel value="Family Member" styleClass="slds-form-element__label" />
+                        <apex:outputLabel value="Family Member" />
                         <div class="slds-form-element__control">
                             <apex:selectList value="{!familyMemberId}" size="1" styleClass="slds-select">
                                 <apex:selectOptions value="{!listFamilyMembers}" /> 
