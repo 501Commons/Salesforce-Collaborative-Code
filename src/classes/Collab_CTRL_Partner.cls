@@ -137,7 +137,6 @@ global virtual with sharing class Collab_CTRL_Partner {
                 this.accountRecord.RecordTypeId = [SELECT Id FROM RecordType WHERE DeveloperName = 'Organization' LIMIT 1].Id;
                 this.accountRecord.C501_Partner_Status__c = 'Active';
                 this.accountRecord.Collaborative__c = this.collaborativeRecord.Account_Id__c;
-                this.accountRecord.C501_Current_Users_Related_Accounts__c = true;
 
                 insert this.accountRecord;
             }
