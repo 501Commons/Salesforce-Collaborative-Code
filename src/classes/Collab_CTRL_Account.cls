@@ -112,6 +112,12 @@ public virtual with sharing class Collab_CTRL_Account {
     
     // getter - reference in Visualforce as AccountStandardFields
     public List<Schema.FieldSetMember> getAccountStandardFields() {
+
+        String partnerRecordTypeId = [SELECT Id FROM RecordType WHERE DeveloperName = 'Organization' LIMIT 1].Id;
+        if (this.AccountRecord.RecordTypeId == partnerRecordTypeId) {
+            return null;
+        }
+
         return fieldSetAccountStandardActive.getFields();
     }
 

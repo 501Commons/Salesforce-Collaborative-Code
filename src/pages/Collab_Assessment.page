@@ -150,8 +150,8 @@
 
             <div class="slds-col--padded slds-no-flex slds-align-middle">
                 <div class="slds-button-group" role="group">
-                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType1}" value="{!assessmentType1Label}" rendered="{!testFlightEnabled && assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
-                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType2}" value="{!assessmentType2Label}" rendered="{!testFlightEnabled && assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType1}" value="{!assessmentType1Label}" rendered="{!assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!AssessmentType2}" value="{!assessmentType2Label}" rendered="{!assessmentTypeSelect == true}" reRender="assessmentForm,tblAssessments" />
                 </div>
             </div>
 

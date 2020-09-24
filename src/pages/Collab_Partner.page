@@ -28,15 +28,14 @@
     POSSIBILITY OF SUCH DAMAGE.
 -->  
  
-<apex:page standardController="Account" extensions="Collab_CTRL_Account" title="{!$Label.Collab_labelAccountTitle}" tabStyle="Account" lightningStylesheets="true" showHeader="false">
+<apex:page standardController="Account" extensions="Collab_CTRL_Partner" title="{!$Label.Collab_labelPartnerTitle}" tabStyle="Account" showHeader="false" lightningStylesheets="true">
     <apex:stylesheet value="{!URLFOR($Resource.sfdo213, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.v4sStaticResources, '/v4s_slds/v4s-common.css')}" />
+    <apex:includeScript value="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" />
 
     <style>
 
-        body .bPageBlock .pbHeader { 
-            background-color:white;
-        }
+        body{ background-color:white;  }
 
         .THIS {
             background-color: white;
@@ -47,7 +46,6 @@
         }
         .myTD.datetime,
         .myTD.textarea {
-            background-color: transparent;
             min-width: 200px;
         }
         .myTD.picklist,
@@ -74,7 +72,6 @@
             <apex:actionStatus id="retrieveStatus" 
                 onstart="document.getElementById('divLoading').style.display='block';"
                 onstop="document.getElementById('divLoading').style.display='none';"/>
-
             <div class="slds-spinner_container" style="z-index:999;position:fixed;display:none;" id="divLoading">
                 <div class="slds-spinner--brand slds-spinner slds-spinner--medium" style="position:fixed;top:30%;" aria-hidden="false" role="alert">
                     <div class="slds-spinner__dot-a"></div>
@@ -82,24 +79,37 @@
                 </div>
             </div>
 
-            <c:Collab_UTIL_PageMessages />
-
-            <!-- Default Page Blcok -->
-            <apex:pageBlock rendered="{!AccountStandardFields <> null && AccountStandardFields.size > 0}">
-
-                <apex:pageBlockSection title="Account Custom Fields" columns="2">
-                    <apex:repeat value="{!AccountStandardFields}" var="f">
-                        <apex:pageBlockSection columns="1">
-                            <apex:inputField value="{!accountRecord[f.fieldPath]}" required="{!OR(f.required, f.dbrequired)}"/>
-                            <apex:outputText value="{!$ObjectType[objectType].fields[f].inlineHelpText}" rendered="{!$ObjectType[objectType].fields[f].inlineHelpText <> ''}" />                                
-                        </apex:pageBlockSection>
-                    </apex:repeat>
-                </apex:pageBlockSection>
-
+            <!-- PAGE HEADER -->
+            <div class="slds-page-header" role="banner">
                 <div class="slds-grid">
+                    <div class="slds-col--padded">
+                        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle">{!$Label.Collab_labelPartnerTitle}</h1>
+                    </div>        
+    
                     <div class="slds-col--padded slds-no-flex slds-align-middle">
                         <div class="slds-button-group" role="group">
-                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAccount}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" immediate="false" reRender="vfform,tblAccounts"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndClosePartner}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveClose" rendered="{!accountRecord.Id == ''}" immediate="false"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            
+            <c:Collab_UTIL_PageMessages />
+            <p class="slds-p-around--medium"><apex:outputText value="{!$Label.Collab_labelPartnerHelp}" rendered="{!accountRecord.Id == ''}" style="font-style:italic" /></p>
+
+            <apex:pageBlock >
+
+                <apex:pageBlockSection title="Account Details" columns="1">            
+                    <apex:inputField value="{!accountRecord.name}" /> 
+                </apex:pageBlockSection>   
+
+                <div class="slds-grid">
+                    <br/>
+                    <div class="slds-col--padded slds-no-flex slds-align-middle">
+                        <div class="slds-button-group" role="group">
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SavePartner}" value="{!$Label.Collab_labelButtonSave}" id="btnSaveFooter" rendered="{!accountRecord.Id <> ''}" immediate="false"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!SaveAndClosePartner}" value="{!$Label.Collab_labelButtonSaveAndClose}" id="btnSaveCloseFooter" rendered="{!accountRecord.Id == ''}" immediate="false"/>
                         </div>
                     </div>
                 </div>

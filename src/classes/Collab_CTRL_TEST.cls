@@ -43,6 +43,24 @@ class Collab_CTRL_TEST {
 
     //==================== TEST METHOD(s) ======================================
 
+    @isTest(SeeAllData='false')
+    static void NewPartnerTest() {
+
+      Test.StartTest();
+
+      Collab_CTRL_Partner ctrlPartner = new Collab_CTRL_Partner(new Apexpages.StandardController(new Account()));
+  
+      // test the save!
+      ctrlPartner.SavePartner();
+
+      ctrlPartner.accountRecord.Name = 'New Partner';
+
+      ctrlPartner.SavePartner();      
+      ctrlPartner.SaveAndClosePartner();   
+
+      Test.StopTest();
+    }
+
     @isTest(SeeAllData='true')
     static void NewContactTest() {
 

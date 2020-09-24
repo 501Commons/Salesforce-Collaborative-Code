@@ -81,14 +81,6 @@
         <value>Update all data as appropriate, and then click Save and Close.</value>
     </labels>
     <labels>
-        <fullName>Collab_labelAssessmentTypeHelp</fullName>
-        <categories>Assessment</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>help text for the type on the Assessment page</shortDescription>
-        <value>Choose which type of assessment you want to create.</value>
-    </labels>
-    <labels>
         <fullName>Collab_labelAssessmentTitle</fullName>
         <categories>Assessment</categories>
         <language>en_US</language>
@@ -97,20 +89,20 @@
         <value>New Assessment</value>
     </labels>
     <labels>
+        <fullName>Collab_labelAssessmentTypeHelp</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the type on the Assessment page</shortDescription>
+        <value>Choose which type of assessment you want to create.</value>
+    </labels>
+    <labels>
         <fullName>Collab_labelAssessmentUpdateTitle</fullName>
         <categories>Assessment</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>title for the Assessment page</shortDescription>
         <value>Update Assessment</value>
-    </labels>
-    <labels>
-        <fullName>Collab_labelCollabDeleteTitle</fullName>
-        <categories>Assessment</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>title for the Collab Delete page</shortDescription>
-        <value>Delete Collab</value>
     </labels>
     <labels>
         <fullName>Collab_labelAssessmentsaveSuccess</fullName>
@@ -167,6 +159,14 @@
         <protected>false</protected>
         <shortDescription>The label for the Subscribe button used on several pages.</shortDescription>
         <value>Subscribe</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelCollabDeleteTitle</fullName>
+        <categories>Assessment</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>title for the Collab Delete page</shortDescription>
+        <value>Delete Collab</value>
     </labels>
     <labels>
         <fullName>Collab_labelContactErrorOnSave</fullName>
@@ -237,8 +237,16 @@
         <categories>Referral</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>error message when ContactAssessment save fails.</shortDescription>
-        <value>Errors were encountered trying to save the Requests.</value>
+        <shortDescription>error message when Referral save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Referral.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelPartnerErrorOnSave</fullName>
+        <categories>Partner</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Partner save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Partner.</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralHelp</fullName>
@@ -247,6 +255,14 @@
         <protected>false</protected>
         <shortDescription>help text for the ContactAssessment page</shortDescription>
         <value>Update family and eligibility fields then add/update all the family members.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelPartnerHelp</fullName>
+        <categories>Partner</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the partner page</shortDescription>
+        <value>Add a Partner Name then select Save and Close.</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralSubmittedTitle</fullName>
@@ -263,6 +279,14 @@
         <protected>false</protected>
         <shortDescription>Title for the referral page</shortDescription>
         <value>Referral Details</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelPartnerTitle</fullName>
+        <categories>Partner</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title for the partner page</shortDescription>
+        <value>Partner Details</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralsaveSuccess</fullName>

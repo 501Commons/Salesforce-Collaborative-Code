@@ -565,6 +565,11 @@
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
+        <displayedFields>
+            <field>NCCC_Utilities__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
         <label>NCCC Assessment Economic Assets</label>
     </fieldSets>
     <fieldSets>
@@ -1644,6 +1649,18 @@
         </valueSet>
     </fields>
     <fields>
+        <fullName>External_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
         <fullName>Family_Member__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>Optional lookup to the specific family member who is being assessed</description>
@@ -1792,6 +1809,19 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NCCC_Utilities__c</fullName>
+        <description>NCCC. Scale of 1-4 or N/A</description>
+        <externalId>false</externalId>
+        <inlineHelpText>NCCC. Scale of 1-4 or N/A</inlineHelpText>
+        <label>Utilities</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>

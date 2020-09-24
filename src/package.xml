@@ -7,6 +7,7 @@
         <members>Collab_CTRL_CustomContactSearch</members>
         <members>Collab_CTRL_Delete</members>
         <members>Collab_CTRL_Referral</members>
+        <members>Collab_CTRL_Partner</members>
         <members>Collab_CTRL_TEST</members>
         <members>Collab_SharedCode</members>
         <members>Collab_UTIL_PageMessages_CTRL</members>
@@ -25,6 +26,7 @@
         <members>Collab_CustomContactSearch</members>
         <members>Collab_Delete</members>
         <members>Collab_Referral</members>
+        <members>Collab_Partner</members>
         <members>Collab_ReferralSubmitted</members>
         <name>ApexPage</name>
     </types>
@@ -99,10 +101,12 @@
         <members>Collab_labelEligibilityTitle</members>
         <members>Collab_labelEligibilitysaveSuccess</members>
         <members>Collab_labelReferralErrorOnSave</members>
+        <members>Collab_labelPartnerErrorOnSave</members>
         <members>Collab_labelReferralHelp</members>
-        <members>Collab_labelReferralHelp</members>
+        <members>Collab_labelPartnerHelp</members>
         <members>Collab_labelReferralSubmittedTitle</members>
         <members>Collab_labelReferralTitle</members>
+        <members>Collab_labelPartnerTitle</members>
         <members>Collab_labelReferralsaveSuccess</members>
         <members>labelLinkAddMoreRows</members>
         <name>CustomLabel</name>
