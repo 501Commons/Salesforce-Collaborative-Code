@@ -233,14 +233,6 @@
         <value>Records have been saved.</value>
     </labels>
     <labels>
-        <fullName>Collab_labelReferralErrorOnSave</fullName>
-        <categories>Referral</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>error message when Referral save fails.</shortDescription>
-        <value>Errors were encountered trying to save the Referral.</value>
-    </labels>
-    <labels>
         <fullName>Collab_labelPartnerErrorOnSave</fullName>
         <categories>Partner</categories>
         <language>en_US</language>
@@ -249,20 +241,36 @@
         <value>Errors were encountered trying to save the Partner.</value>
     </labels>
     <labels>
-        <fullName>Collab_labelReferralHelp</fullName>
-        <categories>Referral</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>help text for the ContactAssessment page</shortDescription>
-        <value>Update family and eligibility fields then add/update all the family members.</value>
-    </labels>
-    <labels>
         <fullName>Collab_labelPartnerHelp</fullName>
         <categories>Partner</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>help text for the partner page</shortDescription>
         <value>Add a Partner Name then select Save and Close.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelPartnerTitle</fullName>
+        <categories>Partner</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title for the partner page</shortDescription>
+        <value>Partner Details</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelReferralErrorOnSave</fullName>
+        <categories>Referral</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Referral save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Referral.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelReferralHelp</fullName>
+        <categories>Referral</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the ContactAssessment page</shortDescription>
+        <value>Update family and eligibility fields then add/update all the family members.</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralSubmittedTitle</fullName>
@@ -279,14 +287,6 @@
         <protected>false</protected>
         <shortDescription>Title for the referral page</shortDescription>
         <value>Referral Details</value>
-    </labels>
-    <labels>
-        <fullName>Collab_labelPartnerTitle</fullName>
-        <categories>Partner</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Title for the partner page</shortDescription>
-        <value>Partner Details</value>
     </labels>
     <labels>
         <fullName>Collab_labelReferralsaveSuccess</fullName>

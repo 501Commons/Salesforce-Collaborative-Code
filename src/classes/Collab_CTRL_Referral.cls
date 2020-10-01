@@ -373,29 +373,33 @@ global virtual with sharing class Collab_CTRL_Referral {
                 insert this.accountRecord;
 
                 householdId = this.accountRecord.Id;
-            }
 
-            List<Contact> insertContacts = new List<Contact>();
-            for (Contact contactRecord :this.contactRecords) {
-    
-                // Save the Referral fields on the Contact for future delegation
-                contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
-                contactRecord.npe01__PreferredPhone__c = 'Mobile';
+                List<Contact> insertContacts = new List<Contact>();
+                for (Contact contactRecord :this.contactRecords) {
+        
+                    // Save the Referral fields on the Contact for future delegation
+                    contactRecord.Referral_Collab_Id__c = this.collaborativeRecord.Account_Id__c;
+                    contactRecord.npe01__PreferredPhone__c = 'Mobile';
 
-                if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
-                    contactRecord.AccountId = householdId;
-                    contactRecord.Referral_OwnerId__c = UserInfo.getUserId();
+                    if (!UserInfo.getUserName().containsIgnoreCase('referral')) {
+                        contactRecord.AccountId = householdId;
+                        contactRecord.Referral_OwnerId__c = UserInfo.getUserId();
+                    }
+                    else {
+                        contactRecord.C501_Swap_Household_Id__c = householdId;
+                        contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
+                    }
+
+                    insertContacts.add(contactRecord);
                 }
-                else {
-                    contactRecord.C501_Swap_Household_Id__c = householdId;
-                    contactRecord.Referral_OwnerId__c = this.collaborativeRecord.New_Referral_Owner_Id__c;
+
+                if (!insertContacts.isEmpty()) {
+                    insert insertContacts;
                 }
-
-                insertContacts.add(contactRecord);
             }
-
-            if (!insertContacts.isEmpty()) {
-                insert insertContacts;
+            else {
+                
+                update this.accountRecord;
             }
 
             return null;
