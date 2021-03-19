@@ -1840,7 +1840,7 @@
     </fields>
     <fields>
         <fullName>Notify_When_Next_Assessment_Due__c</fullName>
-        <defaultValue>true</defaultValue>
+        <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Notify When Next Assessment Due</label>
         <trackHistory>false</trackHistory>

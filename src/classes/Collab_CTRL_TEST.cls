@@ -43,6 +43,25 @@ class Collab_CTRL_TEST {
 
     //==================== TEST METHOD(s) ======================================
 
+
+    @isTest(SeeAllData='false')
+    static void NewGoalTest() {
+
+      Test.StartTest();
+
+      Collab_CTRL_Goal ctrlGoal = new Collab_CTRL_Goal(new Apexpages.StandardController(new Collaborative_Goal__c()));
+  
+      // test the save!
+      ctrlGoal.SaveGoal();
+
+      ctrlGoal.goalRecord.Name = 'New Goal';
+
+      ctrlGoal.SaveGoal();      
+      ctrlGoal.SaveAndCloseGoal();   
+
+      Test.StopTest();
+    }
+
     @isTest(SeeAllData='false')
     static void NewPartnerTest() {
 

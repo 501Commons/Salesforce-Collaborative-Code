@@ -233,6 +233,30 @@
         <value>Records have been saved.</value>
     </labels>
     <labels>
+        <fullName>Collab_labelGoalErrorOnSave</fullName>
+        <categories>Goal</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>error message when Goal save fails.</shortDescription>
+        <value>Errors were encountered trying to save the Goal.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelGoalHelp</fullName>
+        <categories>Goal</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>help text for the goal page</shortDescription>
+        <value>Add a Goal Name then select Save and Close.</value>
+    </labels>
+    <labels>
+        <fullName>Collab_labelGoalTitle</fullName>
+        <categories>Goal</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title for the goal page</shortDescription>
+        <value>Goal Details</value>
+    </labels>
+    <labels>
         <fullName>Collab_labelPartnerErrorOnSave</fullName>
         <categories>Partner</categories>
         <language>en_US</language>

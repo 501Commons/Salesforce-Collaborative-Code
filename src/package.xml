@@ -6,6 +6,7 @@
         <members>Collab_CTRL_Contact</members>
         <members>Collab_CTRL_CustomContactSearch</members>
         <members>Collab_CTRL_Delete</members>
+        <members>Collab_CTRL_Goal</members>
         <members>Collab_CTRL_Partner</members>
         <members>Collab_CTRL_Referral</members>
         <members>Collab_CTRL_TEST</members>
@@ -25,6 +26,7 @@
         <members>Collab_Contact</members>
         <members>Collab_CustomContactSearch</members>
         <members>Collab_Delete</members>
+        <members>Collab_Goal</members>
         <members>Collab_Partner</members>
         <members>Collab_Referral</members>
         <members>Collab_ReferralSubmitted</members>
@@ -62,6 +64,7 @@
         <members>Assessment__c.C501_NCCC_Support__c</members>
         <members>Assessment__c.C501_NCCC_Transportation__c</members>
         <members>Assessment__c.Family_Member__c</members>
+        <members>Collaborative_Goal__c.Collaborative__c</members>
         <members>Contact.C501_Best_Contact_Time_Method__c</members>
         <members>Contact.C501_Swap_Household_Id__c</members>
         <name>CustomField</name>
@@ -100,6 +103,9 @@
         <members>Collab_labelEligibilityHelp</members>
         <members>Collab_labelEligibilityTitle</members>
         <members>Collab_labelEligibilitysaveSuccess</members>
+        <members>Collab_labelGoalErrorOnSave</members>
+        <members>Collab_labelGoalHelp</members>
+        <members>Collab_labelGoalTitle</members>
         <members>Collab_labelPartnerErrorOnSave</members>
         <members>Collab_labelPartnerHelp</members>
         <members>Collab_labelPartnerTitle</members>
@@ -113,6 +119,7 @@
     </types>
     <types>
         <members>Assessment__c</members>
+        <members>Collaborative_Goal__c</members>
         <name>CustomObject</name>
     </types>
     <types>
