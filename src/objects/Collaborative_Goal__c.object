@@ -38,7 +38,11 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Collaborative_Goal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
@@ -48,13 +52,14 @@
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Collaborative__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Collaborative</label>
         <lookupFilter>
@@ -69,15 +74,202 @@
         <referenceTo>Account</referenceTo>
         <relationshipLabel>Collaborative Goals</relationshipLabel>
         <relationshipName>Collaborative_Goals</relationshipName>
-        <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>MasterDetail</type>
-        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Expected_Completion__c</fullName>
+        <externalId>false</externalId>
+        <label>Expected Completion</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Mental_Models__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Mental Models</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Number_High_Actions_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Number High Actions Completed</label>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Weight__c</field>
+            <operation>equals</operation>
+            <value>High</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Collaborative_Action__c.Goal__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_High_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Number High Actions</label>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Weight__c</field>
+            <operation>equals</operation>
+            <value>High</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Collaborative_Action__c.Goal__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_Low_Actions_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Number Low Actions Completed</label>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Weight__c</field>
+            <operation>equals</operation>
+            <value>Low</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Collaborative_Action__c.Goal__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_Low_Actions__c</fullName>
+        <externalId>false</externalId>
+        <label>Number Low Actions</label>
+        <summaryFilterItems>
+            <field>Collaborative_Action__c.Weight__c</field>
+            <operation>equals</operation>
+            <value>Low</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Collaborative_Action__c.Goal__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Complete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((Number_Low_Actions__c + (Number_High_Actions__c * 3)) &lt;= 0,
+0,
+(Number_Low_Actions_Completed__c + (Number_High_Actions_Completed__c * 3)) / (Number_Low_Actions__c + (Number_High_Actions__c * 3)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Percentage Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Policies__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Policies</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Power_Dynamics__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Power Dynamics</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Practices__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Practices</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Relationships_Connections__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Relationships &amp; Connections</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Resource_Flows__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Resource Flows</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((Number_High_Actions__c + Number_Low_Actions__c) = 0, &quot;Not Started&quot;, IF(Percentage_Complete__c = 100, &quot;Complete&quot;, &quot;In Progress&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Why__c</fullName>
+        <description>Provide a reason for why you are creating this goal</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide a reason for why you are creating this goal</inlineHelpText>
+        <label>Why</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>c501_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>c501_In_Progress_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>In Progress Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>c501_Start_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
     </fields>
     <label>Collaborative Goal</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>Collaborative__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Percentage_Complete__c</columns>
+        <columns>Expected_Completion__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
@@ -87,6 +279,6 @@
     </nameField>
     <pluralLabel>Collaborative Goals</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
