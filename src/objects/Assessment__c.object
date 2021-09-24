@@ -86,17 +86,47 @@
         <fullName>CCR_AFAR_Early_Childhood</fullName>
         <description>CCR: All Families Are Ready - AFAR Self Assessment</description>
         <displayedFields>
-            <field>C501_CCR_Support_Child_Learning__c</field>
-            <isFieldManaged>false</isFieldManaged>
-            <isRequired>false</isRequired>
-        </displayedFields>
-        <displayedFields>
             <field>C501_CCR_Child_Developing__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
             <field>C501_CCR_Early_Learning__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Child_Decision_Involvement__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>C501_CCR_Support_Child_Learning__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Child_Advocate__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Parent_Self_Approval__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Child_Communication_Skills__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Child_Socialization__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Child_Development__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -126,22 +156,27 @@
         <fullName>CCR_AFAR_Health_Well_Being</fullName>
         <description>CCR: All Families Are Ready - AFAR Self Assessment</description>
         <displayedFields>
-            <field>C501_CCR_Affordable_Healthcare__c</field>
-            <isFieldManaged>false</isFieldManaged>
-            <isRequired>false</isRequired>
-        </displayedFields>
-        <displayedFields>
             <field>C501_CCR_Good_Physical_Health__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
-            <field>C501_CCR_Rarely_Overwhelmed__c</field>
+            <field>C501_CCR_Affordable_Healthcare__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Feel_Happy__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
             <field>C501_CCR_Depression_or_Hopelessness__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Extremely_Overwhelmed__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -151,17 +186,17 @@
         <fullName>CCR_AFAR_Post_Secondary_Employment</fullName>
         <description>CCR: All Families Are Ready - AFAR Self Assessment</description>
         <displayedFields>
+            <field>CCR_Family_Content_Occupation__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Future_Dreams__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
             <field>C501_CCR_Equipped_to_Reach_Goals__c</field>
-            <isFieldManaged>false</isFieldManaged>
-            <isRequired>false</isRequired>
-        </displayedFields>
-        <displayedFields>
-            <field>C501_CCR_Opportunities_Employment_Goals__c</field>
-            <isFieldManaged>false</isFieldManaged>
-            <isRequired>false</isRequired>
-        </displayedFields>
-        <displayedFields>
-            <field>C501_CCR_Resources_to_Pursue_Goals__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -181,7 +216,17 @@
             <isRequired>false</isRequired>
         </displayedFields>
         <displayedFields>
-            <field>CCR_Safe_and_Positive_Home_Environment__c</field>
+            <field>CCR_Supportive_Community__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Culture_Support__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CCR_Culture_Challenges__c</field>
             <isFieldManaged>false</isFieldManaged>
             <isRequired>false</isRequired>
         </displayedFields>
@@ -685,9 +730,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Affordable_Healthcare__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel I am able to access affordable healthcare when needed&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel I am able to access affordable healthcare when needed&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel I am able to access affordable healthcare when needed&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel I am able to access affordable healthcare when needed&quot;</inlineHelpText>
         <label>Affordable Healthcare</label>
         <precision>1</precision>
         <required>false</required>
@@ -699,9 +744,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Child_Developing__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel my child is developing appropriately&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel my child is developing appropriately&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel my child is developing appropriately&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel my child is developing appropriately&quot;</inlineHelpText>
         <label>Child Developing Appropriately</label>
         <precision>1</precision>
         <required>false</required>
@@ -713,9 +758,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Comfortably_Pay_Bills__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;My family can comfortably pay our bills each month&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;My family can comfortably pay our bills each month&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;My family can comfortably pay our bills each month&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My family can comfortably pay our bills each month&quot;</inlineHelpText>
         <label>Comfortably Pay Bills</label>
         <precision>1</precision>
         <required>false</required>
@@ -727,9 +772,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Depression_or_Hopelessness__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;Feelings of depression or hopelessness do not affect my ability to function in everyday life&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I sometimes have feelings of depression or hopelessness that impact my ability to function in everyday life&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;Feelings of depression or hopelessness do not affect my ability to function in everyday life&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I sometimes have feelings of depression or hopelessness that impact my ability to function in everyday life&quot;</inlineHelpText>
         <label>Depression or Hopelessness</label>
         <precision>1</precision>
         <required>false</required>
@@ -741,9 +786,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Early_Learning__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel my child is accessing quality early learning opportunities&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel my child is accessing quality early learning opportunities&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel my child is accessing quality early learning opportunities&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel my child is accessing quality early learning opportunities&quot;</inlineHelpText>
         <label>Early Learning Opportunities</label>
         <precision>1</precision>
         <required>false</required>
@@ -755,9 +800,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Equipped_to_Reach_Goals__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel I have the training, experience, and/or education I need to reach my goals and aspirations&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I have what I need (education, resources, support, training, etc) to reach those dreams&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel I have the training, experience, and/or education I need to reach my goals and aspirations&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I have what I need (education, resources, support, training, etc) to reach those dreams&quot;</inlineHelpText>
         <label>Equipped to Reach Goals</label>
         <precision>1</precision>
         <required>false</required>
@@ -769,9 +814,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Good_Physical_Health__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel I am in good physical health&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel I am in good physical health&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel I am in good physical health&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel I am in good physical health&quot;</inlineHelpText>
         <label>Good Physical Health</label>
         <precision>1</precision>
         <required>false</required>
@@ -783,9 +828,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Meet_Basic_Needs__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel confident in my family’s ability to meet our basic needs (stable housing, paying bills, providing healthy food, clothing, transportation, etc.)&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel confident in my family’s ability to meet our basic needs (stable housing, paying bills, providing healthy food, clothing, transportation, etc.)&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel confident in my family’s ability to meet our basic needs (stable housing, paying bills, providing healthy food, clothing, transportation, etc.)&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel confident in my family’s ability to meet our basic needs (stable housing, paying bills, providing healthy food, clothing, transportation, etc.)&quot;</inlineHelpText>
         <label>Meet Basic Needs</label>
         <precision>1</precision>
         <required>false</required>
@@ -811,9 +856,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Rarely_Overwhelmed__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I rarely experience feelings of extreme stress or feel overwhelmed&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;There are times that I feel extremely stressed or overwhelmed and it impacts my ability to function&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I rarely experience feelings of extreme stress or feel overwhelmed&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;There are times that I feel extremely stressed or overwhelmed and it impacts my ability to function&quot;</inlineHelpText>
         <label>Rarely Overwhelmed</label>
         <precision>1</precision>
         <required>false</required>
@@ -853,9 +898,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Saves_Money__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;My family saves money at the end of each month&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;My family saves money at the end of each month&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;My family saves money at the end of each month&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My family saves money at the end of each month&quot;</inlineHelpText>
         <label>Saves Money</label>
         <precision>1</precision>
         <required>false</required>
@@ -867,9 +912,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Support_Child_Learning__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel confident in my ability to support my child’s learning and have the resources I need to do so&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I am aware of any changes that may occur regarding my child&apos;s academic, social, or behavioral standing at school&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel confident in my ability to support my child’s learning and have the resources I need to do so&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I am aware of any changes that may occur regarding my child&apos;s academic, social, or behavioral standing at school&quot;</inlineHelpText>
         <label>Support Child&apos;s Learning</label>
         <precision>1</precision>
         <required>false</required>
@@ -881,9 +926,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Supportive_Family_Relationships__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel my family has strong and supporting relationships with each other&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel my family has strong and supporting relationships with each other&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel my family has strong and supporting relationships with each other&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel my family has strong and supporting relationships with each other&quot;</inlineHelpText>
         <label>Supportive Family Relationships</label>
         <precision>1</precision>
         <required>false</required>
@@ -895,9 +940,9 @@
     </fields>
     <fields>
         <fullName>C501_CCR_Supportive_People__c</fullName>
-        <description>CCR. Scale of 1-5: &quot;I feel I have people in my life who help and support me when I need it.&quot;</description>
+        <description>CCR. Scale of 1-4: &quot;I feel I have people in my life who help and support me when I need it.&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>CCR. Scale of 1-5: &quot;I feel I have people in my life who help and support me when I need it.&quot;</inlineHelpText>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I feel I have people in my life who help and support me when I need it.&quot;</inlineHelpText>
         <label>Supportive People</label>
         <precision>1</precision>
         <required>false</required>
@@ -1608,11 +1653,193 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>CCR_Child_Advocate__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;I know how to advocate for my child(ren) and family needs.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I know how to advocate for my child(ren) and family needs.&quot;</inlineHelpText>
+        <label>Child Advocate</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Child_Communication_Skills__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;My child communicates, uses their body, and problem solves well for their age or ability.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My child communicates, uses their body, and problem solves well for their age or ability.&quot;</inlineHelpText>
+        <label>Child Communication Skills</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Child_Decision_Involvement__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;I have opportunities to be involved in making decisions about my child.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I have opportunities to be involved in making decisions about my child.&quot;</inlineHelpText>
+        <label>Child Decision Involvement</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Child_Development__c</fullName>
+        <description>CCR. Scale 1-4: &quot;I know how to support my child&apos;s development.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale 1-4: &quot;I know how to support my child&apos;s development.&quot;</inlineHelpText>
+        <label>Child Development</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Child_Socialization__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;My children are interested in other children and plays well with them.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My children are interested in other children and plays well with them.&quot;</inlineHelpText>
+        <label>Child Socialization</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Culture_Challenges__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;Cultural Challenges have not been a point of negativity or contention when accessing supports in my community or my child&apos;s school.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;Cultural Challenges have not been a point of negativity or contention when accessing supports in my community or my child&apos;s school.&quot;</inlineHelpText>
+        <label>Culture Challenges</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Culture_Support__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;Supports provided for my family and my child, value and recognize our culture.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;Supports provided for my family and my child, value and recognize our culture.&quot;</inlineHelpText>
+        <label>Culture Support</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Extremely_Overwhelmed__c</fullName>
+        <description>CCR. Scale 1-4: &quot;There are times that I feel extremely stressed or overwhelmed and it impacts my ability to function.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale 1-4: &quot;There are times that I feel extremely stressed or overwhelmed and it impacts my ability to function.&quot;</inlineHelpText>
+        <label>Extremely Overwhelmed</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Family_Content_Occupation__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;My immediate family is content with our current employment and occupational situation.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My immediate family is content with our current employment and occupational situation.&quot;</inlineHelpText>
+        <label>Family Content Occupation</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Feel_Happy__c</fullName>
+        <description>CCR. Scale 1-4: &quot;I feel happy more than I feel sad.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale 1-4: &quot;I feel happy more than I feel sad.&quot;</inlineHelpText>
+        <label>Feel Happy</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Future_Dreams__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;I know what my dreams are for my future.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;I know what my dreams are for my future.&quot;</inlineHelpText>
+        <label>Future Dreams</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Parent_Self_Approval__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;Most of the time, I am the parent that I want to be.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;Most of the time, I am the parent that I want to be.&quot;</inlineHelpText>
+        <label>Parent Self Approval</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>CCR_Safe_and_Positive_Home_Environment__c</fullName>
         <description>CCR. Scale of 1-5: &quot;I feel my family lives in a safe and positive home environment.&quot;</description>
         <externalId>false</externalId>
         <inlineHelpText>CCR. Scale of 1-5: &quot;I feel my family lives in a safe and positive home environment.&quot;</inlineHelpText>
         <label>Safe and Positive Home Environment</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCR_Supportive_Community__c</fullName>
+        <description>CCR. Scale of 1-4: &quot;My family has strong supportive connections to the community.&quot;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CCR. Scale of 1-4: &quot;My family has strong supportive connections to the community.&quot;</inlineHelpText>
+        <label>Supportive Community</label>
         <precision>1</precision>
         <required>false</required>
         <scale>0</scale>
